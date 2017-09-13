@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Entity } from '../shared/entity/entity';
+import { environment } from '../../environments/environment';
 
 declare let $: any;
 
@@ -20,7 +21,7 @@ export class ApiClientService {
         this.headers.append('Content-Type', 'application/json');
     }
 
-    get (entity: Entity, params) {
+    get (entity: Entity, params = null) {
 
         let url = this.createUrl(entity);
 
@@ -44,7 +45,13 @@ export class ApiClientService {
     }
 
     private createUrl(entity: Entity): string {
-        return entity.endpoint;
+        let url = entity.endpoint;
+
+        if (!environment.production) {
+            url = '/api' + url;
+        }
+
+        return url;
     }
 
     public subscribe(event: string, listener: (data: any) => void): number {

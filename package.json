@@ -7,7 +7,7 @@
     "copy": "node copy-to-assets.js",
     "prestart": "npm run copy",
     "prebuild": "npm run copy",
-    "start": "ng serve",
+    "start": "ng serve --environment dev --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

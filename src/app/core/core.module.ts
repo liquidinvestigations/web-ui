@@ -5,7 +5,6 @@ import { ApiClientService } from './api-client.service';
 @NgModule({
     imports: [
         HttpModule,
-        CoreModule
     ],
     declarations: [],
     providers: [
