@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonStepBase } from '../common-step.base';
 import { WizardService } from '../../wizard.service';
-import { StepInterface } from '../step.interface';
 
 @Component({
-    selector: 'app-network',
+    selector: 'li-network',
     templateUrl: './network.component.html',
     styleUrls: ['./network.component.scss']
 })
-export class NetworkComponent implements OnInit, StepInterface {
+export class NetworkComponent extends CommonStepBase implements CommonStepBase {
 
     title = 'Network Configuration';
 
-    constructor(private wizardService: WizardService) {
-        this.wizardService.setStep(this);
-    }
-
-    ngOnInit() {
+    constructor(
+        protected wizardService: WizardService,
+    ) {
+        super(wizardService);
     }
 
 }

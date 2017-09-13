@@ -1,21 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WizardService } from '../../wizard.service';
-import { StepInterface } from '../step.interface';
+import { GeneralEntity } from './general.entity';
+import { CommonStepBase } from '../common-step.base';
 
 @Component({
-    selector: 'app-general',
+    selector: 'li-general',
     templateUrl: './general.component.html',
     styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent implements OnInit, StepInterface {
+export class GeneralComponent extends CommonStepBase implements CommonStepBase {
 
     title = 'General Configuration';
 
-    constructor(private wizardService: WizardService) {
-        this.wizardService.setStep(this);
+    constructor(
+        public entity: GeneralEntity,
+        protected wizardService: WizardService,
+    ) {
+        super(wizardService);
     }
 
-    ngOnInit() {
+    onControlsClick(direction: string) {
+        switch (direction) {
+
+            case WizardService.IS_NEXT:
+                this.entity.submitAction();
+                this.wizardService.goNextStep();
+                break;
+
+            case WizardService.IS_PREV:
+                this.entity.submitAction();
+                this.wizardService.goPreviousStep();
+                break;
+        }
     }
 
 }

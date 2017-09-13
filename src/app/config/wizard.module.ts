@@ -13,6 +13,7 @@ import { ServicesComponent } from './steps/services/services.component';
 import { SummaryComponent } from './steps/summary/summary.component';
 import { WizardService } from './wizard.service';
 import { ProgressbarComponent } from './progressbar/progressbar.component';
+import { GeneralEntity } from './steps/general/general.entity';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { ProgressbarComponent } from './progressbar/progressbar.component';
     ],
     declarations: [
         WizardComponent,
+
         GeneralComponent,
         ScenarioComponent,
         NetworkComponent,
@@ -31,6 +33,8 @@ import { ProgressbarComponent } from './progressbar/progressbar.component';
     ],
     providers: [
         WizardService,
+
+        GeneralEntity,
     ]
 })
 export class WizardModule {}

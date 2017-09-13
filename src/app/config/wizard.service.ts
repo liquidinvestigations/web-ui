@@ -1,6 +1,7 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { StepInterface } from './steps/step.interface';
+import { Observable } from 'rxjs/Observable';
+import { CommonStepBase } from './steps/common-step.base';
 
 @Injectable()
 export class WizardService {
@@ -8,18 +9,27 @@ export class WizardService {
     public static readonly IS_NEXT = 'next';
     public static readonly IS_PREV = 'prev';
 
+    public direction = WizardService.IS_NEXT;
+
+    public controlsObservable: Observable<any>;
+    private controlsObserver: any;
+
     private basePath;
-    private direction = WizardService.IS_NEXT;
     private index = 0;
     private steps: Routes = [];
 
     private stepManager: Function = () => {};
     private titleManager: Function = () => {};
 
+
     constructor(
         private router: Router,
     ) {
         this.basePath = router.config[router.config.length - 1].path;
+
+        this.controlsObservable = new Observable(
+            (observer: any) => { this.controlsObserver = observer; }
+        );
     }
 
     initSteps(routes: Routes) {
@@ -40,7 +50,7 @@ export class WizardService {
         this.titleManager = titleManager;
     }
 
-    setStep(component: StepInterface) {
+    setStep(component: CommonStepBase) {
         for (let i = 0; i < this.steps.length; i++) {
             if (this.steps[i].component === component.constructor) {
                 this.index = i;
@@ -56,32 +66,20 @@ export class WizardService {
         return {
             next: {
                 isVisible: this.hasNextStep.bind(this),
-                action: this.goNextStep.bind(this),
+                action: () => {
+                    this.controlsObserver.next(WizardService.IS_NEXT);
+                },
             },
             previous: {
                 isVisible: this.hasPreviousStep.bind(this),
-                action: this.goPreviousStep.bind(this),
+                action: () => {
+                    this.controlsObserver.next(WizardService.IS_PREV);
+                },
             }
         };
     }
 
-    isNext() {
-        return this.direction === WizardService.IS_NEXT;
-    }
-
-    isPrev() {
-        return this.direction === WizardService.IS_PREV;
-    }
-
-    private hasNextStep() {
-        return !!this.steps[this.index + 1];
-    }
-
-    private hasPreviousStep() {
-        return !!this.steps[this.index - 1];
-    }
-
-    private goNextStep() {
+    goNextStep() {
         this.direction = WizardService.IS_NEXT;
 
         if (this.hasNextStep()) {
@@ -93,7 +91,7 @@ export class WizardService {
         }
     }
 
-    private goPreviousStep() {
+    goPreviousStep() {
         this.direction = WizardService.IS_PREV;
 
         if (this.hasPreviousStep()) {
@@ -103,6 +101,14 @@ export class WizardService {
                 );
             });
         }
+    }
+
+    private hasNextStep() {
+        return !!this.steps[this.index + 1];
+    }
+
+    private hasPreviousStep() {
+        return !!this.steps[this.index - 1];
     }
 
 }
