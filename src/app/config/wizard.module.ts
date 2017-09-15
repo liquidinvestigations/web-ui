@@ -20,6 +20,7 @@ import { AdminStepEntity } from './steps/admin-step/admin-step.entity';
 import { LanStepEntity } from './steps/lan-step/lan-step.entity';
 import { WanStepEntity } from './steps/wan-step/wan-step.entity';
 import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
+import { ServicesStepEntity } from './steps/services-step/services-step.entity';
 
 @NgModule({
     imports: [
@@ -47,6 +48,7 @@ import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.componen
         AdminStepEntity,
         LanStepEntity,
         WanStepEntity,
+        ServicesStepEntity,
     ]
 })
 export class WizardModule {}

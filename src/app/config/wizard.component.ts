@@ -17,7 +17,7 @@ declare let $: any;
 export class WizardComponent implements OnInit {
     title = '';
 
-    controls: { next: any, previous: any };
+    controls: { next: any, previous: any , end: any };
 
     step = 0;
     stepsLength = 0;

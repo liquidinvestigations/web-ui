@@ -15,7 +15,9 @@ export abstract class CommonStepBase implements OnInit {
         });
 
         this.wizardService.controlsObservable.subscribe(
-            this.onControlsClick.bind(this)
+            this.onControlsClick.bind(this),
+            () => {},
+            this.onFinish.bind(this)
         );
     }
 
@@ -31,4 +33,6 @@ export abstract class CommonStepBase implements OnInit {
                 break;
         }
     }
+
+    onFinish() {}
 }

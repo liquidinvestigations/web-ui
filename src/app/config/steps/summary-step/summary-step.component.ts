@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonStepBase } from '../common-step.base';
+import { WizardService } from '../../wizard.service';
+import { WizardEntity } from '../../wizard.entity';
 
 @Component({
-  selector: 'app-summary-step',
-  templateUrl: './summary-step.component.html',
-  styleUrls: ['./summary-step.component.css']
+    selector: 'li-summary-step',
+    templateUrl: './summary-step.component.html',
+    styleUrls: ['./summary-step.component.scss']
 })
-export class SummaryStepComponent implements OnInit {
+export class SummaryStepComponent extends CommonStepBase implements CommonStepBase {
+    title = 'Summary';
 
-  constructor() { }
+    currentConfig: {};
 
-  ngOnInit() {
-  }
+    constructor(
+        private wizardEntity: WizardEntity,
+        protected wizardService: WizardService,
+    ) {
+        super(wizardService);
+
+        this.currentConfig = this.wizardEntity.userConfig;
+    }
 
 }

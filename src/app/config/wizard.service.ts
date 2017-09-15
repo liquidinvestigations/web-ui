@@ -81,6 +81,12 @@ export class WizardService {
                 action: () => {
                     this.controlsObserver.next(WizardService.IS_PREV);
                 },
+            },
+            end: {
+                isVisible: this.isEndStep.bind(this),
+                action: () => {
+                    this.controlsObserver.complete();
+                },
             }
         };
     }
@@ -123,6 +129,10 @@ export class WizardService {
 
     private hasPreviousStep() {
         return !!this.steps[this.index - 1];
+    }
+
+    private isEndStep() {
+        return this.index + 1 >= this.steps.length;
     }
 
 }

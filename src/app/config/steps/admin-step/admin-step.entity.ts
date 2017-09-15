@@ -57,6 +57,11 @@ export class AdminStepEntity extends Entity {
 
 
     submitAction(formValues): void {
+        // these have to be managed by other endpoint
+        delete formValues.network.username;
+        delete formValues.network.password;
+        delete formValues.network.confirm_password;
+
         this.wizardEntity.adjustConfig(formValues);
     }
 

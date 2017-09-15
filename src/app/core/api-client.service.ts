@@ -8,8 +8,11 @@ declare let $: any;
 
 @Injectable()
 export class ApiClientService extends Events {
-    static readonly EV_GET_SUCCESSFUL = 'get_successful';
     static readonly EV_BEFORE_GET = 'before_read';
+    static readonly EV_GET_SUCCESSFUL = 'get_successful';
+
+    static readonly EV_BEFORE_PUT = 'before_put';
+    static readonly EV_PUT_SUCCESSFUL = 'put_successful';
 
     private headers: Headers;
 
@@ -20,7 +23,7 @@ export class ApiClientService extends Events {
         this.headers.append('Content-Type', 'application/json');
     }
 
-    get (entity: Entity, params = null) {
+    get(entity: Entity, params = null) {
 
         let url = this.createUrl(entity);
 
@@ -34,6 +37,22 @@ export class ApiClientService extends Events {
             .get(url, this.headers)
             .subscribe((response: any) => {
                     this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, JSON.parse(response._body));
+                },
+                this.handleBackendErrorOnRead.bind(this)
+            );
+    }
+
+
+    put(entity: Entity, payload: {}) {
+
+        let url = this.createUrl(entity);
+
+        this.notifySubscribers(ApiClientService.EV_BEFORE_PUT);
+
+        this.http
+            .put(url, payload, this.headers)
+            .subscribe((response: any) => {
+                    this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL);
                 },
                 this.handleBackendErrorOnRead.bind(this)
             );

@@ -20,17 +20,17 @@ export class WizardEntity extends Entity {
 
     constructor(protected apiService: ApiClientService) {
         super();
+    }
+
+    getRouterConfig() {
+        // calling Get /network/config
+        this.apiService.get(this);
 
         // store data and call subscribers
         this.apiService.subscribe(ApiClientService.EV_GET_SUCCESSFUL, (data: any) => {
             this.configState = data;
             this.eventHandler.notifySubscribers(WizardEntity.GET_CONFIG, data);
         });
-    }
-
-    getRouterConfig() {
-        // calling Get /network/config
-        this.apiService.get(this);
     }
 
     updateFormData(mappingCallback: Function) {
@@ -47,12 +47,21 @@ export class WizardEntity extends Entity {
 
     adjustConfig(newConfig: {}) {
 
-        this.userConfig = Object.assign(this.userConfig, newConfig);
-        console.log(this.userConfig);
+        this.userConfig = $.extend(true, this.userConfig, newConfig);
+        console.clear();
+        console.log(JSON.stringify(this.userConfig, null, 2));
     }
 
     getFields(): DynamicFormControlModel[] { return []; }
 
     submitAction(): void { }
 
+
+    updateConfiguration() {
+        this.apiService.put(this, this.userConfig);
+
+        this.apiService.subscribe(ApiClientService.EV_PUT_SUCCESSFUL, (data: any) => {
+            console.log('Successfully updated using:', JSON.stringify(this.userConfig, null, 2));
+        });
+    }
 }

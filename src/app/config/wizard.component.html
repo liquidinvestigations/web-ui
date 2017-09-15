@@ -21,17 +21,23 @@
             <div class="modal-footer">
                 <div class="row" *ngIf="showControls">
                     <div class="col-xs-6 text-left">
-                        <button class="btn btn-info"
-                                *ngIf="controls.previous.isVisible()"
-                                (click)="controls.previous.action()"
-                        >Previous
-                        </button>
+                        <!--<button class="btn btn-info"-->
+                                <!--*ngIf="controls.previous.isVisible()"-->
+                                <!--(click)="controls.previous.action()"-->
+                        <!--&gt;Previous-->
+                        <!--</button>-->
                     </div>
                     <div class="col-xs-6 text-right">
                         <button class="btn btn-info"
                                 *ngIf="controls.next.isVisible()"
                                 (click)="controls.next.action()"
                         >Next
+                        </button>
+
+                        <button class="btn btn-info"
+                                *ngIf="controls.end.isVisible()"
+                                (click)="controls.end.action()"
+                        >End
                         </button>
                     </div>
                 </div>

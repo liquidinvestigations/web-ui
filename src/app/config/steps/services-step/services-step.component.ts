@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormStepBase } from '../form-step.base';
+import { ServicesStepEntity } from './services-step.entity';
+import { WizardService } from '../../wizard.service';
+import { FormComponent } from '../../../shared/form/form.component';
 
 @Component({
-  selector: 'app-services-step',
-  templateUrl: './services-step.component.html',
-  styleUrls: ['./services-step.component.css']
+    templateUrl: './services-step.component.html',
+    styleUrls: ['./services-step.component.css']
 })
-export class ServicesStepComponent implements OnInit {
+export class ServicesStepComponent extends FormStepBase implements FormStepBase {
+    @ViewChild(FormComponent) formComponent: FormComponent;
 
-  constructor() { }
+    title = 'Services';
 
-  ngOnInit() {
-  }
+    constructor(
+        public servicesStepEntity: ServicesStepEntity,
+        protected wizardService: WizardService,
+    ) {
+        super(servicesStepEntity, wizardService);
+    }
+
 
 }

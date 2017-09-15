@@ -25,7 +25,6 @@ export class FormComponent implements OnInit {
     ngOnInit() {
         this.formModel = this.entity.fields;
         this.formGroup = this.formService.createFormGroup(this.formModel);
-        console.log(this.formGroup);
     }
 
 
