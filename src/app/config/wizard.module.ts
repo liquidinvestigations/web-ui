@@ -6,14 +6,20 @@ import { SharedModule } from '../shared/shared.module';
 import { WizardRoutingModule } from './wizard-routing.module';
 import { WizardComponent } from './wizard.component';
 
-import { GeneralComponent } from './steps/general/general.component';
-import { ScenarioComponent } from './steps/scenario/scenario.component';
-import { NetworkComponent } from './steps/network/network.component';
-import { ServicesComponent } from './steps/services/services.component';
-import { SummaryComponent } from './steps/summary/summary.component';
 import { WizardService } from './wizard.service';
+
 import { ProgressbarComponent } from './progressbar/progressbar.component';
-import { GeneralEntity } from './steps/general/general.entity';
+import { AdminStepComponent } from './steps/admin-step/admin-step.component';
+import { LanStepComponent } from './steps/lan-step/lan-step.component';
+import { WanStepComponent } from './steps/wan-step/wan-step.component';
+import { ServicesStepComponent } from './steps/services-step/services-step.component';
+import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
+import { FinalStepComponent } from './steps/final-step/final-step.component';
+import { WizardEntity } from './wizard.entity';
+import { AdminStepEntity } from './steps/admin-step/admin-step.entity';
+import { LanStepEntity } from './steps/lan-step/lan-step.entity';
+import { WanStepEntity } from './steps/wan-step/wan-step.entity';
+import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
 
 @NgModule({
     imports: [
@@ -24,17 +30,23 @@ import { GeneralEntity } from './steps/general/general.entity';
     declarations: [
         WizardComponent,
 
-        GeneralComponent,
-        ScenarioComponent,
-        NetworkComponent,
-        ServicesComponent,
-        SummaryComponent,
         ProgressbarComponent,
+
+        WelcomeStepComponent,
+        AdminStepComponent,
+        LanStepComponent,
+        WanStepComponent,
+        ServicesStepComponent,
+        SummaryStepComponent,
+        FinalStepComponent,
     ],
     providers: [
         WizardService,
+        WizardEntity,
 
-        GeneralEntity,
+        AdminStepEntity,
+        LanStepEntity,
+        WanStepEntity,
     ]
 })
 export class WizardModule {}

@@ -15,11 +15,12 @@ export class WizardService {
     private controlsObserver: any;
 
     private basePath;
-    private index = 0;
+    private index = -1;
     private steps: Routes = [];
 
     private stepManager: Function = () => {};
     private titleManager: Function = () => {};
+    private progressVisibilityManager: Function = () => {};
 
 
     constructor(
@@ -50,16 +51,21 @@ export class WizardService {
         this.titleManager = titleManager;
     }
 
-    setStep(component: CommonStepBase) {
-        for (let i = 0; i < this.steps.length; i++) {
-            if (this.steps[i].component === component.constructor) {
-                this.index = i;
+    manageProgressVisibility(progressVisibilityManager: Function) {
+        this.progressVisibilityManager = progressVisibilityManager;
+    }
 
+    setStep(stepComponent: CommonStepBase) {
+        for (let i = 0; i < this.steps.length; i++) {
+            if (this.steps[i].component === stepComponent.constructor) {
+                this.index = i;
                 this.stepManager(i);
-                this.titleManager(component.title);
                 break;
             }
         }
+
+        this.titleManager(stepComponent.title);
+        this.progressVisibilityManager(stepComponent.showProgress);
     }
 
     getControls() {
@@ -101,6 +107,14 @@ export class WizardService {
                 );
             });
         }
+    }
+
+    resetWizard() {
+        setTimeout(() => {
+            this.router.navigate(
+                [ this.basePath ],
+            );
+        });
     }
 
     private hasNextStep() {

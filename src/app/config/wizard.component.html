@@ -7,7 +7,7 @@
                 <h4 class="modal-title">{{ title }}</h4>
             </div>
             <div class="modal-body">
-                <li-progressbar [step]="step" [total]="stepsLength"></li-progressbar>
+                <li-progressbar *ngIf="showProgress" [step]="step" [total]="stepsLength"></li-progressbar>
 
                 <div class="outlet-container"
                      [@slideLeft]="isSlideLeft(outlet)"
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
+                <div class="row" *ngIf="showControls">
                     <div class="col-xs-6 text-left">
                         <button class="btn btn-info"
                                 *ngIf="controls.previous.isVisible()"

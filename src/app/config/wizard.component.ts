@@ -2,6 +2,7 @@ import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WizardService } from './wizard.service';
 import { slideLeft, slideRight } from './wizard-routing.animation';
+import { WizardEntity } from './wizard.entity';
 
 declare let $: any;
 
@@ -21,11 +22,16 @@ export class WizardComponent implements OnInit {
     step = 0;
     stepsLength = 0;
 
+    showProgress = false;
+
+    showControls = false;
+
     constructor(
         private wizardElemRef: ElementRef,
         private zone: NgZone,
         private activatedRoute: ActivatedRoute,
 
+        private wizardEntity: WizardEntity,
         private wizardService: WizardService,
     ) {
         this.stepsLength =
@@ -35,9 +41,18 @@ export class WizardComponent implements OnInit {
 
         this.wizardService.manageTitle((title) => { this.title = title; });
         this.wizardService.manageStep((step) => { this.step = step; });
+        this.wizardService.manageProgressVisibility((visible) => { this.showProgress = visible; });
+
+
+        this.wizardEntity.eventHandler.subscribe(WizardEntity.GET_CONFIG, () => {
+            this.showControls = true;
+        });
     }
 
     ngOnInit() {
+        this.wizardEntity.getRouterConfig();
+
+
         this.zone.runOutsideAngular(() => {
             $(this.wizardElemRef.nativeElement).find('.modal').modal('show');
         });

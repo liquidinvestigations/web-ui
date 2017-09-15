@@ -1,24 +1,32 @@
-import { Field } from './field';
-import { FormComponent } from '../form/form/form.component';
+import { FormComponent } from '../form/form.component';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 
 export abstract class Entity {
 
-    public abstract  endpoint: string;
+    public endpoint?: string;
 
-    public fields: Field[];
+    public fields: DynamicFormControlModel[];
     protected formInstance: FormComponent;
 
-    abstract getFields(): Field[];
+    abstract getFields(): DynamicFormControlModel[];
 
     // we customly manage the submit
-    abstract submitAction(): void;
+    abstract submitAction(...args): void;
 
     constructor() {
         this.fields = this.getFields();
     }
 
+    getForm() {
+        return this.formInstance;
+    }
+
     setForm(formInstance: FormComponent) {
         this.formInstance = formInstance;
+    }
+
+    setDefaultValues() {
+
     }
 
 }

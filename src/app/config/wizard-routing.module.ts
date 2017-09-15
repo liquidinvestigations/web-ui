@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, Route } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { WizardComponent } from './wizard.component';
-import { GeneralComponent } from './steps/general/general.component';
-import { NetworkComponent } from './steps/network/network.component';
-import { ScenarioComponent } from './steps/scenario/scenario.component';
-import { ServicesComponent } from './steps/services/services.component';
-import { SummaryComponent } from './steps/summary/summary.component';
+
+import { AdminStepComponent } from './steps/admin-step/admin-step.component';
+import { LanStepComponent } from './steps/lan-step/lan-step.component';
+import { WanStepComponent } from './steps/wan-step/wan-step.component';
+import { ServicesStepComponent } from './steps/services-step/services-step.component';
+import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
+import { FinalStepComponent } from './steps/final-step/final-step.component';
+import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
 
 const routes: Routes = [
     {
@@ -15,27 +18,31 @@ const routes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: 'general'
+                component: WelcomeStepComponent,
             },
             {
-                path: 'general',
-                component: GeneralComponent
+                path: 'admin',
+                component: AdminStepComponent
             },
             {
-                path: 'network',
-                component: NetworkComponent
+                path: 'lan',
+                component: LanStepComponent
             },
             {
-                path: 'scenario',
-                component: ScenarioComponent
+                path: 'wan',
+                component: WanStepComponent
             },
             {
                 path: 'services',
-                component: ServicesComponent
+                component: ServicesStepComponent
             },
             {
                 path: 'summary',
-                component: SummaryComponent
+                component: SummaryStepComponent
+            },
+            {
+                path: 'final',
+                component: FinalStepComponent
             }
         ]
     }
