@@ -21,6 +21,7 @@ import { LanStepEntity } from './steps/lan-step/lan-step.entity';
 import { WanStepEntity } from './steps/wan-step/wan-step.entity';
 import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
 import { ServicesStepEntity } from './steps/services-step/services-step.entity';
+import { ServicesElementRendererComponent } from './steps/services-step/services-element-renderer.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,10 @@ import { ServicesStepEntity } from './steps/services-step/services-step.entity';
         AdminStepComponent,
         LanStepComponent,
         WanStepComponent,
+
         ServicesStepComponent,
+        ServicesElementRendererComponent,
+
         SummaryStepComponent,
         FinalStepComponent,
     ],

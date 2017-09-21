@@ -14,6 +14,7 @@ export class WanStepEntity extends FormStepEntity {
 
     getDynamicFormConfig(): DynamicForm | DynamicFormGroup {
         return new DynamicForm('network')
+            .setControlsRenderer(null)
             .elements([
                 new DynamicFormGroup('wan')
                     .elements([
@@ -21,7 +22,8 @@ export class WanStepEntity extends FormStepEntity {
                             .elements([
                                 new DynamicElement('ip', 'IP')
                                     .setType(DynamicElement.TYPE_TEXT)
-                                    .setPlaceholder('000.000.000.000'),
+                                    .setPlaceholder('000.000.000.000')
+                                    .setHasBottomDivider(),
 
                                 new DynamicElement('netmask', 'Netmask')
                                     .setType(DynamicElement.TYPE_TEXT)

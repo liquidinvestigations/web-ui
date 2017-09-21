@@ -24,6 +24,7 @@ export class WizardComponent implements OnInit {
     buttonConfig: {
         label: string,
         iconClass: string,
+        buttonClass: string,
         action: () => {}
     } = null;
 

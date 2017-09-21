@@ -1,5 +1,5 @@
-<div [formGroup]="formGroup" class="form-group">
-    <div class="col-xs-12" *ngIf="element.hasTopDivider">
+<ng-container [formGroup]="formGroup">
+    <div class="col-xs-12 divider-holder text-center" *ngIf="element.hasTopDivider">
         <hr>
     </div>
 
@@ -18,7 +18,7 @@
         </ng-container>
     </div>
 
-    <div class="col-xs-12" *ngIf="element.hasBottomDivider">
+    <div class="col-xs-12 divider-holder text-center" *ngIf="element.hasBottomDivider">
         <hr>
     </div>
-</div>
+</ng-container>

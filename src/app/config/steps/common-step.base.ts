@@ -9,6 +9,7 @@ export abstract class CommonStepBase implements OnInit {
     buttonConfig = {
         label: 'Next',
         iconClass: 'glyphicon glyphicon-chevron-right',
+        buttonClass: 'btn btn-primary',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         }

@@ -9,13 +9,14 @@ import { CommonStepBase } from '../common-step.base';
 })
 export class WelcomeStepComponent extends CommonStepBase implements CommonStepBase {
 
-    title = 'Liquid Investigation - Instalation';
+    title = '';
 
     showProgress = false;
 
     buttonConfig = {
-        label: 'Begin',
-        iconClass: 'glyphicon glyphicon-ok',
+        label: 'Start',
+        iconClass: 'glyphicon glyphicon-log-in',
+        buttonClass: 'btn btn-success',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         }

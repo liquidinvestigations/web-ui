@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicForm } from './dynamic-form';
 import { DynamicFormService } from './dynamic-form.service';
@@ -6,7 +6,11 @@ import { DynamicFormService } from './dynamic-form.service';
 @Component({
     selector: 'dynamic-form',
     templateUrl: './dynamic-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `.form-group { margin-bottom: 10px; }`
+    ]
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
     @Input() dynamicForm: DynamicForm;

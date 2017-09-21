@@ -2,20 +2,20 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row progress-bar-container">
+                <div class="row progress-bar-container" *ngIf="showProgress">
                     <div class="col-xs-12">
-                        <li-progressbar *ngIf="showProgress" [step]="progressStep" [total]="stepsLength"></li-progressbar>
+                        <li-progressbar [step]="progressStep" [total]="stepsLength"></li-progressbar>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12 text-center wizard-title">
-                        <h4 class="modal-title">{{ title }}</h4>
+                <div class="step-container">
+                    <div class="row" *ngIf="title">
+                        <div class="col-xs-12 text-center wizard-title">
+                            <h1 class="modal-title">{{ title }}</h1>
+                        </div>
                     </div>
-                </div>
 
-                <div class="outlet-container" [@slideLeft]="isSlideLeft(outlet)">
-                    <div class="col-xs-12">
+                    <div class="outlet-container" [@slideLeft]="isSlideLeft(outlet)">
                         <router-outlet #outlet="outlet"></router-outlet>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
 
                     </div>
                     <div class="col-xs-6 text-right">
-                        <button class="btn btn-primary"
-                                *ngIf="buttonConfig"
+                        <button *ngIf="buttonConfig"
+                                class="{{ buttonConfig.buttonClass }}"
                                 (click)="buttonConfig.action()"
                         >{{ buttonConfig.label }} <i class="{{ buttonConfig.iconClass }}"></i></button>
 

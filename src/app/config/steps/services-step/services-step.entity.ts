@@ -5,6 +5,7 @@ import { ApiClientService } from '../../../core/api-client.service';
 import { DynamicForm } from '../../../shared/dynamic-forms/dynamic-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
 import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
+import { ServicesElementRendererComponent } from './services-element-renderer.component';
 
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
@@ -17,6 +18,7 @@ export class ServicesStepEntity extends FormStepEntity {
 
     getDynamicFormConfig(): DynamicForm | DynamicFormGroup {
         return new DynamicFormGroup()
+            .setControlsRenderer(ServicesElementRendererComponent)
             .elements([
                 new DynamicFormGroup('services')
                     .elements([
@@ -37,6 +39,7 @@ export class ServicesStepEntity extends FormStepEntity {
                     ]),
 
                 new DynamicFormGroup('network')
+                    .setControlsRenderer(null)
                     .elements([
                         new DynamicFormGroup('ssh')
                             .elements([

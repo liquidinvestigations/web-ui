@@ -3,16 +3,14 @@
 
         <ng-container *ngIf="isDynamicGroup(element)">
             <div class="{{ element.cssClass }}" [formGroupName]="element.id">
-                <div class="row">
-                    <dynamic-form-group [formGroup]="formGroup.controls[element.id]" [dynamicFormGroup]="element"
-                                        [chainPath]="chainPath">
-                    </dynamic-form-group>
-                </div>
+                <dynamic-form-group [formGroup]="formGroup.controls[element.id]" [dynamicFormGroup]="element"
+                                    [chainPath]="chainPath">
+                </dynamic-form-group>
             </div>
         </ng-container>
 
         <ng-container *ngIf="isDynamicElement(element)">
-            <div class="form-group {{ element.cssClass }}">
+            <div class="form-group row">
                 <dynamic-form-element [formGroup]="formGroup" [element]="element"></dynamic-form-element>
             </div>
         </ng-container>
