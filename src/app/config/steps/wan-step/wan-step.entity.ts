@@ -49,9 +49,4 @@ export class WanStepEntity extends FormStepEntity {
                     ])
             ]);
     }
-
-    submitAction(formValues): void {
-        this.wizardEntity.adjustConfig(formValues);
-    }
-
 }

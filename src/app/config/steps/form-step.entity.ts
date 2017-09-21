@@ -12,9 +12,6 @@ export abstract class FormStepEntity {
 
     abstract getDynamicFormConfig(): (DynamicForm | DynamicFormGroup);
 
-    // we customly manage the submit
-    abstract submitAction(...args): void;
-
     constructor(protected wizardEntity: WizardEntity) {
         // get current stepEntity form configuration
         this.dynamicFormConfig = this.getDynamicFormConfig();
@@ -29,34 +26,15 @@ export abstract class FormStepEntity {
         return this.formInstance;
     }
 
-    setDefaultValues() {
-
-        console.log(this.getFormInstance(), this.wizardEntity.getConfigState())
-
-            this.getFormInstance()
-                .setValues(
-                    this.wizardEntity.getConfigState()
-                );
-
+    updateValuesFromConfig() {
+        this.getFormInstance()
+            .setValues(
+                this.wizardEntity.getConfigState()
+            );
     }
 
-    configWasLoaded() {
-        return !!this.serverConfig;
-    }
-
-    populateFromConfig(element, fieldsMapping, FormGroup) {
-        let fieldPath = fieldsMapping[element.id];
-
-        let value = this.serverConfig;
-        try {
-            for (let key of fieldPath) {
-                value = value[key];
-            }
-        } catch (e) {
-            return '';
-        }
-
-        return value || '';
+    onNext(formValues): void {
+        this.wizardEntity.updateConfigState(formValues);
     }
 
 }

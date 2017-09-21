@@ -16,12 +16,16 @@ declare let $: any;
 export class WizardComponent implements OnInit {
     title = '';
 
-    controls: { next: any, end: any };
+    showProgress = false;
 
     progressStep = 0;
     stepsLength = 0;
 
-    showProgress = false;
+    buttonConfig: {
+        label: string,
+        iconClass: string,
+        action: () => {}
+    } = null;
 
     constructor(private wizardElemRef: ElementRef,
                 private zone: NgZone,
@@ -39,13 +43,11 @@ export class WizardComponent implements OnInit {
 
         this.stepsLength = this.wizardService.getProgressStepsLength();
 
-        // get defined controls
-        this.controls = this.wizardService.getNavigationControls();
-
         this.wizardService.subscribe(WizardService.STEP_LOADED, (stepConfig) => {
             this.title = stepConfig.title;
             this.progressStep = stepConfig.progressStep;
             this.showProgress = stepConfig.showProgress;
+            this.buttonConfig = stepConfig.buttonConfig;
         });
     }
 

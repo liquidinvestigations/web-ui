@@ -47,8 +47,4 @@ export class ServicesStepEntity extends FormStepEntity {
             ]);
     }
 
-    submitAction(formValues): void {
-        this.wizardEntity.adjustConfig(formValues);
-    }
-
 }

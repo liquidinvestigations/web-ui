@@ -40,8 +40,9 @@ export class WizardEntity extends LiEvents {
             });
     }
 
-    adjustConfig(newConfig: {}) {
+    updateConfigState(newConfig: {}) {
         this.userConfig = $.extend(true, this.userConfig, newConfig);
+
         console.clear();
         console.log(JSON.stringify(this.userConfig, null, 2));
     }
@@ -50,27 +51,27 @@ export class WizardEntity extends LiEvents {
         return this.configState;
     }
 
-    requestNetworkDetails() {
+    private requestNetworkDetails() {
         return this.apiService
             .get('/network/config')
             .map(res => res.json());
     }
 
-    requestServicesDetails() {
+    private requestServicesDetails() {
         return this.apiService
             .get('/services')
             .map(res => res.json());
     }
 
-    updateNetworkDetails(networkDetails: {}) {
+    private updateNetworkDetails(networkDetails: {}) {
         console.log('network details', networkDetails);
     }
 
-    updateAdminDetails(adminConfig: {}) {
+    private updateAdminDetails(adminConfig: {}) {
         console.log('Setting Admin details', adminConfig);
     }
 
-    updateServices(services: {}) {
+    private updateServices(services: {}) {
         console.log('Setting services', services);
     }
 

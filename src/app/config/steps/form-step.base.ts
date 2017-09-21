@@ -7,20 +7,22 @@ import { AfterViewInit } from '@angular/core';
 export abstract class FormStepBase extends CommonStepBase implements CommonStepBase, AfterViewInit {
     abstract formInstance: DynamicFormComponent;
 
-    constructor(public stepEntity: FormStepEntity,
-                protected wizardService: WizardService) {
+    constructor(
+        public formStepEntity: FormStepEntity,
+        protected wizardService: WizardService
+    ) {
         super(wizardService);
     }
 
     ngOnInit() {
-        this.stepEntity.setFormInstance(this.formInstance);
+        this.formStepEntity.setFormInstance(this.formInstance);
     }
 
     ngAfterViewInit() {
-        this.stepEntity.setDefaultValues();
+        this.formStepEntity.updateValuesFromConfig();
     }
 
-    onNext() {
-        this.stepEntity.submitAction(this.formInstance.getValues());
+    protected onNext() {
+        this.formStepEntity.onNext(this.formInstance.getValues());
     }
 }

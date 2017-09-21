@@ -2,12 +2,16 @@
 
     <div class="wizard">
         <div class="wizard-inner">
-            <div class="connecting-line"><div class="progress" [style.width]="(width2 * step) + '%'"></div></div>
+            <div class="connecting-line">
+                <div class="progress" [style.width]="(progressSlice * step) + '%'"></div>
+            </div>
             <ul class="nav nav-tabs" role="tablist">
 
                 <ng-container *ngFor="let i of steps">
 
-                    <li role="presentation" [style.width]="width + '%'" [ngClass]="{ 'active': i <= step, 'disabled': i > step, 'last': i == total-1 }">
+                    <li role="presentation" [style.width]="butlletSpace + '%'"
+                        [ngClass]="{ 'active': i <= step, 'disabled': i > step, 'last': i == total-1 }">
+                        
                         <a href="#" (click)="$event.preventDefault()">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-ok"></i>

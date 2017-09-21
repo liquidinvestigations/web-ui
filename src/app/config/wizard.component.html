@@ -28,15 +28,10 @@
                     </div>
                     <div class="col-xs-6 text-right">
                         <button class="btn btn-primary"
-                                *ngIf="controls.next.isVisible()"
-                                (click)="controls.next.action()"
-                        >Next <i class="glyphicon glyphicon-chevron-right"></i></button>
+                                *ngIf="buttonConfig"
+                                (click)="buttonConfig.action()"
+                        >{{ buttonConfig.label }} <i class="{{ buttonConfig.iconClass }}"></i></button>
 
-                        <button class="btn btn-primary"
-                                *ngIf="controls.end.isVisible()"
-                                (click)="controls.end.action()"
-                        >Install
-                        </button>
                     </div>
                 </div>
             </div>

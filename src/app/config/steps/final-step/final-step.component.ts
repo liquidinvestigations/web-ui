@@ -8,8 +8,10 @@ import { WizardService } from '../../wizard.service';
     styleUrls: ['./final-step.component.scss']
 })
 export class FinalStepComponent extends CommonStepBase implements CommonStepBase {
+
     title = 'Great success';
 
+    buttonConfig = null;
 
     constructor(
         private wizardEntity: WizardEntity,
@@ -18,7 +20,4 @@ export class FinalStepComponent extends CommonStepBase implements CommonStepBase
         super(wizardService);
     }
 
-    onFinish() {
-        // this.wizardEntity.updateConfiguration();
-    }
 }

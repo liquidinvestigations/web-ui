@@ -14,7 +14,6 @@ export class AdminStepEntity extends FormStepEntity {
     getDynamicFormConfig(): DynamicFormGroup {
         return new DynamicFormGroup()
             .elements([
-
                 new DynamicFormGroup('network')
                     .elements([
                         new DynamicElement('domain')
@@ -40,10 +39,6 @@ export class AdminStepEntity extends FormStepEntity {
                             .setLabel('Confirm Password'),
                     ]),
             ]);
-    }
-
-    submitAction(formValues): void {
-        this.wizardEntity.adjustConfig(formValues);
     }
 
 }

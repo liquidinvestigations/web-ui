@@ -11,6 +11,14 @@ import { WizardEntity } from '../../wizard.entity';
 export class SummaryStepComponent extends CommonStepBase implements CommonStepBase {
     title = 'Summary';
 
+    buttonConfig = {
+        label: 'Install',
+        iconClass: '',
+        action: () => {
+            this.wizardService.notifySubscribers(WizardService.GO_NEXT);
+        }
+    };
+
     currentConfig: {};
 
     constructor(

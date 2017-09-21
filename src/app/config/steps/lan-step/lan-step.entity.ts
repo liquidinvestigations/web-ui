@@ -47,9 +47,4 @@ export class LanStepEntity extends FormStepEntity {
             ]);
     }
 
-
-    submitAction(formValues): void {
-        this.wizardEntity.adjustConfig(formValues);
-    }
-
 }

@@ -5,6 +5,15 @@ export abstract class CommonStepBase implements OnInit {
 
     abstract title: string;
     showProgress = true;
+
+    buttonConfig = {
+        label: 'Next',
+        iconClass: 'glyphicon glyphicon-chevron-right',
+        action: () => {
+            this.wizardService.notifySubscribers(WizardService.GO_NEXT);
+        }
+    };
+
     ngOnInit(): void {}
 
     constructor(
@@ -28,8 +37,8 @@ export abstract class CommonStepBase implements OnInit {
         });
     }
 
-    onNext() { }
+    protected onNext() { }
 
-    onFinish() {}
+    protected onFinish() { }
 
 }
