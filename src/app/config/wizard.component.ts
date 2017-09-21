@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WizardService } from './wizard.service';
-import { slideLeft, slideRight } from './wizard-routing.animation';
+import { slideLeft } from './wizard-routing.animation';
 import { WizardEntity } from './wizard.entity';
 
 declare let $: any;
@@ -10,14 +10,13 @@ declare let $: any;
     templateUrl: './wizard.component.html',
     animations: [
         slideLeft,
-        slideRight
     ],
     styleUrls: ['./wizard.component.scss']
 })
 export class WizardComponent implements OnInit {
     title = '';
 
-    controls: { next: any, previous: any, end: any };
+    controls: { next: any, end: any };
 
     progressStep = 0;
     stepsLength = 0;
@@ -64,15 +63,7 @@ export class WizardComponent implements OnInit {
 
     // manage animation state
     isSlideLeft(outlet) {
-        return this.wizardService.direction === WizardService.IS_NEXT
-            ? outlet.activatedRoute.routeConfig.path
-            : null;
+        return outlet.activatedRoute.routeConfig.path;
     }
 
-    // manage animation state
-    isSlideRight(outlet) {
-        return this.wizardService.direction === WizardService.IS_PREV
-            ? outlet.activatedRoute.routeConfig.path
-            : null;
-    }
 }

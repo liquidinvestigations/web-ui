@@ -18,25 +18,17 @@ export abstract class CommonStepBase implements OnInit {
             this.wizardService.setStep(this);
         });
 
-        this.wizardService.controlsObservable.subscribe(
-            this.onControlsClick.bind(this),
-            () => {},
-            this.onFinish.bind(this)
-        );
+        this.wizardService.subscribe(WizardService.GO_NEXT, () => {
+            this.onNext();
+            this.wizardService.goNextStep();
+        });
+
+        this.wizardService.subscribe(WizardService.END_WIZARD, () => {
+            this.onFinish();
+        });
     }
 
-    onControlsClick(direction: string) {
-        switch (direction) {
-
-            case WizardService.IS_NEXT:
-                    this.wizardService.goNextStep();
-                break;
-
-            case WizardService.IS_PREV:
-                    this.wizardService.goPreviousStep();
-                break;
-        }
-    }
+    onNext() { }
 
     onFinish() {}
 

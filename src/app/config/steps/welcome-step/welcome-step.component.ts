@@ -18,8 +18,4 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
         super(wizardService);
     }
 
-    onControlsClick(direction: string) {
-        super.onControlsClick(direction);
-    }
-
 }

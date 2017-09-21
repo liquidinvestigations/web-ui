@@ -14,10 +14,7 @@
                     </div>
                 </div>
 
-                <div class="outlet-container"
-                     [@slideLeft]="isSlideLeft(outlet)"
-                     [@slideRight]="isSlideRight(outlet)"
-                >
+                <div class="outlet-container" [@slideLeft]="isSlideLeft(outlet)">
                     <div class="col-xs-12">
                         <router-outlet #outlet="outlet"></router-outlet>
                     </div>
@@ -27,11 +24,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-xs-6 text-left">
-                        <!--<button class="btn btn-info"-->
-                        <!--*ngIf="controls.previous.isVisible()"-->
-                        <!--(click)="controls.previous.action()"-->
-                        <!--&gt;Previous-->
-                        <!--</button>-->
+
                     </div>
                     <div class="col-xs-6 text-right">
                         <button class="btn btn-primary"
