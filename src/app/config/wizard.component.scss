@@ -1,7 +1,41 @@
 .modal {
+  background: url("../../assets/liquid-investigations/img/wizard-background.jpg");
+  background-size: cover;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
 
   .outlet-container {
     overflow-x: hidden;
-    min-height: 100px;
+    min-height: 200px;
   }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+  }
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+
+    .modal-content {
+      border-radius: 3px;
+    }
+  }
+}
+
+.progress-bar-container {
+  margin-top: 30px;
+}
+
+
+.wizard-title {
+  margin-top: 25px;
 }

@@ -1,67 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Entity } from '../../../shared/entity/entity';
+import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { DynamicInputModel } from '@ng-dynamic-forms/core/src/model/input/dynamic-input.model';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
-import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
+import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
 
 @Injectable()
-export class AdminStepEntity extends Entity {
+export class AdminStepEntity extends FormStepEntity {
 
     constructor(protected wizardEntity: WizardEntity) {
-        super();
+        super(wizardEntity);
     }
 
-    getFields(): DynamicFormControlModel[] {
-        return [
-            new DynamicFormGroupModel({
-                id: 'network',
-                group: [
+    getDynamicFormConfig(): DynamicFormGroup {
+        return new DynamicFormGroup()
+            .elements([
 
-                    new DynamicInputModel({
-                        id: 'domain',
-                        label: 'Hostname',
-                        placeholder: 'Hostname'
-                    }),
+                new DynamicFormGroup('network')
+                    .elements([
+                        new DynamicElement('domain')
+                            .setType(DynamicElement.TYPE_TEXT)
+                            .setLabel('Hostname')
+                            .setPlaceholder('hostname')
+                            .setHasBottomDivider(),
+                    ]),
 
-                    new DynamicInputModel({
-                        id: 'username',
-                        label: 'Username',
-                        placeholder: 'Username',
-                        value: 'Admin'
-                    }),
+                new DynamicFormGroup('admin')
+                    .elements([
+                        new DynamicElement('username')
+                            .setType(DynamicElement.TYPE_PASSWORD)
+                            .setLabel('Admin username')
+                            .setPlaceholder('username'),
 
-                    new DynamicInputModel({
-                        id: 'password',
-                        label: 'Password',
-                        inputType: 'password'
-                    }),
+                        new DynamicElement('password')
+                            .setType(DynamicElement.TYPE_PASSWORD)
+                            .setLabel('Password'),
 
-                    new DynamicInputModel({
-                        id: 'confirm_password',
-                        label: 'Confirm password',
-                        inputType: 'password'
-                    }),
-
-                ]
-            })
-
-        ];
+                        new DynamicElement('confirm_password')
+                            .setType(DynamicElement.TYPE_PASSWORD)
+                            .setLabel('Confirm Password'),
+                    ]),
+            ]);
     }
-
-    setDefaultValues() {
-        this.wizardEntity.updateFormData((data) => {
-            this.getForm().setValues(data);
-        });
-    }
-
 
     submitAction(formValues): void {
-        // these have to be managed by other endpoint
-        delete formValues.network.username;
-        delete formValues.network.password;
-        delete formValues.network.confirm_password;
-
         this.wizardEntity.adjustConfig(formValues);
     }
 

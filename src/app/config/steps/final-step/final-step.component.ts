@@ -19,6 +19,6 @@ export class FinalStepComponent extends CommonStepBase implements CommonStepBase
     }
 
     onFinish() {
-        this.wizardEntity.updateConfiguration();
+        // this.wizardEntity.updateConfiguration();
     }
 }

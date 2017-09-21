@@ -17,53 +17,59 @@ declare let $: any;
 export class WizardComponent implements OnInit {
     title = '';
 
-    controls: { next: any, previous: any , end: any };
+    controls: { next: any, previous: any, end: any };
 
-    step = 0;
+    progressStep = 0;
     stepsLength = 0;
 
     showProgress = false;
 
-    showControls = false;
-
-    constructor(
-        private wizardElemRef: ElementRef,
-        private zone: NgZone,
-        private activatedRoute: ActivatedRoute,
-
-        private wizardEntity: WizardEntity,
-        private wizardService: WizardService,
+    constructor(private wizardElemRef: ElementRef,
+                private zone: NgZone,
+                private activatedRoute: ActivatedRoute,
+                private wizardEntity: WizardEntity,
+                private wizardService: WizardService,
     ) {
-        this.stepsLength =
-            this.wizardService.initSteps(activatedRoute.routeConfig.children);
 
-        this.controls = this.wizardService.getControls();
+        if (!wizardEntity.getConfigState()) {
+            this.wizardService.resetWizard();
+        }
 
-        this.wizardService.manageTitle((title) => { this.title = title; });
-        this.wizardService.manageStep((step) => { this.step = step; });
-        this.wizardService.manageProgressVisibility((visible) => { this.showProgress = visible; });
+        // init steps from routing and get length
+        this.wizardService.initSteps(activatedRoute.routeConfig.children);
 
+        this.stepsLength = this.wizardService.getProgressStepsLength();
 
-        this.wizardEntity.eventHandler.subscribe(WizardEntity.GET_CONFIG, () => {
-            this.showControls = true;
+        // get defined controls
+        this.controls = this.wizardService.getNavigationControls();
+
+        this.wizardService.subscribe(WizardService.STEP_LOADED, (stepConfig) => {
+            this.title = stepConfig.title;
+            this.progressStep = stepConfig.progressStep;
+            this.showProgress = stepConfig.showProgress;
         });
     }
 
     ngOnInit() {
-        this.wizardEntity.getRouterConfig();
-
-
+        // display modal window
         this.zone.runOutsideAngular(() => {
-            $(this.wizardElemRef.nativeElement).find('.modal').modal('show');
+            $(this.wizardElemRef.nativeElement).find('.modal')
+                .modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                .modal('show');
         });
     }
 
+    // manage animation state
     isSlideLeft(outlet) {
         return this.wizardService.direction === WizardService.IS_NEXT
             ? outlet.activatedRoute.routeConfig.path
             : null;
     }
 
+    // manage animation state
     isSlideRight(outlet) {
         return this.wizardService.direction === WizardService.IS_PREV
             ? outlet.activatedRoute.routeConfig.path

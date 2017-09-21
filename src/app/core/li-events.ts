@@ -1,4 +1,4 @@
-export class Events {
+export class LiEvents {
 
     protected eventListeners: {
         [key: string]: ((response: any) => void)[]

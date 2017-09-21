@@ -1,0 +1,24 @@
+<ng-container [formGroup]="formGroup">
+    <label *ngIf="element.label" [attr.for]="element.id" class="col-xs-12">{{ element.label }}</label>
+
+    <ng-container [ngSwitch]="element.controlType">
+        <div class="col-xs-12">
+
+            <ng-container *ngSwitchCase="'text'">
+                <input class="form-control input-sm" [formControlName]="element.id" [placeholder]="element.placeholder"
+                       [id]="element.id" type="text" [textMask]="element.mask">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'password'">
+                <input class="form-control input-sm" [formControlName]="element.id" [placeholder]="element.placeholder"
+                       [id]="element.id" type="password" [textMask]="element.mask">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'checkbox'">
+                <input class="checkbox" [formControlName]="element.id"
+                       [id]="element.id" type="checkbox">
+            </ng-container>
+
+        </div>
+    </ng-container>
+</ng-container>

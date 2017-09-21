@@ -1,67 +1,77 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../core/api-client.service';
-import { Entity } from '../shared/entity/entity';
-import { Events } from '../core/events';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import { LiEvents } from '../core/li-events';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/map';
 
 declare let $: any;
 
 @Injectable()
-export class WizardEntity extends Entity {
-    public static readonly GET_CONFIG = 'get_config';
+export class WizardEntity extends LiEvents {
+
+    public static readonly CONFIG_LOADED = 'config_loaded';
 
     public userConfig: {} = {};
 
     private configState = null;
 
-    public eventHandler: Events = new Events();
-
-    endpoint = '/network/config';
-
     constructor(protected apiService: ApiClientService) {
         super();
-    }
 
-    getRouterConfig() {
-        // calling Get /network/config
-        this.apiService.get(this);
+        Observable
+            .forkJoin([this.requestNetworkDetails(), this.requestServicesDetails()])
+            .subscribe((response) => {
 
-        // store data and call subscribers
-        this.apiService.subscribe(ApiClientService.EV_GET_SUCCESSFUL, (data: any) => {
-            this.configState = data;
-            this.eventHandler.notifySubscribers(WizardEntity.GET_CONFIG, data);
-        });
-    }
+                let services = {};
 
-    updateFormData(mappingCallback: Function) {
-        if (this.configState) {
-            setTimeout(() => {
-                mappingCallback(this.configState);
+                for (let service of response[1]) {
+                    services[service.name] = service.status === 'enabled';
+                }
+
+                this.configState = {
+                    network: response[0]['network'],
+                    services: services,
+                };
+
+                console.log(this.configState);
+
+                this.notifySubscribers(WizardEntity.CONFIG_LOADED, this.configState);
             });
-        } else {
-            this.eventHandler.subscribe(WizardEntity.GET_CONFIG, (data: any) => {
-                mappingCallback(this.configState);
-            });
-        }
     }
 
     adjustConfig(newConfig: {}) {
-
         this.userConfig = $.extend(true, this.userConfig, newConfig);
         console.clear();
         console.log(JSON.stringify(this.userConfig, null, 2));
     }
 
-    getFields(): DynamicFormControlModel[] { return []; }
-
-    submitAction(): void { }
-
-
-    updateConfiguration() {
-        this.apiService.put(this, this.userConfig);
-
-        this.apiService.subscribe(ApiClientService.EV_PUT_SUCCESSFUL, (data: any) => {
-            console.log('Successfully updated using:', JSON.stringify(this.userConfig, null, 2));
-        });
+    getConfigState() {
+        return this.configState;
     }
+
+    requestNetworkDetails() {
+        return this.apiService
+            .get('/network/config')
+            .map(res => res.json());
+    }
+
+    requestServicesDetails() {
+        return this.apiService
+            .get('/services')
+            .map(res => res.json());
+    }
+
+    updateNetworkDetails(networkDetails: {}) {
+        console.log('network details', networkDetails);
+    }
+
+    updateAdminDetails(adminConfig: {}) {
+        console.log('Setting Admin details', adminConfig);
+    }
+
+    updateServices(services: {}) {
+        console.log('Setting services', services);
+    }
+
 }

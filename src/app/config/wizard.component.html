@@ -1,13 +1,18 @@
 <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>-->
-                <!--</button>-->
-                <h4 class="modal-title">{{ title }}</h4>
-            </div>
             <div class="modal-body">
-                <li-progressbar *ngIf="showProgress" [step]="step" [total]="stepsLength"></li-progressbar>
+                <div class="row progress-bar-container">
+                    <div class="col-xs-12">
+                        <li-progressbar *ngIf="showProgress" [step]="progressStep" [total]="stepsLength"></li-progressbar>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 text-center wizard-title">
+                        <h4 class="modal-title">{{ title }}</h4>
+                    </div>
+                </div>
 
                 <div class="outlet-container"
                      [@slideLeft]="isSlideLeft(outlet)"
@@ -17,27 +22,27 @@
                         <router-outlet #outlet="outlet"></router-outlet>
                     </div>
                 </div>
+
             </div>
             <div class="modal-footer">
-                <div class="row" *ngIf="showControls">
+                <div class="row">
                     <div class="col-xs-6 text-left">
                         <!--<button class="btn btn-info"-->
-                                <!--*ngIf="controls.previous.isVisible()"-->
-                                <!--(click)="controls.previous.action()"-->
+                        <!--*ngIf="controls.previous.isVisible()"-->
+                        <!--(click)="controls.previous.action()"-->
                         <!--&gt;Previous-->
                         <!--</button>-->
                     </div>
                     <div class="col-xs-6 text-right">
-                        <button class="btn btn-info"
+                        <button class="btn btn-primary"
                                 *ngIf="controls.next.isVisible()"
                                 (click)="controls.next.action()"
-                        >Next
-                        </button>
+                        >Next <i class="glyphicon glyphicon-chevron-right"></i></button>
 
-                        <button class="btn btn-info"
+                        <button class="btn btn-primary"
                                 *ngIf="controls.end.isVisible()"
                                 (click)="controls.end.action()"
-                        >End
+                        >Install
                         </button>
                     </div>
                 </div>

@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CommonStepBase } from './steps/common-step.base';
+import { LiEvents } from '../core/li-events';
 
 @Injectable()
-export class WizardService {
+export class WizardService extends LiEvents {
 
     public static readonly IS_NEXT = 'next';
     public static readonly IS_PREV = 'prev';
+
+    public static readonly STEP_LOADED = 'step_loaded';
 
     public direction = WizardService.IS_NEXT;
 
@@ -15,60 +18,54 @@ export class WizardService {
     private controlsObserver: any;
 
     private basePath;
-    private index = -1;
+    private index = 0;
     private steps: Routes = [];
 
-    private stepManager: Function = () => {};
-    private titleManager: Function = () => {};
-    private progressVisibilityManager: Function = () => {};
+    constructor(private router: Router) {
+        super();
 
-
-    constructor(
-        private router: Router,
-    ) {
         this.basePath = router.config[router.config.length - 1].path;
 
         this.controlsObservable = new Observable(
-            (observer: any) => { this.controlsObserver = observer; }
+            (observer: any) => {
+                this.controlsObserver = observer;
+            }
         );
     }
 
     initSteps(routes: Routes) {
-        for (let route of routes) {
-            if (route.path) {
-                this.steps.push(route);
-            }
-        }
-
-        return this.steps.length;
+        this.steps = routes;
     }
 
-    manageStep(stepManager: Function) {
-        this.stepManager = stepManager;
-    }
+    getProgressStepsLength() {
 
-    manageTitle(titleManager: Function) {
-        this.titleManager = titleManager;
-    }
-
-    manageProgressVisibility(progressVisibilityManager: Function) {
-        this.progressVisibilityManager = progressVisibilityManager;
+        return this.steps
+            .filter((route) => !(route.data && route.data.abstractStep))
+            .length;
     }
 
     setStep(stepComponent: CommonStepBase) {
+        let progressStep = -1;
+
         for (let i = 0; i < this.steps.length; i++) {
+            if (!(this.steps[i].data && this.steps[i].data.abstractStep)) {
+                progressStep++;
+            }
+
             if (this.steps[i].component === stepComponent.constructor) {
                 this.index = i;
-                this.stepManager(i);
                 break;
             }
         }
 
-        this.titleManager(stepComponent.title);
-        this.progressVisibilityManager(stepComponent.showProgress);
+        this.notifySubscribers(WizardService.STEP_LOADED, {
+            title: stepComponent.title,
+            progressStep: progressStep,
+            showProgress: stepComponent.showProgress,
+        });
     }
 
-    getControls() {
+    getNavigationControls() {
         return {
             next: {
                 isVisible: this.hasNextStep.bind(this),
@@ -97,7 +94,7 @@ export class WizardService {
         if (this.hasNextStep()) {
             setTimeout(() => {
                 this.router.navigate(
-                    [ this.basePath + '/' + this.steps[this.index + 1].path ],
+                    [this.basePath + '/' + this.steps[this.index + 1].path],
                 );
             });
         }
@@ -109,18 +106,16 @@ export class WizardService {
         if (this.hasPreviousStep()) {
             setTimeout(() => {
                 this.router.navigate(
-                    [ this.basePath + '/' + this.steps[this.index - 1].path ],
+                    [this.basePath + '/' + this.steps[this.index - 1].path],
                 );
             });
         }
     }
 
     resetWizard() {
-        setTimeout(() => {
-            this.router.navigate(
-                [ this.basePath ],
-            );
-        });
+        this.router.navigate(
+            [this.basePath],
+        );
     }
 
     private hasNextStep() {

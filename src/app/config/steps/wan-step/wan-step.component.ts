@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormComponent } from '../../../shared/form/form.component';
 import { WizardService } from '../../wizard.service';
 import { WanStepEntity } from './wan-step.entity';
 import { FormStepBase } from '../form-step.base';
+import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form.component';
 
 @Component({
     templateUrl: './wan-step.component.html',
     styleUrls: ['./wan-step.component.scss']
 })
 export class WanStepComponent extends FormStepBase implements FormStepBase {
-    @ViewChild(FormComponent) formComponent: FormComponent;
+    @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;
 
     title = 'Wan Configuration';
 

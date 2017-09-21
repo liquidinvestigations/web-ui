@@ -19,6 +19,9 @@ const routes: Routes = [
                 path: '',
                 pathMatch: 'full',
                 component: WelcomeStepComponent,
+                data: {
+                    abstractStep: true
+                }
             },
             {
                 path: 'admin',

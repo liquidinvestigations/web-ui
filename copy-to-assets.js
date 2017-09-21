@@ -1,14 +1,25 @@
 var cpx = require("cpx");
 
+var assetsPath = './src/assets';
+
 var deps = [
-    './node_modules/jquery/dist/jquery.min.js',
-    './node_modules/bootstrap/dist/**'
+    {
+        from: './node_modules/jquery/dist/jquery.min.js',
+        to: assetsPath + '/jquery/'
+    },
+    {
+        from: './node_modules/bootstrap/dist/**',
+        to: assetsPath + '/bootstrap/'
+    },
+    {
+        from: './node_modules/vanilla-text-mask/dist/vanillaTextMask.js',
+        to: assetsPath + '/vanillaTextMask'
+    }
 ];
 
-var dest = './src/assets';
 
 for (var i in deps) {
-    cpx.copy(deps[i], dest);
+    cpx.copy(deps[i].from, deps[i].to);
 }
 
 console.log("Done copy external");

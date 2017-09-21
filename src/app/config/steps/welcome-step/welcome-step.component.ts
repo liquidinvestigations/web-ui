@@ -5,7 +5,7 @@ import { CommonStepBase } from '../common-step.base';
 @Component({
     selector: 'li-welcome-step',
     templateUrl: './welcome-step.component.html',
-    styleUrls: ['./welcome-step.component.css']
+    styleUrls: ['./welcome-step.component.scss']
 })
 export class WelcomeStepComponent extends CommonStepBase implements CommonStepBase {
 

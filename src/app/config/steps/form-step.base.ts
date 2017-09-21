@@ -1,25 +1,26 @@
 import { CommonStepBase } from './common-step.base';
 import { WizardService } from '../wizard.service';
-import { FormComponent } from '../../shared/form/form.component';
-import { Entity } from '../../shared/entity/entity';
+import { FormStepEntity } from './form-step.entity';
+import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
 
 export abstract class FormStepBase extends CommonStepBase implements CommonStepBase {
-    abstract formComponent: FormComponent;
+    abstract formInstance: DynamicFormComponent;
 
-    constructor(
-        public entity: Entity,
-        protected wizardService: WizardService
-    ) {
+    constructor(public stepEntity: FormStepEntity,
+                protected wizardService: WizardService) {
         super(wizardService);
     }
 
     ngOnInit() {
-        this.entity.setForm(this.formComponent);
-        this.entity.setDefaultValues();
+        this.stepEntity.setFormInstance(this.formInstance);
+    }
+
+    ngAfterViewInit() {
+        this.stepEntity.setDefaultValues();
     }
 
     onControlsClick(direction: string) {
-        this.entity.submitAction(this.formComponent.getValues());
+        this.stepEntity.submitAction(this.formInstance.getValues());
         super.onControlsClick(direction);
     }
 }

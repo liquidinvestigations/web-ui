@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Entity } from '../shared/entity/entity';
 import { environment } from '../../environments/environment';
-import { Events } from './events';
+import { LiEvents } from './li-events';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/share';
 
 declare let $: any;
 
 @Injectable()
-export class ApiClientService extends Events {
+export class ApiClientService extends LiEvents {
     static readonly EV_BEFORE_GET = 'before_read';
     static readonly EV_GET_SUCCESSFUL = 'get_successful';
 
@@ -23,9 +24,9 @@ export class ApiClientService extends Events {
         this.headers.append('Content-Type', 'application/json');
     }
 
-    get(entity: Entity, params = null) {
+    get (endpoint: string, params = null): Observable<any> {
 
-        let url = this.createUrl(entity);
+        let url = this.createUrl(endpoint);
 
         if (params) {
             url += '?' + $.param(params);
@@ -33,37 +34,47 @@ export class ApiClientService extends Events {
 
         this.notifySubscribers(ApiClientService.EV_BEFORE_GET);
 
-        this.http
+        let observable = this.http
             .get(url, this.headers)
+            .share();
+
+
+        observable
             .subscribe((response: any) => {
-                    this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, JSON.parse(response._body));
-                },
-                this.handleBackendErrorOnRead.bind(this)
-            );
+                this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, JSON.parse(response._body));
+            },
+            this.handleBackendErrorOnRead.bind(this)
+        );
+
+        return observable;
     }
 
 
-    put(entity: Entity, payload: {}) {
+    put(endpoint: string, payload: {}) {
 
-        let url = this.createUrl(entity);
+        let url = this.createUrl(endpoint);
 
         this.notifySubscribers(ApiClientService.EV_BEFORE_PUT);
 
-        this.http
+        let observable = this.http
             .put(url, payload, this.headers)
-            .subscribe((response: any) => {
-                    this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL);
-                },
-                this.handleBackendErrorOnRead.bind(this)
-            );
+            .share();
+
+        observable.subscribe((response: any) => {
+                this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL);
+            },
+            this.handleBackendErrorOnRead.bind(this)
+        );
+
+        return observable;
     }
 
     private handleBackendErrorOnRead() {
         console.warn('Error');
     }
 
-    private createUrl(entity: Entity): string {
-        let url = entity.endpoint;
+    private createUrl(endpoint: any): string {
+        let url = endpoint;
 
         if (!environment.production) {
             url = '/api' + url;

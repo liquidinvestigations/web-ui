@@ -3,68 +3,53 @@
   "version": "0.0.0",
   "dependencies": {
     "@angular/animations": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/animations@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.4.3.tgz"
     },
     "@angular/common": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/common@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/common/-/common-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/common/-/common-4.4.3.tgz"
     },
     "@angular/compiler": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/compiler@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-4.4.3.tgz"
     },
     "@angular/core": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/core@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.4.3.tgz"
     },
     "@angular/forms": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/forms@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.4.3.tgz"
     },
     "@angular/http": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/http@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.4.3.tgz"
     },
     "@angular/platform-browser": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/platform-browser@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.4.3.tgz"
     },
     "@angular/platform-browser-dynamic": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/platform-browser-dynamic@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.4.3.tgz"
     },
     "@angular/router": {
-      "version": "4.3.6",
+      "version": "4.4.3",
       "from": "@angular/router@>=4.2.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/@angular/router/-/router-4.3.6.tgz"
-    },
-    "@ng-dynamic-forms/core": {
-      "version": "1.4.31",
-      "from": "@ng-dynamic-forms/core@latest",
-      "resolved": "https://registry.npmjs.org/@ng-dynamic-forms/core/-/core-1.4.31.tgz"
-    },
-    "@ng-dynamic-forms/ui-bootstrap": {
-      "version": "1.4.31",
-      "from": "https://registry.npmjs.org/@ng-dynamic-forms/ui-bootstrap/-/ui-bootstrap-1.4.31.tgz",
-      "resolved": "https://registry.npmjs.org/@ng-dynamic-forms/ui-bootstrap/-/ui-bootstrap-1.4.31.tgz"
-    },
-    "angular2-text-mask": {
-      "version": "8.0.4",
-      "from": "angular2-text-mask@latest",
-      "resolved": "https://registry.npmjs.org/angular2-text-mask/-/angular2-text-mask-8.0.4.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/router/-/router-4.4.3.tgz"
     },
     "bootstrap": {
       "version": "3.3.7",
-      "from": "bootstrap@latest",
+      "from": "bootstrap@>=3.3.7 <4.0.0",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz"
     },
     "core-js": {
@@ -74,7 +59,7 @@
     },
     "jquery": {
       "version": "3.2.1",
-      "from": "jquery@latest",
+      "from": "jquery@>=3.2.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz"
     },
     "rxjs": {
@@ -87,19 +72,19 @@
       "from": "symbol-observable@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz"
     },
-    "text-mask-core": {
-      "version": "5.0.1",
-      "from": "text-mask-core@>=5.0.0 <6.0.0",
-      "resolved": "https://registry.npmjs.org/text-mask-core/-/text-mask-core-5.0.1.tgz"
-    },
     "tslib": {
       "version": "1.7.1",
       "from": "tslib@>=1.7.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/tslib/-/tslib-1.7.1.tgz"
     },
+    "vanilla-text-mask": {
+      "version": "5.0.1",
+      "from": "vanilla-text-mask@>=5.0.1 <6.0.0",
+      "resolved": "https://registry.npmjs.org/vanilla-text-mask/-/vanilla-text-mask-5.0.1.tgz"
+    },
     "web-animations-js": {
       "version": "2.3.1",
-      "from": "web-animations-js@latest",
+      "from": "web-animations-js@>=2.3.1 <3.0.0",
       "resolved": "https://registry.npmjs.org/web-animations-js/-/web-animations-js-2.3.1.tgz"
     },
     "zone.js": {

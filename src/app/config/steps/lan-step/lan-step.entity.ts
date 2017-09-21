@@ -1,76 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Entity } from '../../../shared/entity/entity';
+import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { DynamicInputModel } from '@ng-dynamic-forms/core/src/model/input/dynamic-input.model';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
-import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
-import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/src/model/checkbox/dynamic-checkbox.model';
+import { DynamicForm } from '../../../shared/dynamic-forms/dynamic-form';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
+import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
 
 @Injectable()
-export class LanStepEntity extends Entity {
+export class LanStepEntity extends FormStepEntity {
 
     constructor(protected wizardEntity: WizardEntity) {
-        super();
+        super(wizardEntity);
     }
 
-    getFields(): DynamicFormControlModel[] {
-        return [
-            new DynamicFormGroupModel({
-                id: 'network',
-                group: [
-                    new DynamicFormGroupModel({
-                        id: 'lan',
-                        group: [
-                            new DynamicInputModel({
-                                id: 'ip',
-                                label: 'IP',
-                                placeholder: '000.000.000'
-                            }),
+    getDynamicFormConfig(): DynamicForm | DynamicFormGroup {
+        return new DynamicForm('network')
+            .elements([
+                new DynamicFormGroup('lan')
+                    .elements([
 
-                            new DynamicInputModel({
-                                id: 'netmask',
-                                label: 'Netmask',
-                                placeholder: '000.000.000-255'
-                            }),
+                        new DynamicElement('eth', 'Use LAN')
+                            .setType(DynamicElement.TYPE_CHECKBOX),
 
-                            new DynamicInputModel({
-                                id: 'dhcp_range',
-                                label: 'DHCP Range',
-                                placeholder: '000.000.000-255'
-                            }),
+                        new DynamicElement('ip', 'IP')
+                            .setType(DynamicElement.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000'),
 
-                            new DynamicFormGroupModel({
-                                id: 'hotspot',
-                                group: [
-                                    new DynamicInputModel({
-                                        id: 'ssid',
-                                        label: 'SSID',
-                                        placeholder: 'SSID'
-                                    }),
-                                    new DynamicInputModel({
-                                        id: 'password',
-                                        label: 'Password',
-                                        placeholder: ''
-                                    }),
-                                ]
-                            }),
+                        new DynamicElement('netmask', 'Netmask')
+                            .setType(DynamicElement.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000-255'),
 
-                            new DynamicCheckboxModel({
-                                id: 'eth',
-                                label: 'Use LAN'
-                            })
-                        ]
-                    })
-                ]
-            })
+                        new DynamicElement('dhcp_range', 'DHCP Range')
+                            .setType(DynamicElement.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000-255'),
 
-        ];
-    }
+                        new DynamicFormGroup('hotspot')
+                            .elements([
+                                new DynamicElement('ssid', 'SSID')
+                                    .setType(DynamicElement.TYPE_TEXT)
+                                    .setPlaceholder('your SSID'),
 
-    setDefaultValues() {
-        this.wizardEntity.updateFormData((data) => {
-            this.getForm().setValues(data);
-        });
+                                new DynamicElement('password', 'Password')
+                                    .setType(DynamicElement.TYPE_PASSWORD)
+                            ])
+
+                    ])
+            ]);
     }
 
 

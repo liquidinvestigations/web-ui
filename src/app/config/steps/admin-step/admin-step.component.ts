@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormComponent } from '../../../shared/form/form.component';
 import { FormStepBase } from '../form-step.base';
 import { WizardService } from '../../wizard.service';
 import { AdminStepEntity } from './admin-step.entity';
+import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form.component';
 
 @Component({
-  templateUrl: './admin-step.component.html',
-  styleUrls: ['./admin-step.component.scss']
+    templateUrl: './admin-step.component.html',
+    styleUrls: ['./admin-step.component.scss']
 })
 export class AdminStepComponent extends FormStepBase implements FormStepBase {
-    @ViewChild(FormComponent) formComponent: FormComponent;
+    @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;
 
     title = 'Admin Configuration';
 

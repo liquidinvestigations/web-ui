@@ -10,6 +10,10 @@ export abstract class CommonStepBase implements OnInit {
     constructor(
         protected wizardService: WizardService,
     ) {
+        this.stepInit();
+    }
+
+    protected stepInit() {
         setTimeout(() => {
             this.wizardService.setStep(this);
         });
@@ -35,4 +39,5 @@ export abstract class CommonStepBase implements OnInit {
     }
 
     onFinish() {}
+
 }
