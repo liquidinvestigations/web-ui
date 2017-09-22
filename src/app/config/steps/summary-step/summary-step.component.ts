@@ -29,11 +29,12 @@ export class SummaryStepComponent extends CommonStepBase implements CommonStepBa
     ) {
         super(wizardService);
 
-        this.mapSummaryConfig(
-            this.wizardEntity.userConfig
-        );
+        if (this.wizardEntity.userConfig) {
+            this.mapSummaryConfig(
+                this.wizardEntity.userConfig
+            );
+        }
     }
-
 
     mapSummaryConfig(config) {
         this.currentConfig = {

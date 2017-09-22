@@ -13,9 +13,9 @@ export class WizardEntity extends LiEvents {
     public static readonly CONFIG_LOADED = 'config_loaded';
     public static readonly UPDATE_CONFIG = 'update_config';
 
-    public userConfig: {} = {};
+    public userConfig: {} = null;
 
-    private configState = null;
+    private configState: {} = null;
 
     constructor(protected apiService: ApiClientService) {
         super();

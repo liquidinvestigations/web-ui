@@ -12,11 +12,11 @@ export abstract class FormStepBase extends CommonStepBase implements CommonStepB
         protected wizardService: WizardService
     ) {
         super(wizardService);
-
-        this.buttonConfig['disabled'] = false;
     }
 
     ngOnInit() {
+        this.buttonConfig['disabled'] = true;
+
         this.formStepEntity.setFormInstance(this.formInstance);
         this.formInstance.fg.valueChanges
             .subscribe(() => {

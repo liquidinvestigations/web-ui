@@ -21,7 +21,9 @@ export class FinalStepComponent extends CommonStepBase implements CommonStepBase
     ) {
         super(wizardService);
 
-        this.url = this.wizardEntity.userConfig['network'].domain;
+        if (this.wizardEntity.userConfig) {
+            this.url = this.wizardEntity.userConfig['network'].domain;
+        }
     }
 
 }
