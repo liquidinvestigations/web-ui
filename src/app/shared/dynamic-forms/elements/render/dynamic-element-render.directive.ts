@@ -10,13 +10,12 @@ export class CustomElementRenderDirective implements OnInit {
 
     @Input() dynamicElementRenderer: DynamicElementRendererBase | any;
     @Input() element: DynamicElement;
-    @Input() formGroup: FormGroup;
+    @Input() fg: FormGroup;
 
     constructor(
         private viewContainerRef: ViewContainerRef,
         private componentFactoryResolver: ComponentFactoryResolver
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
 
@@ -30,7 +29,7 @@ export class CustomElementRenderDirective implements OnInit {
             let component = this.viewContainerRef.createComponent(componentFactory);
             let instance = component.instance;
             instance['element'] = this.element;
-            instance['formGroup'] = this.formGroup;
+            instance['fg'] = this.fg;
         }
 
     }

@@ -1,17 +1,25 @@
-<div [formGroup]="formGroup">
-    <ng-container *ngFor="let element of getElements()">
+<div [formGroup]="fg">
+    <ng-container *ngFor="let field of getFields(); let i=index">
 
-        <ng-container *ngIf="isDynamicGroup(element)">
-            <div class="{{ element.cssClass }}" [formGroupName]="element.id">
-                <dynamic-form-group [formGroup]="formGroup.controls[element.id]" [dynamicFormGroup]="element"
+        <ng-container *ngIf="isDynamicGroup(field)">
+            <div class="{{ field.cssClass }}" [formGroupName]="field.id">
+                <dynamic-form-group [fg]="fg.controls[field.id]" [dynamicFormGroup]="field"
                                     [chainPath]="chainPath">
                 </dynamic-form-group>
             </div>
         </ng-container>
 
-        <ng-container *ngIf="isDynamicElement(element)">
+        <ng-container *ngIf="isDynamicArray(field)">
+            <div class="{{ field.cssClass }}" [formArrayName]="field.id">
+
+                <dynamic-form-array [fg]="fg.controls[field.id]" [dynamicFormArray]="field">
+                </dynamic-form-array>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isDynamicElement(field)">
             <div class="form-group row">
-                <dynamic-form-element [formGroup]="formGroup" [element]="element"></dynamic-form-element>
+                <dynamic-form-element [fg]="fg" [element]="field"></dynamic-form-element>
             </div>
         </ng-container>
 

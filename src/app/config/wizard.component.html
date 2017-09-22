@@ -30,6 +30,7 @@
                         <button *ngIf="buttonConfig"
                                 class="{{ buttonConfig.buttonClass }}"
                                 (click)="buttonConfig.action()"
+                                [disabled]="buttonConfig.disabled"
                         >{{ buttonConfig.label }} <i class="{{ buttonConfig.iconClass }}"></i></button>
 
                     </div>

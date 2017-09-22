@@ -11,6 +11,7 @@ declare let $: any;
 export class WizardEntity extends LiEvents {
 
     public static readonly CONFIG_LOADED = 'config_loaded';
+    public static readonly UPDATE_CONFIG = 'update_config';
 
     public userConfig: {} = {};
 
@@ -34,17 +35,33 @@ export class WizardEntity extends LiEvents {
                     services: services,
                 };
 
-                console.log(this.configState);
-
                 this.notifySubscribers(WizardEntity.CONFIG_LOADED, this.configState);
             });
+
+        this.subscribe(WizardEntity.UPDATE_CONFIG, () => {
+
+            let networkConfig = { network: this.userConfig['network'] };
+
+            let adminConfig = this.userConfig['admin'];
+            delete adminConfig['confirm_password'];
+            adminConfig['domain'] = this.userConfig['network'].domain;
+
+            let servicesConfig = this.userConfig['services'];
+
+
+            Observable.forkJoin([
+                this.updateNetworkDetails(networkConfig),
+                this.updateAdminDetails(adminConfig),
+                this.updateServices(servicesConfig)
+            ])
+                .subscribe(null, null, () => {
+                    console.log('Succesfully updated settings');
+                });
+        });
     }
 
     updateConfigState(newConfig: {}) {
         this.userConfig = $.extend(true, this.userConfig, newConfig);
-
-        console.clear();
-        console.log(JSON.stringify(this.userConfig, null, 2));
     }
 
     getConfigState() {
@@ -64,15 +81,26 @@ export class WizardEntity extends LiEvents {
     }
 
     private updateNetworkDetails(networkDetails: {}) {
-        console.log('network details', networkDetails);
+        return this.apiService
+            .put('/network/config', networkDetails);
     }
 
     private updateAdminDetails(adminConfig: {}) {
-        console.log('Setting Admin details', adminConfig);
+        return this.apiService
+            .post('/setup/registration', adminConfig);
     }
 
     private updateServices(services: {}) {
-        console.log('Setting services', services);
+        let requests = [];
+
+        for (let i in services) {
+            requests.push(
+                this.apiService
+                    .put('/services/' + i, { enabled: services[i] })
+            );
+        }
+
+        return Observable.forkJoin(requests);
     }
 
 }

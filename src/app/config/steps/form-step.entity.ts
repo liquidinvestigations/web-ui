@@ -1,16 +1,15 @@
-import { DynamicForm } from '../../shared/dynamic-forms/dynamic-form';
 import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/group/dynamic-form-group';
 import { WizardEntity } from '../wizard.entity';
 
 export abstract class FormStepEntity {
 
-    public dynamicFormConfig: (DynamicForm | DynamicFormGroup);
+    public dynamicFormConfig: DynamicFormGroup;
     private formInstance: DynamicFormComponent;
 
     private serverConfig: {} = null;
 
-    abstract getDynamicFormConfig(): (DynamicForm | DynamicFormGroup);
+    abstract getDynamicFormConfig(): DynamicFormGroup;
 
     constructor(protected wizardEntity: WizardEntity) {
         // get current stepEntity form configuration

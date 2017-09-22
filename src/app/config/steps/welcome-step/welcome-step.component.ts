@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WizardService } from '../../wizard.service';
 import { CommonStepBase } from '../common-step.base';
+import { WizardEntity } from '../../wizard.entity';
 
 @Component({
     selector: 'li-welcome-step',
@@ -19,7 +20,8 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
         buttonClass: 'btn btn-success',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
-        }
+        },
+        disabled: () => false
     };
 
     constructor(protected wizardService: WizardService) {

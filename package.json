@@ -9,6 +9,7 @@
     "prebuild": "npm run copy",
     "start": "ng serve --environment dev --proxy-config proxy.conf.json",
     "build": "ng build",
+    "build-prod": "ng build --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

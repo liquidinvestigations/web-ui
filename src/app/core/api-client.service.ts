@@ -50,6 +50,25 @@ export class ApiClientService extends LiEvents {
     }
 
 
+    post(endpoint: string, payload: {}) {
+
+        let url = this.createUrl(endpoint);
+
+        this.notifySubscribers(ApiClientService.EV_BEFORE_PUT);
+
+        let observable = this.http
+            .post(url, payload, this.headers)
+            .share();
+
+        observable.subscribe((response: any) => {
+                this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL);
+            },
+            this.handleBackendErrorOnRead.bind(this)
+        );
+
+        return observable;
+    }
+
     put(endpoint: string, payload: {}) {
 
         let url = this.createUrl(endpoint);

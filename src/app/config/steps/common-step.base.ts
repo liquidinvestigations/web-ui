@@ -12,10 +12,14 @@ export abstract class CommonStepBase implements OnInit {
         buttonClass: 'btn btn-primary',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
-        }
+        },
     };
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.buttonConfig) {
+            this.buttonConfig['disabled'] = false;
+        }
+    }
 
     constructor(
         protected wizardService: WizardService,

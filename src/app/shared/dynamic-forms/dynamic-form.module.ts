@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicFormComponent } from './dynamic-form.component';
 import { DynamicFormService } from './dynamic-form.service';
 import { DynamicFormGroupComponent } from './group/dynamic-form-group.component';
+import { DynamicFormArrayComponent } from './group/dynamic-form-array.component';
 import { DynamicFormElementComponent } from './elements/dynamic-form-element.component';
 import { CustomElementRenderDirective } from './elements/render/dynamic-element-render.directive';
 import { FormElementComponent } from './elements/form-element.component';
@@ -18,6 +19,7 @@ import { DynamicElementMaskDirective } from './elements/render/dynamic-element-m
     declarations: [
         DynamicFormComponent,
         DynamicFormGroupComponent,
+        DynamicFormArrayComponent,
         DynamicFormElementComponent,
         FormElementComponent,
 

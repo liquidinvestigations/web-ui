@@ -1,4 +1,4 @@
-<ng-container [formGroup]="formGroup">
+<ng-container [formGroup]="fg">
     <div class="service-element">
         <div class="service-icon"></div>
         <div class="service-body">
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="service-control">
-            <form-element [element]="element" [formGroup]="formGroup"></form-element>
+            <form-element [element]="element" [fg]="fg"></form-element>
         </div>
     </div>
 </ng-container>

@@ -1,4 +1,4 @@
-<ng-container [formGroup]="formGroup">
+<ng-container [formGroup]="fg">
     <label *ngIf="element.label" [attr.for]="element.id" class="col-xs-12 col-sm-5 control-label text-right">{{ element.label }}</label>
 
     <ng-container [ngSwitch]="element.controlType">
@@ -7,11 +7,18 @@
             <ng-container *ngSwitchCase="'text'">
                 <input class="form-control input-sm" [formControlName]="element.id" [placeholder]="element.placeholder"
                        [id]="element.id" type="text" [textMask]="element.mask">
+
+                <span *ngIf="element.enableTextToogle" class="show-password" (click)="switchToText(element)">
+                    <i class="glyphicon glyphicon-eye-close"></i>
+                </span>
             </ng-container>
 
             <ng-container *ngSwitchCase="'password'">
                 <input class="form-control input-sm" [formControlName]="element.id" [placeholder]="element.placeholder"
                        [id]="element.id" type="password" [textMask]="element.mask">
+                <span *ngIf="element.enableTextToogle" class="show-password" (click)="switchToText(element)">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                </span>
             </ng-container>
 
             <ng-container *ngSwitchCase="'checkbox'">

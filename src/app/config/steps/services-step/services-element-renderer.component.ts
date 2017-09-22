@@ -11,7 +11,7 @@ import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.s
 })
 export class ServicesElementRendererComponent extends DynamicElementRendererBase {
     @Input() element: DynamicElement;
-    @Input() formGroup: FormGroup;
+    @Input() fg: FormGroup;
 
     constructor(protected dynamicFormService: DynamicFormService) {
         super(dynamicFormService);

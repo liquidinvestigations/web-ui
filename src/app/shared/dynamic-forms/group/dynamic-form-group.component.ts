@@ -1,17 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { DynamicFormGroup } from './dynamic-form-group';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicElement } from '../elements/dynamic-element';
-
-declare let _: any;
+import { DynamicFormArray } from './dynamic-form-array';
 
 @Component({
     selector: 'dynamic-form-group',
     templateUrl: './dynamic-form-group.component.html',
 })
 export class DynamicFormGroupComponent implements OnInit {
-    @Input() formGroup: FormGroup;
+    @Input() fg: FormGroup;
     @Input() dynamicFormGroup: DynamicFormGroup;
 
     @Input() chainPath: string[] = [];
@@ -28,12 +27,12 @@ export class DynamicFormGroupComponent implements OnInit {
         this.chainPath = this.lastPath;
         if (group instanceof DynamicFormGroup) {
 
-            if (!this.formGroup.controls[group.id]) {
+            if (!this.fg.controls[group.id]) {
                 let path = this.lastPath.slice().concat([group.id]);
 
-                this.formGroup.addControl(group.id,
+                this.fg.addControl(group.id,
                     this.dynamicFormService.createGroup(
-                        group._elementsArray,
+                        group,
                         path
                     )
                 );
@@ -47,11 +46,26 @@ export class DynamicFormGroupComponent implements OnInit {
         return false;
     }
 
+    isDynamicArray(array: DynamicFormArray): boolean {
+        if (array instanceof DynamicFormArray) {
+            if (!this.fg.controls[array.id]) {
+
+                this.fg.addControl(array.id,
+                    this.dynamicFormService.createArray(
+                        array,
+                        this.lastPath.slice()
+                    )
+                );
+            }
+            return true;
+        }
+        return false;
+    }
+
     isDynamicElement(element: DynamicElement): boolean {
         if (element instanceof DynamicElement) {
-            if (!this.formGroup.controls[element.id]) {
-
-                this.formGroup.addControl(
+            if (!this.fg.controls[element.id]) {
+                this.fg.addControl(
                     element.id,
                     this.dynamicFormService.createElement(element, this.chainPath)
                 );
@@ -61,7 +75,7 @@ export class DynamicFormGroupComponent implements OnInit {
         return false;
     }
 
-    getElements() {
+    getFields() {
         return this.dynamicFormGroup._elementsArray;
     }
 }

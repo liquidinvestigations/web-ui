@@ -1,4 +1,4 @@
-<ng-container [formGroup]="formGroup">
+<ng-container [formGroup]="fg">
     <div class="col-xs-12 divider-holder text-center" *ngIf="element.hasTopDivider">
         <hr>
     </div>
@@ -6,14 +6,14 @@
     <div class="form-group">
         <ng-container *ngIf="hasRenderer()">
             <ng-template [dynamicElementRenderer]="formRenderer" [element]="element"
-                         [formGroup]="formGroup"></ng-template>
+                         [fg]="fg"></ng-template>
         </ng-container>
 
         <ng-container *ngIf="!hasRenderer()">
-            <form-element [element]="element" [formGroup]="formGroup"></form-element>
+            <form-element [element]="element" [fg]="fg"></form-element>
 
             <div class="errorMessage">
-                <element-validation-error [control]="formGroup.controls[element.id]"></element-validation-error>
+                <element-validation-error [control]="fg.controls[element.id]"></element-validation-error>
             </div>
         </ng-container>
     </div>

@@ -25,7 +25,8 @@ export class WizardComponent implements OnInit {
         label: string,
         iconClass: string,
         buttonClass: string,
-        action: () => {}
+        action?: () => {}
+        disabled?: boolean
     } = null;
 
     constructor(private wizardElemRef: ElementRef,

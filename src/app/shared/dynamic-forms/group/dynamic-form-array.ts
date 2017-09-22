@@ -1,13 +1,14 @@
 import { DynamicElement } from '../elements/dynamic-element';
+import { DynamicFormGroup } from './dynamic-form-group';
 
-export class DynamicFormGroup {
+export class DynamicFormArray {
 
     public _elementsArray: (DynamicFormGroup | DynamicElement)[];
     public renderer: any;
 
-    public validator: Function;
-
     public cssClass: string;
+
+    public getterArguments = [];
 
     constructor(public id?: string) {
 
@@ -25,11 +26,6 @@ export class DynamicFormGroup {
 
     setCssClass(cssClass: string) {
         this.cssClass = cssClass;
-        return this;
-    }
-
-    setValidator(validators: any) {
-        this.validator = validators;
         return this;
     }
 }

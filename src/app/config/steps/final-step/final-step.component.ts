@@ -9,15 +9,19 @@ import { WizardService } from '../../wizard.service';
 })
 export class FinalStepComponent extends CommonStepBase implements CommonStepBase {
 
-    title = 'Great success';
+    title = '';
 
     buttonConfig = null;
+
+    url = '';
 
     constructor(
         private wizardEntity: WizardEntity,
         protected wizardService: WizardService
     ) {
         super(wizardService);
+
+        this.url = this.wizardEntity.userConfig['network'].domain;
     }
 
 }

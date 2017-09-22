@@ -11,7 +11,7 @@ import { DynamicFormService } from '../dynamic-form.service';
     ]
 })
 export class DynamicFormElementComponent {
-    @Input() formGroup: FormGroup;
+    @Input() fg: FormGroup;
     @Input() element: DynamicElement;
 
     formRenderer: any;
@@ -21,7 +21,9 @@ export class DynamicFormElementComponent {
     }
 
     hasRenderer() {
-        if (this.element.renderer) {
+        if (this.element.renderer === false) {
+            return false;
+        } else if (this.element.renderer) {
             this.formRenderer = this.element.renderer;
             return true;
         } else if (this.dynamicFormService.formRenderer) {

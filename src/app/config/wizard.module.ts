@@ -45,6 +45,9 @@ import { ServicesElementRendererComponent } from './steps/services-step/services
         SummaryStepComponent,
         FinalStepComponent,
     ],
+    entryComponents: [
+        ServicesElementRendererComponent
+    ],
     providers: [
         WizardService,
         WizardEntity,

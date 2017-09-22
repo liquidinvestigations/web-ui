@@ -15,36 +15,21 @@ export class DynamicElement {
      * @private
      */
     private _value: string | Function = '';
-    get value () {
-        if (this._value instanceof Function) {
-            return this._value.apply(this, this.getterArguments);
-        }
-        return this._value ;
-    }
-    set value (value ) { this._value  = value ; }
+    get value () { return this.generalGetter('_value'); }
+    set value (value) { this._value = value ; }
 
     /**
      * Define renderer property with setter and getter
      */
     private _renderer: any;
-    get renderer() {
-        if (this._renderer instanceof Function) {
-            return this._renderer.apply(this, this.getterArguments);
-        }
-        return this._renderer;
-    }
+    get renderer () { return this.generalGetter('_renderer'); }
     set renderer(renderer) { this._renderer = renderer; }
 
     /**
      * Define label property with setter and getter
      */
     private _label: string | Function;
-    get label() {
-        if (this._label instanceof Function) {
-            return this._label.apply(this, this.getterArguments);
-        }
-        return this._label;
-    }
+    get label () { return this.generalGetter('_label'); }
     set label(label) { this._label = label; }
 
     /**
@@ -53,37 +38,8 @@ export class DynamicElement {
      * @private
      */
     private _placeholder: string | Function = '';
-    get placeholder () {
-        if (this._placeholder  instanceof Function) {
-            return this._placeholder.apply(this, this.getterArguments);
-        }
-        return this._placeholder ;
-    }
+    get placeholder () { return this.generalGetter('_placeholder'); }
     set placeholder (placeholder ) { this._placeholder  = placeholder ; }
-
-    /**
-     * Define required property with setter and getter
-     */
-    private _required: boolean | Function;
-    get required() {
-        if (this._required instanceof Function) {
-            return this._required.apply(this, this.getterArguments);
-        }
-        return this._required;
-    }
-    set required(required) { this._required = required; }
-
-    /**
-     * Define order property with setter and getter
-     */
-    private _order: number | Function;
-    get order() {
-        if (this._order instanceof Function) {
-            return this._order.apply(this, this.getterArguments);
-        }
-        return this._order;
-    }
-    set order(order) { this._order = order; }
 
     /**
      * Define mask property with setter and getter
@@ -91,64 +47,25 @@ export class DynamicElement {
      * @private
      */
     private _mask: (string | RegExp)[] = [];
-    get mask() {
-        if (this._mask instanceof Function) {
-            return this._mask.apply(this, this.getterArguments);
-        }
-        return this._mask;
-    }
+    get mask () { return this.generalGetter('_mask'); }
     set mask(mask) { this._mask = mask; }
 
     /**
      * Define controlType property with setter and getter
      */
     private _controlType: string | Function;
-    get controlType() {
-        if (this._controlType instanceof Function) {
-            return this._controlType.apply(this, this.getterArguments);
-        }
-        return this._controlType;
-    }
+    get controlType () { return this.generalGetter('_controlType'); }
     set controlType(controlType) { this._controlType = controlType; }
 
     /**
      * Define type property with setter and getter
      */
     private _type: string | Function;
-    get type() {
-        if (this._type instanceof Function) {
-            return this._type.apply(this, this.getterArguments);
-        }
-        return this._type;
-    }
+    get type () { return this.generalGetter('_type'); }
     set type(type) { this._type = type; }
 
-    /**
-     * Define validators property with setter and getter
-     * @type {Array}
-     * @private
-     */
-    private _validators: any[] = [];
-    get validators() {
-        if (this._validators instanceof Function) {
-            return this._validators.apply(this, this.getterArguments);
-        }
-        return this._validators;
-    }
-    set validators(validators) { this._validators = validators; }
-
-    /**
-     * Define options property with setter and getter
-     */
-    private _options: { key: string; value: string; }[];
-    get options() {
-        if (this._options instanceof Function) {
-            return this._options.apply(this, this.getterArguments);
-        }
-        return this._options;
-    }
-    set options(options) { this._options = options; }
-
+    public enableTextToogle = false;
+    public validators: any[] = [];
 
     hasTopDivider = false;
     hasBottomDivider = false;
@@ -159,7 +76,7 @@ export class DynamicElement {
 
     public onChangeHandler: Function = null;
 
-    constructor(public id: string, label?: string) {
+    constructor(public id?: string, label?: string) {
         this.label = label || '';
     }
 
@@ -176,11 +93,6 @@ export class DynamicElement {
 
     setPlaceholder(placeholder: string | Function) {
         this._placeholder = placeholder;
-        return this;
-    }
-
-    setLabel(label: string | Function) {
-        this.label = label;
         return this;
     }
 
@@ -219,10 +131,21 @@ export class DynamicElement {
         return this;
     }
 
+    setEnableTextToggle() {
+        this.enableTextToogle = true;
+        return this;
+    }
+
     setHasBottomDivider() {
         this.hasBottomDivider = true;
         return this;
     }
 
+    private generalGetter(key) {
+        if (this[key] instanceof Function) {
+            return this[key].apply(this, this.getterArguments);
+        }
+        return this[key];
+    }
 }
 
