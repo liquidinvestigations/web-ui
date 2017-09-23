@@ -1,8 +1,9 @@
 import { DynamicElement } from '../elements/dynamic-element';
+import { DynamicFormArray } from './dynamic-form-array';
 
 export class DynamicFormGroup {
 
-    public _elementsArray: (DynamicFormGroup | DynamicElement)[];
+    public _elementsArray: (DynamicFormGroup | DynamicElement | DynamicFormArray)[];
     public renderer: any;
 
     public validator: Function;
@@ -13,7 +14,7 @@ export class DynamicFormGroup {
 
     }
 
-    elements(elements: (DynamicFormGroup | DynamicElement)[] = []) {
+    elements(elements: (DynamicFormGroup | DynamicElement | DynamicFormArray)[] = []) {
         this._elementsArray = elements;
         return this;
     }

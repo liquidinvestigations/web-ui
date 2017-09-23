@@ -83,12 +83,6 @@ span.round-tab i {
   transition: background-color 0.9s ease-in;
 }
 
-
-span.round-tab:hover {
-  color: #333;
-  border: 2px solid #333;
-}
-
 .wizard .nav-tabs > li {
   width: 25%;
 
@@ -101,7 +95,7 @@ span.round-tab:hover {
     cursor: default;
 
     &:hover {
-      background: transparent;
+      background: none;
     }
   }
 }
