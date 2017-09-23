@@ -20,21 +20,8 @@ export class LanStepEntity extends FormStepEntity {
                     new DynamicFormGroup('lan')
                         .elements([
 
-                            new DynamicElement('eth', 'Use LAN')
-                                .setType(DynamicElement.TYPE_CHECKBOX)
-                                .onChange((value, mapping, formGroup) => {
-                                    let controls = formGroup.get(['network', 'lan']).controls;
-
-                                    for (let i in controls) {
-                                        if (i !== 'eth') {
-                                            if (value) {
-                                                controls[i].enable();
-                                            } else {
-                                                controls[i].disable();
-                                            }
-                                        }
-                                    }
-                                }),
+                            new DynamicElement('eth', 'Use Ethernet on LAN')
+                                .setType(DynamicElement.TYPE_CHECKBOX),
 
                             new DynamicElement('ip', 'IP')
                                 .setType(DynamicElement.TYPE_TEXT)
