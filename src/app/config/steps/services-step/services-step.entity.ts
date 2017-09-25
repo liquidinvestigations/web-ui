@@ -9,6 +9,8 @@ import { DynamicFormArray } from '../../../shared/dynamic-forms/group/dynamic-fo
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
 
+    public showSSHkeys = false;
+
     constructor(protected wizardEntity: WizardEntity) {
         super(wizardEntity);
     }
@@ -25,16 +27,17 @@ export class ServicesStepEntity extends FormStepEntity {
                                 new DynamicElement('enabled', 'SSH')
                                     .setType(DynamicElement.TYPE_CHECKBOX),
 
-                                // new DynamicFormArray('authorized_keys')
-                                //     .elements([
-                                //         new DynamicElement('key', 'Key')
-                                //             .setRenderer(false)
-                                //             .setType(DynamicElement.TYPE_TEXT),
-                                //
-                                //         new DynamicElement('key', 'Key')
-                                //             .setRenderer(false)
-                                //             .setType(DynamicElement.TYPE_TEXT),
-                                //     ])
+                                new DynamicFormArray('authorized_keys')
+                                    .setVisibility(
+                                        () => this.showSSHkeys
+                                    )
+                                    .generateElement(
+                                        new DynamicElement('key')
+                                            .setRenderer(false)
+                                            .setType(DynamicElement.TYPE_TEXT)
+                                            .setIsRemovable()
+                                    )
+                                    .setMaxAddLimit(5)
                             ])
                     ]),
 

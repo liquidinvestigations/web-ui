@@ -1,4 +1,7 @@
-import { ComponentFactoryResolver, Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
+import {
+    ComponentFactoryResolver, Directive, EventEmitter, Input, OnInit, Output,
+    ViewContainerRef
+} from '@angular/core';
 import { DynamicElement } from '../dynamic-element';
 import { FormGroup } from '@angular/forms';
 import { DynamicElementRendererBase } from './dynamic-element-renderer.base';
@@ -11,6 +14,7 @@ export class CustomElementRenderDirective implements OnInit {
     @Input() dynamicElementRenderer: DynamicElementRendererBase | any;
     @Input() element: DynamicElement;
     @Input() fg: FormGroup;
+    @Output() elementEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(
         private viewContainerRef: ViewContainerRef,
@@ -28,9 +32,10 @@ export class CustomElementRenderDirective implements OnInit {
 
             let component = this.viewContainerRef.createComponent(componentFactory);
             let instance = component.instance;
+
             instance['element'] = this.element;
             instance['fg'] = this.fg;
+            instance['elementEvent'] = this.elementEvent;
         }
-
     }
 }

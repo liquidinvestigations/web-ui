@@ -20,23 +20,75 @@ export class WizardEntity extends LiEvents {
     constructor(protected apiService: ApiClientService) {
         super();
 
-        Observable
-            .forkJoin([this.requestNetworkDetails(), this.requestServicesDetails()])
-            .subscribe((response) => {
-
-                let services = {};
-
-                for (let service of response[1]) {
-                    services[service.name] = service.status === 'enabled';
+        this.configState = {
+            "network": {
+                "domain": "liquidnode.liquid",
+                "lan": {
+                    "eth": false,
+                    "ip": "10.0.0.1",
+                    "netmask": "255.255.255.0",
+                    "dhcp_range": "10.0.0.100-255",
+                    "hotspot": {
+                        "ssid": "foo",
+                        "password": "bar"
+                    }
+                },
+                "wan": {
+                    "static": {
+                        "ip": "192.168.66.66",
+                        "netmask": "255.255.255.0",
+                        "gateway": "192.168.66.1",
+                        "dns_server": "192.168.66.1"
+                    },
+                    "wifi": {
+                        "ssid": "network",
+                        "password": "password"
+                    }
+                },
+                "ssh": {
+                    "enabled": true,
+                    "authorized_keys": [
+                        {key: "key 1"},
+                        {key: "key 2"},
+                        {key: "key 3"},
+                    ]
                 }
+            },
+            "admin": {
+                "username": "test_admin",
+                "password": "qwe123",
+                "confirm_password": "qwe123"
+            },
+            "services": {
+                "hoover": false,
+                "hypothesis": true,
+                "docuwiki": "",
+                "matrix": "",
+                "davros": true
+            }
+        };
+        this.userConfig = this.configState;
 
-                this.configState = {
-                    network: response[0]['network'],
-                    services: services,
-                };
+        this.notifySubscribers(WizardEntity.CONFIG_LOADED, this.configState);
 
-                this.notifySubscribers(WizardEntity.CONFIG_LOADED, this.configState);
-            });
+
+        // Observable
+        //     .forkJoin([this.requestNetworkDetails(), this.requestServicesDetails()])
+        //     .subscribe((response) => {
+        //
+        //         let services = {};
+        //
+        //         for (let service of response[1]) {
+        //             services[service.name] = service.status === 'enabled';
+        //         }
+        //
+        //         this.configState = {
+        //             network: response[0]['network'],
+        //             services: services,
+        //         };
+        //
+        //         this.notifySubscribers(WizardEntity.CONFIG_LOADED, this.configState);
+        //     });
 
         this.subscribe(WizardEntity.UPDATE_CONFIG, () => {
 
@@ -62,6 +114,8 @@ export class WizardEntity extends LiEvents {
 
     updateConfigState(newConfig: {}) {
         this.userConfig = $.extend(true, this.userConfig, newConfig);
+        console.clear();
+        console.log(this.userConfig);
     }
 
     getConfigState() {

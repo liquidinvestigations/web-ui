@@ -1,11 +1,12 @@
 import { DynamicElement } from '../dynamic-element';
-import { Input, OnInit } from '@angular/core';
+import { EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService } from '../../dynamic-form.service';
 
 export abstract class DynamicElementRendererBase implements OnInit {
     @Input() abstract element: DynamicElement;
     @Input() abstract fg: FormGroup;
+    @Output() elementEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(protected dynamicFormService: DynamicFormService) {}
 
@@ -22,5 +23,9 @@ export abstract class DynamicElementRendererBase implements OnInit {
                     : DynamicElement.TYPE_PASSWORD
             );
         }
+    }
+
+    emitEvent($event) {
+        this.elementEvent.emit($event);
     }
 }

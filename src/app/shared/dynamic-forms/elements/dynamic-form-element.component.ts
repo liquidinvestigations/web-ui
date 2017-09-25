@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicElement } from './dynamic-element';
 import { DynamicFormService } from '../dynamic-form.service';
@@ -13,6 +13,7 @@ import { DynamicFormService } from '../dynamic-form.service';
 export class DynamicFormElementComponent {
     @Input() fg: FormGroup;
     @Input() element: DynamicElement;
+    @Output() elementEvent: EventEmitter<any> = new EventEmitter();
 
     formRenderer: any;
 
@@ -33,4 +34,7 @@ export class DynamicFormElementComponent {
         return false;
     }
 
+    emitEvent($event) {
+        this.elementEvent.emit($event);
+    }
 }

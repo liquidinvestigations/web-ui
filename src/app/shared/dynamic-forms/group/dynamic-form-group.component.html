@@ -4,7 +4,8 @@
         <ng-container *ngIf="isDynamicGroup(field)">
             <div class="{{ field.cssClass }}" [formGroupName]="field.id">
                 <dynamic-form-group [fg]="fg.controls[field.id]" [dynamicFormGroup]="field"
-                                    [chainPath]="chainPath">
+                                    [chainPath]="chainPath"
+                                    (elementEvent)="emitEvent($event)">
                 </dynamic-form-group>
             </div>
         </ng-container>
@@ -12,14 +13,18 @@
         <ng-container *ngIf="isDynamicArray(field)">
             <div class="{{ field.cssClass }}" [formArrayName]="field.id">
 
-                <dynamic-form-array [fg]="fg.controls[field.id]" [dynamicFormArray]="field">
+                <dynamic-form-array [fg]="fg.controls[field.id]"
+                                    [dynamicFormArray]="field"
+                                    (elementEvent)="emitEvent($event)">
                 </dynamic-form-array>
             </div>
         </ng-container>
 
         <ng-container *ngIf="isDynamicElement(field)">
             <div class="form-group row">
-                <dynamic-form-element [fg]="fg" [element]="field"></dynamic-form-element>
+                <dynamic-form-element [fg]="fg" [element]="field"
+                                      (elementEvent)="emitEvent($event)">
+                </dynamic-form-element>
             </div>
         </ng-container>
 

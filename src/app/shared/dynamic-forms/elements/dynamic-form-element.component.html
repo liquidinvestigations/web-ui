@@ -6,11 +6,13 @@
     <div class="form-group">
         <ng-container *ngIf="hasRenderer()">
             <ng-template [dynamicElementRenderer]="formRenderer" [element]="element"
-                         [fg]="fg"></ng-template>
+                         [fg]="fg"
+                         (elementEvent)="emitEvent($event)"
+            ></ng-template>
         </ng-container>
 
         <ng-container *ngIf="!hasRenderer()">
-            <form-element [element]="element" [fg]="fg"></form-element>
+            <form-element [element]="element" [fg]="fg" (elementEvent)="emitEvent($event)"></form-element>
 
             <div class="errorMessage">
                 <element-validation-error [control]="fg.controls[element.id]"></element-validation-error>

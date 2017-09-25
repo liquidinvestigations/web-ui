@@ -1,5 +1,5 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, ViewChild,
+    AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,8 +15,9 @@ import { DynamicFormGroup } from './group/dynamic-form-group';
         `.form-group { margin-bottom: 10px; }`
     ]
 })
-export class DynamicFormComponent implements OnInit, AfterViewInit {
+export class DynamicFormComponent implements OnInit {
     @Input() dynamicFormGroupConfig: DynamicFormGroup;
+    @Output() elementEvent: EventEmitter<any> = new EventEmitter();
 
     fg: FormGroup;
 
@@ -54,7 +55,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         this.fg.markAsTouched();
     }
 
-    ngAfterViewInit() {
+    emitEvent($event) {
+        this.elementEvent.emit($event);
     }
-
 }

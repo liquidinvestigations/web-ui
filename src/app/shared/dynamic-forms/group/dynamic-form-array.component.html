@@ -1,12 +1,18 @@
-<ng-container *ngFor="let field of dynamicFormArray._elementsArray; let i=index">
-    <div [formGroup]="fg.controls[i]">
+<div class="ceva" [ngClass]="{hidden: !dynamicFormArray.visible}">
+    <ng-container *ngFor="let field of dynamicFormArray._elementsArray; let i=index">
+        <div [formGroup]="fg.controls[i]">
 
-        <div class="{{ field.cssClass }}" [formGroupName]="field.id">
+            <div class="{{ field.cssClass }}" [formGroupName]="field.id">
+                <dynamic-form-element [fg]="fg.controls[i]" [element]="field"
+                                      (elementEvent)="emitEvent($event, i)">
 
-            <div class="form-group row">
-                <dynamic-form-element [fg]="fg.controls[i]" [element]="field"></dynamic-form-element>
+                </dynamic-form-element>
             </div>
         </div>
+    </ng-container>
+    <div class="col-xs-12 col-xs-offset-0 col-sm-offset-5" *ngIf="dynamicFormArray.maxAddLimit">
+        <button class="btn btn-primary" (click)="addNew()" [disabled]="maxLimitReached()">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
     </div>
-
-</ng-container>
+</div>

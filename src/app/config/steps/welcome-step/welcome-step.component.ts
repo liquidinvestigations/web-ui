@@ -21,6 +21,7 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         },
+        disabled: true,
     };
 
     constructor(
@@ -35,7 +36,7 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
     }
 
     ngOnInit() {
-        this.buttonConfig['disabled'] = true;
+        // this.buttonConfig['disabled'] = true;
     }
 
 }
