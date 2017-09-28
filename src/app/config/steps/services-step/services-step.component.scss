@@ -1,0 +1,14 @@
+.service-group {
+  margin-bottom: 15px !important;
+}
+
+.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .7s ease-out;
+}
+
+.collapsed.in {
+  max-height: 500px;
+  transition: all .7s ease-in;
+}

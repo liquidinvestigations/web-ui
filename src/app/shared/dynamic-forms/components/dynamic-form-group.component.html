@@ -3,13 +3,13 @@
         <ng-container *ngFor="let control of getControls(fg)">
 
             <ng-container *ngIf="isFormGroup(control)">
-                <div class="{{ control?.groupCssClass }}">
+                <div class="{{ control?.groupCssClass }} {{ control?.id }}">
                     <dynamic-from-group [fg]="control"></dynamic-from-group>
                 </div>
             </ng-container>
 
             <ng-container *ngIf="isFormArray(control)">
-                <div class="{{ control?.groupCssClass }}" [hidden]="control.isHidden">
+                <div class="{{ control?.groupCssClass }} {{ control?.id }} collapsed" [ngClass]="{'in': !control.isHidden}">
                     <dynamic-from-group [fg]="control"></dynamic-from-group>
 
                     <div *ngIf="control.toggleInteraction" class="form-group text-center">

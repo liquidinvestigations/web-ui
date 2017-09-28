@@ -5,7 +5,7 @@ import { AdminStepEntity } from './admin-step.entity';
 import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form.component';
 
 @Component({
-    templateUrl: './admin-step.component.html',
+    templateUrl: '../form-step-base.html',
     styleUrls: ['./admin-step.component.scss'],
 })
 export class AdminStepComponent extends FormStepBase implements FormStepBase {

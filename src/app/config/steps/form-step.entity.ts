@@ -4,7 +4,6 @@ import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.co
 
 export abstract class FormStepEntity {
 
-    public dynamicFormConfig: DynamicFormGroup;
     private formInstance: DynamicFormComponent;
 
     private serverConfig: {} = null;
@@ -13,7 +12,6 @@ export abstract class FormStepEntity {
 
     constructor(protected wizardEntity: WizardEntity) {
         // get current stepEntity form configuration
-        this.dynamicFormConfig = this.getDynamicFormConfig();
         this.serverConfig = wizardEntity.getConfigState();
     }
 
@@ -21,12 +19,8 @@ export abstract class FormStepEntity {
         this.formInstance = formInstance;
     }
 
-    getFormInstance(): DynamicFormComponent {
-        return this.formInstance;
-    }
-
     updateValuesFromConfig() {
-        this.getFormInstance()
+        this.formInstance
             .setValues(
                 this.wizardEntity.getConfigState()
             );

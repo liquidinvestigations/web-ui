@@ -5,7 +5,7 @@ import { FormStepBase } from '../form-step.base';
 import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form.component';
 
 @Component({
-    templateUrl: './lan-step.component.html',
+    templateUrl: '../form-step-base.html',
     styleUrls: ['./lan-step.component.scss']
 })
 export class LanStepComponent extends FormStepBase implements FormStepBase {

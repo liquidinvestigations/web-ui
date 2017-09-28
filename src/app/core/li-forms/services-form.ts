@@ -4,17 +4,22 @@ import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-f
 export const SERVICES_FORM = new DynamicFormGroup('services')
     .elements([
         new DynamicFormControl('hoover', 'Hoover')
-            .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+            .setFormGroupCssClass('service-group')
+            .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         new DynamicFormControl('hypothesis', 'Hypothesis')
-            .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+            .setFormGroupCssClass('service-group')
+            .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         new DynamicFormControl('docuwiki', 'DocuWiki')
-            .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+            .setFormGroupCssClass('service-group')
+            .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         new DynamicFormControl('matrix', 'Matrix')
-            .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+            .setFormGroupCssClass('service-group')
+            .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         new DynamicFormControl('davros', 'Davros')
-            .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+            .setFormGroupCssClass('service-group')
+            .setControlType(DynamicFormControl.TYPE_SLIDER),
     ]);

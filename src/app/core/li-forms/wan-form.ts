@@ -43,7 +43,6 @@ export const WAN_FORM = new DynamicFormGroup()
                                         Validators.required,
                                         DynamicFormValidator.IpV4Validator
                                     ]),
-
                             ]),
 
                         new DynamicFormGroup('wifi')

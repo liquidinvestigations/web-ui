@@ -40,6 +40,16 @@
                        [id]="control.id" type="checkbox">
             </ng-container>
 
+
+            <ng-container *ngSwitchCase="'slider_checkbox'">
+                <label class="switch">
+                    <input class="checkbox" [formControlName]="control.id"
+                           [id]="control.id" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+
+            </ng-container>
+
         </div>
     </ng-container>
 </ng-container>

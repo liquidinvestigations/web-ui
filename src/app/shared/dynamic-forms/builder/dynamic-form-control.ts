@@ -9,6 +9,7 @@ export class DynamicFormControl extends FormControl {
     public static readonly TYPE_TEXT = 'text';
     public static readonly TYPE_PASSWORD = 'password';
     public static readonly TYPE_CHECKBOX = 'checkbox';
+    public static readonly TYPE_SLIDER = 'slider_checkbox';
 
     public textMask: (string | RegExp)[] = [];
     public groupWrap: boolean;
@@ -22,9 +23,9 @@ export class DynamicFormControl extends FormControl {
     public dividerTopCssClass: string = '';
     public dividerBottomCssClass: string = '';
 
-    public formGroupCssClass: string = '';
-    public labelCssClass: string = 'col-xs-12';
-    public controlCssClass: string = 'col-xs-12';
+    public formGroupCssClass: string;
+    public labelCssClass: string;
+    public controlCssClass: string;
 
     public isRemovable;
 

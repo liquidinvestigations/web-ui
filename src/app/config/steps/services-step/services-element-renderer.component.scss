@@ -1,4 +1,3 @@
-
 .service-element {
   display: table;
   width: 100%;
@@ -37,6 +36,8 @@
   .service-control {
     width: 64px;
     height: 64px;
+
+    vertical-align: bottom;
 
     .control-label {
       display: none;

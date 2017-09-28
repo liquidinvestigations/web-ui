@@ -1,9 +1,9 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { DynamicFormControl } from '../builder/dynamic-form-control';
 import { DynamicElementRendererBase } from './render/dynamic-element-renderer.base';
-import { DynamicFormGroup } from "../builder/dynamic-form-group";
 import { DynamicFormArray } from '../builder/dynamic-form-array';
 import { DynamicFormService } from '../dynamic-form.service';
+import { DynamicFormGroup } from '../builder/dynamic-form-group';
 
 @Component({
     selector: 'dynamic-element',
@@ -25,6 +25,10 @@ export class DynamicElementComponent extends DynamicElementRendererBase {
         if (this.fg instanceof DynamicFormArray) {
             this.fg.removeAt(this.fg.controls.indexOf(this.control));
             this.dynamicFormService.removeElementRefference(this.control);
+
+        } else if (this.fg instanceof DynamicFormGroup && this.control.groupWrap) {
+            let formArray = (this.fg.parent as DynamicFormArray);
+            formArray.removeAt(formArray.controls.indexOf(this.fg));
         }
     }
 

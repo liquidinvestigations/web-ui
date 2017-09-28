@@ -5,35 +5,44 @@ import { SERVICES_FORM } from '../../../core/li-forms/services-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormArray } from '../../../shared/dynamic-forms/builder/dynamic-form-array';
 import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
+import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
+import { ServicesElementRendererComponent } from './services-element-renderer.component';
 
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
 
-    public showSSHkeys = false;
-
-    constructor(protected wizardEntity: WizardEntity) {
+    constructor(protected wizardEntity: WizardEntity, private dynamicFormService: DynamicFormService) {
         super(wizardEntity);
     }
 
     getDynamicFormConfig(): DynamicFormGroup {
+
+        this.dynamicFormService
+            .setRenderer(ServicesElementRendererComponent);
+
         return new DynamicFormGroup()
             .elements([
 
                 new DynamicFormGroup('network')
                     .elements([
                         new DynamicFormGroup('ssh')
+                            .setGroupCssClass('col-xs-12')
                             .elements([
                                 new DynamicFormControl('enabled', 'SSH')
-                                    .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+                                    .setFormGroupCssClass('service-group')
+                                    .setControlType(DynamicFormControl.TYPE_SLIDER),
 
                                 new DynamicFormArray('authorized_keys')
+                                    .setArrayCssClass('col-xs-12 col-xs-offset-0 col-sm-9 col-sm-offset-2')
                                     .generateElement(
-                                        new DynamicFormControl()
+                                        new DynamicFormControl('key')
+                                            .wrapInGroup()
+                                            .setRenderer(false)
                                             .setControlType(DynamicFormControl.TYPE_TEXT)
                                             .setIsRemovable()
                                     )
                                     .setIsHidden(
-                                        () => this.showSSHkeys
+                                        true
                                     )
                                     .enableInteraction()
                                     .setMaxElements(5),

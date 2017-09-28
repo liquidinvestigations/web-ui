@@ -6,6 +6,7 @@ export class DynamicFormArray extends FormArray {
 
     elementGenerate: (DynamicFormGroup | DynamicFormControl);
     groupCssClass: string;
+    renderer: any;
 
     toggleInteraction: boolean = false;
     maxElements: number;
@@ -89,6 +90,11 @@ export class DynamicFormArray extends FormArray {
 
     setValidators(newValidator: ValidatorFn | ValidatorFn[] | null){
         super.setValidators(newValidator);
+        return this;
+    }
+
+    setRenderer(renderer: any) {
+        this.renderer = renderer;
         return this;
     }
 

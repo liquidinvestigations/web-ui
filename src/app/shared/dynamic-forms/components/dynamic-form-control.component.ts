@@ -39,7 +39,13 @@ export class DynamicFormControlComponent implements OnInit {
     }
 
     ngOnInit() {
-        Object.assign(this.control, this.dynamicFormService.defaults);
+        let defaults = this.dynamicFormService.defaults;
+
+        for (let key in defaults) {
+            if (this.control[key] === undefined) {
+                this.control[key] = defaults[key];
+            }
+        }
     }
 
 }

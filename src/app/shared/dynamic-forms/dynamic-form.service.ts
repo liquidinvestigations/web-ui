@@ -5,7 +5,10 @@ import { DynamicFormArray } from './builder/dynamic-form-array';
 @Injectable()
 export class DynamicFormService {
 
-    public defaults = {};
+    public defaults = {
+        labelCssClass: 'col-xs-12',
+        controlCssClass: 'col-xs-12',
+    };
     private elementsReference = {};
 
     addElementReference(control: DynamicFormControl) {

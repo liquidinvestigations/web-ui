@@ -1,8 +1,9 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { DynamicElementRendererBase } from '../../../shared/dynamic-forms/components/render/dynamic-element-renderer.base';
 import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormArray } from '../../../shared/dynamic-forms/builder/dynamic-form-array';
+import { ServicesStepEntity } from './services-step.entity';
 
 @Component({
     templateUrl: './services-element-renderer.component.html',
@@ -13,4 +14,12 @@ export class ServicesElementRendererComponent extends DynamicElementRendererBase
     @Input() control: DynamicFormControl;
     @Input() fg: DynamicFormGroup | DynamicFormArray;
 
+    isHidden: boolean = true;
+
+    toggleShow(control: DynamicFormControl) {
+        this.isHidden = !this.isHidden;
+        control.parent.controls['authorized_keys'].setIsHidden(
+            this.isHidden
+        );
+    }
 }

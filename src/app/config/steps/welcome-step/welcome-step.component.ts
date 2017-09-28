@@ -13,6 +13,7 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
     title = '';
 
     showProgress = false;
+    buttonDisabled = true;
 
     buttonConfig = {
         label: 'Start',
@@ -34,6 +35,10 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
         this.wizardEntity.subscribe(WizardEntity.API_CONFIG_LOADED, () => {
             this.buttonDisabled = false;
         });
+    }
+
+    ngOnInit() {
+        // need to override otherwise the next button will be on before the API_CONFIG_LOADED
     }
 
 }

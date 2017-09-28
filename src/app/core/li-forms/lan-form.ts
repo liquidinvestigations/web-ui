@@ -11,9 +11,10 @@ export const LAN_FORM = new DynamicFormGroup()
                 .elements([
 
                     new DynamicFormControl('eth', 'Use Ethernet on LAN')
-                        .setControlType(DynamicFormControl.TYPE_CHECKBOX),
+                        .setControlType(DynamicFormControl.TYPE_SLIDER),
 
                     new DynamicFormControl('ip', 'IP')
+                        .setFormGroupCssClass('row')
                         .setControlType(DynamicFormControl.TYPE_TEXT)
                         .setPlaceholder('000.000.000.000')
                         .setValidators([
@@ -22,6 +23,7 @@ export const LAN_FORM = new DynamicFormGroup()
                         ]),
 
                     new DynamicFormControl('netmask', 'Netmask')
+                        .setFormGroupCssClass('row')
                         .setControlType(DynamicFormControl.TYPE_TEXT)
                         .setPlaceholder('000.000.000.000')
                         .setValidators([
@@ -30,6 +32,7 @@ export const LAN_FORM = new DynamicFormGroup()
                         ]),
 
                     new DynamicFormControl('dhcp_range', 'DHCP Range')
+                        .setFormGroupCssClass('row')
                         .setControlType(DynamicFormControl.TYPE_TEXT)
                         .setPlaceholder('000.000.000.000-255')
                         .setValidators([

@@ -5,15 +5,21 @@ import { Validators } from '@angular/forms';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormValidator } from '../../../shared/dynamic-forms/validation/dynamic-form.validator';
 import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
+import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
 
 @Injectable()
 export class AdminStepEntity extends FormStepEntity {
 
-    constructor(protected wizardEntity: WizardEntity) {
+    constructor(protected wizardEntity: WizardEntity, private dynamicFormService: DynamicFormService) {
         super(wizardEntity);
     }
 
     getDynamicFormConfig(): DynamicFormGroup {
+
+        this.dynamicFormService
+            .setLabelCssClass('col-xs-12 col-sm-5 text-right')
+            .setControlCssClass('col-xs-12 col-sm-7');
+
         return new DynamicFormGroup()
             .elements([
                 new DynamicFormGroup('network')
