@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
-import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
-import { Validators } from '@angular/forms';
-import { DynamicFormValidator } from '../../../shared/dynamic-forms/elements/validation/dynamic-form.validator';
+import { LAN_FORM } from '../../../core/li-forms/lan-form';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 
 @Injectable()
 export class LanStepEntity extends FormStepEntity {
@@ -14,58 +12,7 @@ export class LanStepEntity extends FormStepEntity {
     }
 
     getDynamicFormConfig(): DynamicFormGroup {
-        return new DynamicFormGroup()
-            .elements([
-                new DynamicFormGroup('network').elements([
-                    new DynamicFormGroup('lan')
-                        .elements([
-
-                            new DynamicElement('eth', 'Use Ethernet on LAN')
-                                .setType(DynamicElement.TYPE_CHECKBOX),
-
-                            new DynamicElement('ip', 'IP')
-                                .setType(DynamicElement.TYPE_TEXT)
-                                .setPlaceholder('000.000.000.000')
-                                .setValidators([
-                                    Validators.required,
-                                    DynamicFormValidator.IpV4Validator
-                                ]),
-
-                            new DynamicElement('netmask', 'Netmask')
-                                .setType(DynamicElement.TYPE_TEXT)
-                                .setPlaceholder('000.000.000.000')
-                                .setValidators([
-                                    Validators.required,
-                                    DynamicFormValidator.IpV4Validator
-                                ]),
-
-                            new DynamicElement('dhcp_range', 'DHCP Range')
-                                .setType(DynamicElement.TYPE_TEXT)
-                                .setPlaceholder('000.000.000.000-255')
-                                .setValidators([
-                                    Validators.required
-                                ]),
-
-                            new DynamicFormGroup('hotspot')
-                                .elements([
-                                    new DynamicElement('ssid', 'SSID')
-                                        .setType(DynamicElement.TYPE_TEXT)
-                                        .setPlaceholder('SSID')
-                                        .setValidators([
-                                            Validators.required
-                                        ]),
-
-                                    new DynamicElement('password', 'Password')
-                                        .setType(DynamicElement.TYPE_PASSWORD)
-                                        .setEnableTextToggle()
-                                        .setValidators([
-                                            Validators.required
-                                        ]),
-                                ])
-
-                        ])
-                ])
-            ]);
+        return LAN_FORM;
     }
 
 }

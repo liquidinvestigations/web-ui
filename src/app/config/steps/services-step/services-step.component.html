@@ -1,6 +1,3 @@
 <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2">
-    <dynamic-form
-            [dynamicFormGroupConfig]="servicesStepEntity.dynamicFormConfig"
-            (elementEvent)="serviceEvent($event)"
-    ></dynamic-form>
+    <dynamic-form [fg]="servicesStepEntity.dynamicFormConfig" [onSuccessSubmit]="successSubmit" [showSubmitButton]="false"></dynamic-form>
 </div>

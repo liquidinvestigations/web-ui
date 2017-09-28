@@ -6,7 +6,7 @@ import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form
 
 @Component({
     templateUrl: './admin-step.component.html',
-    styleUrls: ['./admin-step.component.scss']
+    styleUrls: ['./admin-step.component.scss'],
 })
 export class AdminStepComponent extends FormStepBase implements FormStepBase {
     @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;

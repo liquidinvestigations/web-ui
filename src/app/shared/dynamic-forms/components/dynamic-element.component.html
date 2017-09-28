@@ -1,0 +1,45 @@
+<ng-container [formGroup]="fg">
+    <label *ngIf="control.label" [attr.for]="control.id" class="control-label {{ control.labelCssClass }}">{{ control.label }}</label>
+
+    <ng-container [ngSwitch]="control.controlType">
+        <div class="{{ control.controlCssClass }}">
+
+            <ng-container *ngSwitchCase="'text'">
+
+                <div class="input-group input-group-sm">
+
+                    <input class="form-control input-sm" [formControlName]="control.id" [placeholder]="control.placeholder"
+                           [id]="control.id" type="text" [textMask]="control.textMask">
+
+                    <span class="input-group-btn" *ngIf="control.isRemovable">
+                        <span class="btn btn-default" (click)="removeControl()">
+                          <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                    </span>
+                </div>
+
+                <span *ngIf="control.enableTextToggle" class="show-password" (click)="switchToText()">
+                    <i class="glyphicon glyphicon-eye-close"></i>
+                </span>
+
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'password'">
+
+                <input class="form-control input-sm" [formControlName]="control.id" [placeholder]="control.placeholder"
+                       [id]="control.id" type="password" [textMask]="control.textMask">
+
+                <span *ngIf="control.enableTextToggle" class="show-password" (click)="switchToText()">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                </span>
+
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'checkbox'">
+                <input class="checkbox" [formControlName]="control.id"
+                       [id]="control.id" type="checkbox">
+            </ng-container>
+
+        </div>
+    </ng-container>
+</ng-container>

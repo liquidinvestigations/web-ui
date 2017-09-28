@@ -1,6 +1,6 @@
-import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
-import { DynamicFormGroup } from '../../shared/dynamic-forms/group/dynamic-form-group';
 import { WizardEntity } from '../wizard.entity';
+import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
 
 export abstract class FormStepEntity {
 
@@ -32,7 +32,7 @@ export abstract class FormStepEntity {
             );
     }
 
-    onNext(formValues): void {
+    updateConfigValues(formValues): void {
         this.wizardEntity.updateConfigState(formValues);
     }
 

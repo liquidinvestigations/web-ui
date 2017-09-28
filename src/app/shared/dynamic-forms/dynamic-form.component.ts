@@ -1,61 +1,45 @@
-import {
-    AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
+import { DynamicFormGroup } from './builder/dynamic-form-group';
 import { DynamicFormService } from './dynamic-form.service';
-import { DynamicFormGroup } from './group/dynamic-form-group';
+import { DynamicFormControl } from './builder/dynamic-form-control';
 
 @Component({
     selector: 'dynamic-form',
     templateUrl: './dynamic-form.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styles: [
-        `.form-group { margin-bottom: 10px; }`
-    ]
 })
-export class DynamicFormComponent implements OnInit {
-    @Input() dynamicFormGroupConfig: DynamicFormGroup;
-    @Output() elementEvent: EventEmitter<any> = new EventEmitter();
+export class DynamicFormComponent {
+    @Input() fg: DynamicFormGroup;
+    @Input() onSuccessSubmit: Function = null;
+    @Input() showSubmitButton: boolean = true;
 
-    fg: FormGroup;
+    constructor(public dynamicFormService: DynamicFormService, public cdRef: ChangeDetectorRef) {
+    }
 
-    constructor(
-        private dynamicFormService: DynamicFormService,
-    ) {
-        this.dynamicFormService.fieldsMapping = [];
-        this.dynamicFormService.arrayFields = [];
 
-        let fb = new FormBuilder();
-        this.fg = fb.group({});
+    onSubmit() {
+        let controls = this.dynamicFormService.getElementsRefference();
+        for (let i in controls) {
+            if (controls[i] instanceof DynamicFormControl) {
+                controls[i].markAsTouched();
+            }
+        }
 
-        this.dynamicFormService.manageForm(this.fg);
+        this.cdRef.detectChanges();
+
+        if (this.fg.valid && this.onSuccessSubmit instanceof Function) {
+            this.onSuccessSubmit(
+                this.fg.getRawValue()
+            );
+        }
     }
 
     getValues() {
-        return this.dynamicFormService.flattenArrays(
-            this.fg.getRawValue()
-        );
+        return this.fg.getRawValue();
     }
 
-    setValues(value: {}) {
-        this.fg.patchValue(value);
-    }
-
-    getFieldsMapping() {
-        return this.dynamicFormService.fieldsMapping;
-    }
-
-    ngOnInit() {
-        if (this.dynamicFormGroupConfig.renderer) {
-            this.dynamicFormService.addFormRenderer(this.dynamicFormGroupConfig.renderer);
-        }
-
-        this.fg.markAsTouched();
-    }
-
-    emitEvent($event) {
-        this.elementEvent.emit($event);
+    setValues(formValues: {}) {
+        this.fg.patchValue(formValues);
     }
 }

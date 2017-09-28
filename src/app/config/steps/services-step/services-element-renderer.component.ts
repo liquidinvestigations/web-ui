@@ -1,8 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { DynamicElementRendererBase } from '../../../shared/dynamic-forms/elements/render/dynamic-element-renderer.base';
-import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
-import { FormGroup } from '@angular/forms';
-import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
+import { DynamicElementRendererBase } from '../../../shared/dynamic-forms/components/render/dynamic-element-renderer.base';
+import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormArray } from '../../../shared/dynamic-forms/builder/dynamic-form-array';
 
 @Component({
     templateUrl: './services-element-renderer.component.html',
@@ -10,10 +10,7 @@ import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.s
     encapsulation: ViewEncapsulation.None
 })
 export class ServicesElementRendererComponent extends DynamicElementRendererBase {
-    @Input() element: DynamicElement;
-    @Input() fg: FormGroup;
+    @Input() control: DynamicFormControl;
+    @Input() fg: DynamicFormGroup | DynamicFormArray;
 
-    constructor(protected dynamicFormService: DynamicFormService) {
-        super(dynamicFormService);
-    }
 }

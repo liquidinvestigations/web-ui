@@ -6,6 +6,8 @@ export abstract class CommonStepBase implements OnInit {
     abstract title: string;
     showProgress = true;
 
+    buttonDisabled: boolean = false;
+
     buttonConfig = {
         label: 'Next',
         iconClass: 'glyphicon glyphicon-chevron-right',
@@ -13,11 +15,13 @@ export abstract class CommonStepBase implements OnInit {
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         },
+        isDisabled: () => this.buttonDisabled
     };
+
 
     ngOnInit(): void {
         if (this.buttonConfig) {
-            this.buttonConfig['disabled'] = false;
+            this.buttonDisabled = false;
         }
     }
 
@@ -32,8 +36,10 @@ export abstract class CommonStepBase implements OnInit {
             this.wizardService.setStep(this);
         });
 
-        this.wizardService.subscribe(WizardService.GO_NEXT, () => {
-            this.onNext();
+        this.wizardService.removeListeners(WizardService.GO_NEXT);
+
+        this.wizardService.subscribe(WizardService.GO_NEXT, (formValues: any) => {
+            this.onNext(formValues);
             this.wizardService.goNextStep();
         });
 
@@ -42,7 +48,7 @@ export abstract class CommonStepBase implements OnInit {
         });
     }
 
-    protected onNext() { }
+    protected onNext(data) { }
 
     protected onFinish() { }
 

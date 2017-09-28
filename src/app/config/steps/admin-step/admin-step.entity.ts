@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
-import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
 import { Validators } from '@angular/forms';
-import { DynamicFormValidator } from '../../../shared/dynamic-forms/elements/validation/dynamic-form.validator';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormValidator } from '../../../shared/dynamic-forms/validation/dynamic-form.validator';
+import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
 
 @Injectable()
 export class AdminStepEntity extends FormStepEntity {
@@ -18,10 +18,10 @@ export class AdminStepEntity extends FormStepEntity {
             .elements([
                 new DynamicFormGroup('network')
                     .elements([
-                        new DynamicElement('domain', 'Hostname')
-                            .setType(DynamicElement.TYPE_TEXT)
+                        new DynamicFormControl('domain', 'Hostname')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setPlaceholder('hostname')
-                            .setHasBottomDivider()
+                            .setDividerBottom()
                             .setValidators([
                                 Validators.required,
                                 DynamicFormValidator.hostnameValidator
@@ -29,16 +29,9 @@ export class AdminStepEntity extends FormStepEntity {
                     ]),
 
                 new DynamicFormGroup('admin')
-                    .setValidator(
-                        DynamicFormValidator.FieldMatch(
-                            'password',
-                            'confirm_password',
-                            'Confirmation must match the password'
-                        )
-                    )
                     .elements([
-                        new DynamicElement('username', 'Admin username')
-                            .setType(DynamicElement.TYPE_TEXT)
+                        new DynamicFormControl('username', 'Admin username')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setPlaceholder('username')
                             .setValidators([
                                 Validators.required,
@@ -47,23 +40,29 @@ export class AdminStepEntity extends FormStepEntity {
                                     'Username has to be alpha-numeric'
                                 )
                             ]),
-
-
-                        new DynamicElement('password', 'Password')
-                            .setType(DynamicElement.TYPE_PASSWORD)
+                        new DynamicFormControl('password', 'Password')
+                            .setControlType(DynamicFormControl.TYPE_PASSWORD)
                             .setValidators([
                                 Validators.required,
                                 Validators.minLength(6)
                             ]),
 
 
-                        new DynamicElement('confirm_password', 'Confirm Password')
-                            .setType(DynamicElement.TYPE_PASSWORD)
+                        new DynamicFormControl('confirm_password', 'Confirm Password')
+                            .setControlType(DynamicFormControl.TYPE_PASSWORD)
                             .setValidators([
                                 Validators.required,
                             ]),
 
-                    ]),
+                    ])
+                    .setValidators([
+                        DynamicFormValidator.FieldMatch(
+                            'password',
+                            'confirm_password',
+                            'Confirmation must match the password'
+                        )
+                    ])
+                ,
             ]);
     }
 

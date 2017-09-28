@@ -7,28 +7,43 @@ import { AfterViewInit } from '@angular/core';
 export abstract class FormStepBase extends CommonStepBase implements CommonStepBase, AfterViewInit {
     abstract formInstance: DynamicFormComponent;
 
-    constructor(
-        public formStepEntity: FormStepEntity,
-        protected wizardService: WizardService
-    ) {
+    buttonConfig = {
+        label: 'Next',
+        iconClass: 'glyphicon glyphicon-chevron-right',
+        buttonClass: 'btn btn-primary',
+        action: () => {
+            this.formInstance.onSubmit();
+        },
+        isDisabled: () => this.buttonDisabled
+    };
+
+    constructor(public formStepEntity: FormStepEntity,
+                protected wizardService: WizardService) {
         super(wizardService);
     }
 
     ngOnInit() {
-        this.buttonConfig['disabled'] = true;
-
+        this.buttonDisabled = true;
         this.formStepEntity.setFormInstance(this.formInstance);
-        this.formInstance.fg.valueChanges
-            .subscribe(() => {
-                this.buttonConfig['disabled'] = this.formInstance.fg.invalid;
-            });
     }
 
     ngAfterViewInit() {
         this.formStepEntity.updateValuesFromConfig();
+
+        this.buttonDisabled = this.formInstance.fg.invalid && this.formInstance.fg.touched;
+
+        this.formInstance.fg.valueChanges
+            .subscribe(() => {
+                this.buttonDisabled = this.formInstance.fg.invalid;
+            });
     }
 
-    protected onNext() {
-        this.formStepEntity.onNext(this.formInstance.getValues());
+    protected onNext(formValues: {}) {
+        this.formStepEntity.updateConfigValues(formValues);
+    }
+
+    // we need to define the success submit as arrow function to keep the current context
+    successSubmit = (formValues: {}) => {
+        this.wizardService.notifySubscribers(WizardService.GO_NEXT, formValues);
     }
 }

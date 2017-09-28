@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DynamicFormComponent } from './dynamic-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormGroupComponent } from './components/dynamic-form-group.component';
 import { DynamicFormService } from './dynamic-form.service';
-import { DynamicFormGroupComponent } from './group/dynamic-form-group.component';
-import { DynamicFormArrayComponent } from './group/dynamic-form-array.component';
-import { DynamicFormElementComponent } from './elements/dynamic-form-element.component';
-import { CustomElementRenderDirective } from './elements/render/dynamic-element-render.directive';
-import { FormElementComponent } from './elements/form-element.component';
-import { ElementValidationErrorComponent } from './elements/validation/element-validation-error.component';
-import { DynamicElementMaskDirective } from './elements/render/dynamic-element-mask.directive';
+import { DynamicFormComponent } from './dynamic-form.component';
+import { DynamicFormValidationComponent } from './components/dynamic-form-validation.component';
+import { DynamicControlMaskDirective } from './components/render/dynamic-control-mask.directive';
+import { DynamicFormControlComponent } from './components/dynamic-form-control.component';
+import { DynamicElementComponent } from './components/dynamic-element.component';
+import { CustomElementRenderDirective } from './components/render/dynamic-element-render.directive';
 
 @NgModule({
     imports: [
@@ -19,27 +18,24 @@ import { DynamicElementMaskDirective } from './elements/render/dynamic-element-m
     declarations: [
         DynamicFormComponent,
         DynamicFormGroupComponent,
-        DynamicFormArrayComponent,
-        DynamicFormElementComponent,
-        FormElementComponent,
+        DynamicFormControlComponent,
+        DynamicElementComponent,
 
-        ElementValidationErrorComponent,
+        DynamicFormValidationComponent,
 
+        DynamicControlMaskDirective,
         CustomElementRenderDirective,
-        DynamicElementMaskDirective,
     ],
     providers: [
-        DynamicFormService
+        DynamicFormService,
     ],
     exports: [
         ReactiveFormsModule,
-
         DynamicFormComponent,
-        FormElementComponent,
-
-        ElementValidationErrorComponent,
+        DynamicElementComponent,
+        DynamicFormValidationComponent,
 
         CustomElementRenderDirective,
     ]
 })
-export class DynamicFormModule { }
+export class DynamicFormModule {}

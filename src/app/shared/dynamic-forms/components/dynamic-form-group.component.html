@@ -1,0 +1,30 @@
+<div class="row">
+    <ng-container [formGroup]="fg">
+        <ng-container *ngFor="let control of getControls(fg)">
+
+            <ng-container *ngIf="isFormGroup(control)">
+                <div class="{{ control?.groupCssClass }}">
+                    <dynamic-from-group [fg]="control"></dynamic-from-group>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isFormArray(control)">
+                <div class="{{ control?.groupCssClass }}" [hidden]="control.isHidden">
+                    <dynamic-from-group [fg]="control"></dynamic-from-group>
+
+                    <div *ngIf="control.toggleInteraction" class="form-group text-center">
+                        <button type="button" class="btn btn-sm btn-primary" (click)="control.addNew()"
+                                [disabled]="control.reachedMaxElements()">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isControl(control)">
+                <dynamic-form-control [fg]="fg" [control]="control"></dynamic-form-control>
+            </ng-container>
+
+        </ng-container>
+    </ng-container>
+</div>

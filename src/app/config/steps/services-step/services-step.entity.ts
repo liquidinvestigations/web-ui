@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { DynamicFormGroup } from '../../../shared/dynamic-forms/group/dynamic-form-group';
-import { DynamicElement } from '../../../shared/dynamic-forms/elements/dynamic-element';
-import { ServicesElementRendererComponent } from './services-element-renderer.component';
-import { DynamicFormArray } from '../../../shared/dynamic-forms/group/dynamic-form-array';
+import { SERVICES_FORM } from '../../../core/li-forms/services-form';
+import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormArray } from '../../../shared/dynamic-forms/builder/dynamic-form-array';
+import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
 
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
@@ -17,47 +17,31 @@ export class ServicesStepEntity extends FormStepEntity {
 
     getDynamicFormConfig(): DynamicFormGroup {
         return new DynamicFormGroup()
-            .setControlsRenderer(ServicesElementRendererComponent)
             .elements([
 
                 new DynamicFormGroup('network')
                     .elements([
                         new DynamicFormGroup('ssh')
                             .elements([
-                                new DynamicElement('enabled', 'SSH')
-                                    .setType(DynamicElement.TYPE_CHECKBOX),
+                                new DynamicFormControl('enabled', 'SSH')
+                                    .setControlType(DynamicFormControl.TYPE_CHECKBOX),
 
                                 new DynamicFormArray('authorized_keys')
-                                    .setVisibility(
-                                        () => this.showSSHkeys
-                                    )
                                     .generateElement(
-                                        new DynamicElement('key')
-                                            .setRenderer(false)
-                                            .setType(DynamicElement.TYPE_TEXT)
+                                        new DynamicFormControl()
+                                            .setControlType(DynamicFormControl.TYPE_TEXT)
                                             .setIsRemovable()
                                     )
-                                    .setMaxAddLimit(5)
+                                    .setIsHidden(
+                                        () => this.showSSHkeys
+                                    )
+                                    .enableInteraction()
+                                    .setMaxElements(5),
+
                             ])
                     ]),
 
-                new DynamicFormGroup('services')
-                    .elements([
-                        new DynamicElement('hoover', 'Hoover')
-                            .setType(DynamicElement.TYPE_CHECKBOX),
-
-                        new DynamicElement('hypothesis', 'Hypothesis')
-                            .setType(DynamicElement.TYPE_CHECKBOX),
-
-                        new DynamicElement('docuwiki', 'DocuWiki')
-                            .setType(DynamicElement.TYPE_CHECKBOX),
-
-                        new DynamicElement('matrix', 'Matrix')
-                            .setType(DynamicElement.TYPE_CHECKBOX),
-
-                        new DynamicElement('davros', 'Davros')
-                            .setType(DynamicElement.TYPE_CHECKBOX),
-                    ]),
+                SERVICES_FORM,
 
             ]);
     }

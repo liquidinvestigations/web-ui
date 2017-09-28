@@ -20,11 +20,4 @@ export class ServicesStepComponent extends FormStepBase implements FormStepBase 
         super(servicesStepEntity, wizardService);
     }
 
-    serviceEvent($event) {
-        if ($event === 'show-ssh-keys') {
-            console.log(this.servicesStepEntity.showSSHkeys);
-            this.servicesStepEntity.showSSHkeys =
-                !this.servicesStepEntity.showSSHkeys;
-        }
-    }
 }

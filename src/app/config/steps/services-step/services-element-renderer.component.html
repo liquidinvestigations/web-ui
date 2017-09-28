@@ -2,16 +2,16 @@
     <div class="service-element">
         <div class="service-icon"></div>
         <div class="service-body">
-            <div class="service-label">{{ element.label }}</div>
+            <div class="service-label">{{ control.label }}</div>
             <div class="service-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>
                 Lorem ipsum dolor sit amet, consectetur adipiscing
-                <a *ngIf="element.id === 'enabled'"
+                <a *ngIf="control.id === 'enabled'"
                    (click)="emitEvent('show-ssh-keys')">Manage keys</a>
             </div>
         </div>
         <div class="service-control">
-            <form-element [element]="element" [fg]="fg"></form-element>
+            <dynamic-element [control]="control" [fg]="fg"></dynamic-element>
         </div>
     </div>
 </ng-container>

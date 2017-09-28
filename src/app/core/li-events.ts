@@ -5,6 +5,12 @@ export class LiEvents {
     } = {};
 
 
+    public removeListeners(event: string) {
+        if (this.eventListeners[event]) {
+            delete this.eventListeners[event];
+        }
+    }
+
     public subscribe(event: string, listener: (data: any) => void): number {
         if (undefined === this.eventListeners[event]) {
             this.eventListeners[event] = [];

@@ -10,7 +10,11 @@ const routes: Routes = [
     {
         path: 'config',
         loadChildren: './config/wizard.module#WizardModule'
-    }
+    },
+    // {
+    //     path: 'admin',
+    //     loadChildren: './admin/admin.module#AdminModule'
+    // }
 ];
 
 @NgModule({

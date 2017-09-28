@@ -26,6 +26,12 @@
       font-weight: bold;
       font-size: 1em;
     }
+
+    .service-description {
+      a {
+        cursor: pointer;
+      }
+    }
   }
 
   .service-control {
