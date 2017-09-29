@@ -1,3 +1,35 @@
-<p>
-  nodes works!
-</p>
+<div class="settings-container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <ng-container *ngFor="let column of tableColumns">
+                                    <th>{{ column.label }}</th>
+                                </ng-container>
+                                <th>Whitelisted</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let node of nodes; let i = index">
+                                <tr>
+                                    <ng-container *ngFor="let column of tableColumns">
+                                        <td>{{ node[column.name] }}</td>
+                                    </ng-container>
+                                    <td>
+                                        <dynamic-element [fg]="fg" [control]="node['control']"></dynamic-element>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

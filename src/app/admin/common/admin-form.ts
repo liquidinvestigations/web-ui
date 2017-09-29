@@ -18,11 +18,11 @@ export abstract class AdminForm implements AfterViewInit {
 
     ngAfterViewInit() {
 
-        if (this.adminEntity.configState) {
-            this.formComponent.setValues(this.adminEntity.configState);
+        if (this.adminEntity.getConfigState()) {
+            this.formComponent.setValues(this.adminEntity.getConfigState(), false);
         } else {
             this.adminEntity.subscribe(AdminEntity.API_CONFIG_LOADED, (config) => {
-                this.formComponent.setValues(config);
+                this.formComponent.setValues(config, false);
             });
         }
     }

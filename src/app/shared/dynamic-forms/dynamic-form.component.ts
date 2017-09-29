@@ -41,7 +41,7 @@ export class DynamicFormComponent {
         return this.fg.getRawValue();
     }
 
-    setValues(formValues: {}) {
-        this.fg.patchValue(formValues);
+    setValues(formValues: {}, emit: boolean = true) {
+        this.fg.patchValue(formValues, { emitEvent: emit });
     }
 }

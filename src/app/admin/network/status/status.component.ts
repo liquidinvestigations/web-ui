@@ -11,8 +11,8 @@ export class StatusComponent {
 
     constructor(protected adminEntity: AdminEntity) {
 
-        if (this.adminEntity.configState) {
-            this.currentConfig = mapSummaryConfig(this.adminEntity.configState);
+        if (this.adminEntity.getConfigState()) {
+            this.currentConfig = mapSummaryConfig(this.adminEntity.getConfigState());
         } else {
             this.adminEntity.subscribe(AdminEntity.API_CONFIG_LOADED, (config) => {
                 this.currentConfig = mapSummaryConfig(config);

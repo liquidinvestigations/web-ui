@@ -1,14 +1,39 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminEntity } from '../admin.entity';
 
 @Component({
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
 
-  constructor() { }
+    tableColumns = [
+        {
+            name: 'username',
+            label: 'Username'
+        },
+        {
+            name: 'is_admin',
+            label: 'Role'
+        },
+        {
+            name: 'first_name',
+            label: 'First name'
+        },
+        {
+            name: 'last_name',
+            label: 'Last name'
+        }
+    ];
 
-  ngOnInit() {
-  }
+    users = [];
+
+    constructor(private adminEntity: AdminEntity) {
+        adminEntity.requestUserDetails()
+            .subscribe((data) => {
+                this.users = data;
+            });
+
+    }
 
 }

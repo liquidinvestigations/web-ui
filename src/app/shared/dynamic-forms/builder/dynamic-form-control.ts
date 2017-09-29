@@ -45,7 +45,7 @@ export class DynamicFormControl extends FormControl {
             .debounceTime(DynamicFormControl.DEFAULT_DEBOUNCE)
             .subscribe((value: any) => {
                 if (this.onChangeHandler instanceof Function) {
-                    this.onChangeHandler(value);
+                    this.onChangeHandler(value, this);
                 }
             });
     }

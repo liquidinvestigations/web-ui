@@ -4,6 +4,9 @@ import { ApiClientService } from '../core/api-client.service';
 import { LiEvents } from '../core/li-events';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
+import { DynamicFormControl } from '../shared/dynamic-forms/builder/dynamic-form-control';
+import { LiNotificationsService } from '../core/li-notifications.service';
+import { LiNotification } from '../core/li-notification';
 
 declare let $: any;
 
@@ -12,14 +15,30 @@ export class AdminEntity extends LiEvents {
 
     public static readonly API_CONFIG_LOADED = 'admin_config_loaded';
     public static readonly API_UPDATE_NETWORK = 'admin_update_network';
-    public static readonly API_UPDATE_SERVICES = 'admin_update_services';
+    public static readonly API_UPDATE_SERVICE = 'admin_update_service';
 
     public userConfig: {} = null;
 
-    public configState: {} = null;
+    private configState: {} = null;
 
-    constructor(protected apiService: ApiClientService) {
+    updatingNotification: any;
+
+    constructor(
+        protected apiService: ApiClientService,
+        protected notificationsService: LiNotificationsService
+    ) {
         super();
+
+
+        apiService.subscribe(ApiClientService.EV_BEFORE_PUT, () => {
+            this.updatingNotification =
+                this.notificationsService.show('Updating your settings', LiNotification.TYPE_INFO);
+        });
+
+        apiService.subscribe(ApiClientService.EV_PUT_SUCCESSFUL, () => {
+            this.updatingNotification.close();
+            this.notificationsService.show('Your settings have been updated', LiNotification.TYPE_SUCCESS);
+        });
 
         Observable
             .forkJoin([this.requestNetworkDetails(), this.requestServicesDetails()])
@@ -51,11 +70,9 @@ export class AdminEntity extends LiEvents {
                 });
         });
 
-        this.subscribe(AdminEntity.API_UPDATE_SERVICES, () => {
+        this.subscribe(AdminEntity.API_UPDATE_SERVICE, (control: DynamicFormControl) => {
 
-            let servicesConfig = this.userConfig['services'];
-
-            this.updateServices(servicesConfig)
+            this.updateService(control)
                 .subscribe(null, null, () => {
                     console.log('Succesfully updated settings');
                 });
@@ -64,8 +81,6 @@ export class AdminEntity extends LiEvents {
 
     updateConfigState(newConfig: {}) {
         this.userConfig = $.extend(true, this.userConfig, newConfig);
-        // console.clear();
-        // console.log(this.userConfig);
     }
 
     getConfigState() {
@@ -84,26 +99,30 @@ export class AdminEntity extends LiEvents {
             .map(res => res.json());
     }
 
+    public requestUserDetails() {
+        return this.apiService
+            .get('/users')
+            .map(res => res.json());
+    }
+
+    public requestDiscoveredNodes() {
+        return this.apiService
+            .get('/discovery/nodes')
+            .map(res => res.json());
+    }
+
     private updateNetworkDetails(networkDetails: {}) {
         return this.apiService
             .put('/network/config', networkDetails);
     }
 
-    private updateAdminDetails(adminConfig: {}) {
+    private updateService(control: DynamicFormControl) {
         return this.apiService
-            .post('/setup/registration', adminConfig);
+            .put('/services/' + control.id, { enabled: !!control.value });
     }
 
-    private updateServices(services: {}) {
-        let requests = [];
-
-        for (let i in services) {
-            requests.push(
-                this.apiService
-                    .put('/services/' + i, {enabled: services[i]})
-            );
-        }
-
-        return Observable.forkJoin(requests);
+    public updateNode(control: DynamicFormControl) {
+        return this.apiService
+            .put('/discovery/nodes/' + control.id, { enabled: !!control.value });
     }
 }

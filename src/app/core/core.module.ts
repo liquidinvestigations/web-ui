@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ApiClientService } from './api-client.service';
-import { NotificationsService } from './notifications.service';
+import { LiNotificationsService } from './li-notifications.service';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     ],
     providers: [
         ApiClientService,
-        NotificationsService
+        LiNotificationsService
     ]
 })
 export class CoreModule {}
