@@ -27,7 +27,7 @@ export class AdminStepEntity extends FormStepEntity {
                         new DynamicFormControl('domain', 'Hostname')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setPlaceholder('hostname')
-                            .setDividerBottom()
+                            .setDividerBottom('row')
                             .setValidators([
                                 Validators.required,
                                 DynamicFormValidator.hostnameValidator

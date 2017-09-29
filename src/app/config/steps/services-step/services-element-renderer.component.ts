@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { DynamicElementRendererBase } from '../../../shared/dynamic-forms/components/render/dynamic-element-renderer.base';
 import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormArray } from '../../../shared/dynamic-forms/builder/dynamic-form-array';
-import { ServicesStepEntity } from './services-step.entity';
 
 @Component({
     templateUrl: './services-element-renderer.component.html',

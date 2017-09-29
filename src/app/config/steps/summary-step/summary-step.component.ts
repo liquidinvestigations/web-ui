@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonStepBase } from '../common-step.base';
 import { WizardService } from '../../wizard.service';
 import { WizardEntity } from '../../wizard.entity';
-import { mapSummaryConfig } from '../../../core/li-forms/summary-mapping';
+import { mapSummaryConfig } from '../../../shared/li-forms/summary-mapping';
 
 @Component({
     selector: 'li-summary-step',

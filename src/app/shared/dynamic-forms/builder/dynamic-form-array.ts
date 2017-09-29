@@ -32,6 +32,7 @@ export class DynamicFormArray extends FormArray {
     patchValue(value: any, options?: Object) {
 
         if (this.elementGenerate) {
+            this.controls = [];
             for (let i in value) {
                 this.addElement(Object.create(this.elementGenerate));
             }

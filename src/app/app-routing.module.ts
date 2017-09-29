@@ -5,16 +5,16 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/config',
+        redirectTo: '/admin',
     },
     {
         path: 'config',
         loadChildren: './config/wizard.module#WizardModule'
     },
-    // {
-    //     path: 'admin',
-    //     loadChildren: './admin/admin.module#AdminModule'
-    // }
+    {
+        path: 'admin',
+        loadChildren: './admin/admin.module#AdminModule'
+    }
 ];
 
 @NgModule({

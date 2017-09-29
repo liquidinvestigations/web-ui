@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormStepEntity } from '../form-step.entity';
 import { WizardEntity } from '../../wizard.entity';
-import { WAN_FORM } from '../../../core/li-forms/wan-form';
+import { WAN_FORM } from '../../../shared/li-forms/wan-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
 

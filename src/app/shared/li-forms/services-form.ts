@@ -1,5 +1,5 @@
-import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
-import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
+import { DynamicFormGroup } from '../dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormControl } from '../dynamic-forms/builder/dynamic-form-control';
 
 export const SERVICES_FORM = new DynamicFormGroup('services')
     .elements([

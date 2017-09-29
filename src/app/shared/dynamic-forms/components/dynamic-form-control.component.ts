@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { DynamicFormControl } from '../builder/dynamic-form-control';
 import { DynamicFormService } from '../dynamic-form.service';
 import { DynamicFormGroup } from '../builder/dynamic-form-group';
@@ -11,6 +11,11 @@ import { DynamicFormGroup } from '../builder/dynamic-form-group';
             .form-group {
                 height: 60px;
                 margin-bottom: 0;
+            }
+            
+            .divider hr {
+                margin-bottom: 30px;
+                margin-top: 0;
             }
         `
     ]

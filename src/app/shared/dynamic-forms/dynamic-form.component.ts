@@ -14,6 +14,8 @@ export class DynamicFormComponent {
     @Input() onSuccessSubmit: Function = null;
     @Input() showSubmitButton: boolean = true;
 
+    submitCssClass: string = 'text-center';
+
     constructor(public dynamicFormService: DynamicFormService, public cdRef: ChangeDetectorRef) {
     }
 

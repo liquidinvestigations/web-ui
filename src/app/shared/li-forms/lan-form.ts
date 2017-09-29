@@ -1,7 +1,7 @@
 import { Validators } from '@angular/forms';
-import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
-import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
-import { DynamicFormValidator } from '../../shared/dynamic-forms/validation/dynamic-form.validator';
+import { DynamicFormGroup } from '../dynamic-forms/builder/dynamic-form-group';
+import { DynamicFormControl } from '../dynamic-forms/builder/dynamic-form-control';
+import { DynamicFormValidator } from '../dynamic-forms/validation/dynamic-form.validator';
 
 
 export const LAN_FORM = new DynamicFormGroup()

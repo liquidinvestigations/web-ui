@@ -1,5 +1,9 @@
 <form [formGroup]="fg" novalidate (ngSubmit)="onSubmit()">
     <dynamic-from-group [fg]="fg"></dynamic-from-group>
 
-    <button type="submit" [ngClass]="{ hidden: !showSubmitButton }" class="btn btn-sm btn-primary" [disabled]="fg.touched && fg.invalid">Submit</button>
+    <div class="{{ submitCssClass }}">
+        <button type="submit" [ngClass]="{ hidden: !showSubmitButton }" class="btn btn-sm btn-primary"
+                [disabled]="fg.touched && fg.invalid">Submit
+        </button>
+    </div>
 </form>

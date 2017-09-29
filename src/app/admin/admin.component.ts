@@ -1,29 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-
-declare let $: any;
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NotificationsService } from '../core/notifications.service';
+import { AdminEntity } from './admin.entity';
 
 @Component({
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AdminComponent implements OnInit {
 
-    constructor(public location: Location) {}
 
-    ngOnInit() {
-        // $.material.options.autofill = true;
-        // $.material.init();
+    sideMenuButtons = [];
+
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private adminEntity: AdminEntity,
+        private notifications: NotificationsService
+    ) {
+        this.sideMenuButtons = this.activatedRoute.routeConfig.children;
     }
 
-    isMaps(path){
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        titlee = titlee.slice( 1 );
-        if(path == titlee){
-            return false;
-        }
-        else {
-            return true;
-        }
+    ngOnInit(): void {
+        // setTimeout(() => {
+        //     this.notifications.show('YEY IT WORKS');
+        // }, 1000);
+        //
+        // setTimeout(() => {
+        //     this.notifications.show('YEY IT WORKS');
+        // }, 2000);
     }
 }

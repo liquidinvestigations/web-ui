@@ -1,0 +1,14 @@
+<ul class="nav">
+    <ng-container *ngFor="let button of buttons">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="{{ button.path }}">
+                <i class="{{ button.icon }}"></i>
+                <p class="hidden-xs">{{ button.label }}</p>
+            </a>
+
+            <ng-container *ngIf="button.children">
+                <li-side-menu [sideMenuButtons]="button.children" [parentPath]="button.path"></li-side-menu>
+            </ng-container>
+        </li>
+    </ng-container>
+</ul>

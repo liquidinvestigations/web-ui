@@ -1,5 +1,5 @@
 <ng-container [formGroup]="fg">
-    <div *ngIf="control.dividerTopCssClass" class="{{ control.dividerTopCssClass }}">
+    <div *ngIf="control.dividerTopCssClass" class="{{ control.dividerTopCssClass }} divider divider-top">
         <hr>
     </div>
 
@@ -9,7 +9,14 @@
         </ng-container>
 
         <ng-container *ngIf="!hasRenderer()">
-            <dynamic-element [fg]="fg" [control]="control"></dynamic-element>
+
+            <label *ngIf="control.label" [attr.for]="control.id" class="control-label {{ control.labelCssClass }}">
+                {{ control.label }}
+            </label>
+
+            <div class="{{ control.controlCssClass }}">
+                <dynamic-element [fg]="fg" [control]="control"></dynamic-element>
+            </div>
 
             <div class="errorMessage">
                 <dynamic-form-validation [control]="control"></dynamic-form-validation>
@@ -18,7 +25,7 @@
         </ng-container>
     </div>
 
-    <div *ngIf="control.dividerBottomCssClass" class="{{ control.dividerBottomCssClass }}">
+    <div *ngIf="control.dividerBottomCssClass" class="{{ control.dividerBottomCssClass }} divider divider-bottom">
         <hr>
     </div>
 </ng-container>

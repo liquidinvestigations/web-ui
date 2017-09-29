@@ -12,8 +12,24 @@ var deps = [
         to: assetsPath + '/bootstrap/'
     },
     {
+        from: './node_modules/bootstrap-notify/bootstrap-notify.min.js',
+        to: assetsPath + '/bootstrap-notify/'
+    },
+    {
+        from: './node_modules/animate.css/animate.min.css',
+        to: assetsPath + '/animate.css/'
+    },
+    {
         from: './node_modules/vanilla-text-mask/dist/vanillaTextMask.js',
         to: assetsPath + '/vanillaTextMask'
+    },
+    {
+        from: './node_modules/font-awesome/css/font-awesome.min.css',
+        to: assetsPath + '/font-awesome/css/'
+    },
+    {
+        from: './node_modules/font-awesome/fonts/**',
+        to: assetsPath + '/font-awesome/fonts/'
     }
 ];
 

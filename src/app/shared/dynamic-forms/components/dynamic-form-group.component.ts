@@ -31,7 +31,7 @@ export class DynamicFormGroupComponent {
         return false;
     }
 
-    private getControls(group) {
+    getControls(group) {
         let controls = [];
 
         if (group.controls) {

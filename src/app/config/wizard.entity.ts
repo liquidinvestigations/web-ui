@@ -35,6 +35,8 @@ export class WizardEntity extends LiEvents {
                     services: services,
                 };
 
+                this.userConfig = Object.create(this.configState);
+
                 this.notifySubscribers(WizardEntity.API_CONFIG_LOADED, this.configState);
             });
 
@@ -62,8 +64,6 @@ export class WizardEntity extends LiEvents {
 
     updateConfigState(newConfig: {}) {
         this.userConfig = $.extend(true, this.userConfig, newConfig);
-        console.clear();
-        console.log(this.userConfig);
     }
 
     getConfigState() {
