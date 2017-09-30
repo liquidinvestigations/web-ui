@@ -5,23 +5,23 @@ export function mapSummaryConfig(config) {
             fields: [
                 {
                     label: 'IP',
-                    value: config['network'].lan.ip
+                    value: config.lan.ip
                 },
                 {
                     label: 'Netmask',
-                    value: config['network'].lan.netmask
+                    value: config.lan.netmask
                 },
                 {
                     label: 'DHCP Range',
-                    value: config['network'].lan.dhcp_range
+                    value: config.lan.dhcp_range
                 },
                 {
                     label: 'SSID',
-                    value: config['network'].lan.hotspot.ssid
+                    value: config.lan.hotspot.ssid
                 },
                 {
                     label: 'Password',
-                    value: config['network'].lan.hotspot.password
+                    value: config.lan.hotspot.password
                 }
             ]
         },
@@ -30,27 +30,27 @@ export function mapSummaryConfig(config) {
             fields: [
                 {
                     label: 'IP',
-                    value: config['network'].wan.static.ip
+                    value: config.wan.static.ip
                 },
                 {
                     label: 'Netmask',
-                    value: config['network'].wan.static.netmask
+                    value: config.wan.static.netmask
                 },
                 {
                     label: 'Gateway',
-                    value: config['network'].wan.static.gateway
+                    value: config.wan.static.gateway
                 },
                 {
                     label: 'DNS Server',
-                    value: config['network'].wan.static.dns_server
+                    value: config.wan.static.dns_server
                 },
                 {
                     label: 'SSID',
-                    value: config['network'].wan.wifi.ssid
+                    value: config.wan.wifi.ssid
                 },
                 {
                     label: 'Password',
-                    value: config['network'].wan.wifi.password
+                    value: config.wan.wifi.password
                 }
             ]
         },
@@ -59,27 +59,27 @@ export function mapSummaryConfig(config) {
             fields: [
                 {
                     label: 'SSH',
-                    value: config['network'].ssh.enabled === true
+                    value: config.ssh.enabled === true
                 },
                 {
                     label: 'HOOVER',
-                    value: config['services'].hoover === true
+                    value: config.services.hoover === true
                 },
                 {
                     label: 'HYPOTHESIS',
-                    value: config['services'].hypothesis === true
+                    value: config.services.hypothesis === true
                 },
                 {
                     label: 'DOKUWIKI',
-                    value: config['services'].docuwiki === true
+                    value: config.services.docuwiki === true
                 },
                 {
                     label: 'MATRIX',
-                    value: config['services'].matrix === true
+                    value: config.services.matrix === true
                 },
                 {
                     label: 'DAVROS',
-                    value: config['services'].davros === true
+                    value: config.services.davros === true
                 }
             ]
         }

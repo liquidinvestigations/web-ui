@@ -1,0 +1,6 @@
+Run `npm i` to install the needed dependencies
+
+Run `npm run start` to start the node server
+Got to http://ui.liquiddemo.org
+
+Run `npm run stop` to kill the server

@@ -9,8 +9,8 @@ import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form
     styleUrls: ['./services-step.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ServicesStepComponent extends FormStepBase implements FormStepBase {
-    @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;
+export class ServicesStepComponent extends FormStepBase {
+    @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
     title = 'Services';
 

@@ -2,7 +2,6 @@ import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WizardService } from './wizard.service';
 import { slideLeft } from './wizard-routing.animation';
-import { WizardEntity } from './wizard.entity';
 
 declare let $: any;
 
@@ -27,18 +26,19 @@ export class WizardComponent implements OnInit {
         buttonClass: string,
         action?: () => {}
         isDisabled?: () => false
+        isLoading?: () => false
     } = null;
 
-    constructor(private wizardElemRef: ElementRef,
-                private zone: NgZone,
-                private activatedRoute: ActivatedRoute,
-                private wizardEntity: WizardEntity,
-                private wizardService: WizardService,
+    constructor(
+        private wizardElemRef: ElementRef,
+        private zone: NgZone,
+        private activatedRoute: ActivatedRoute,
+        private wizardService: WizardService,
     ) {
 
-        if (!wizardEntity.getConfigState()) {
-            this.wizardService.resetWizard();
-        }
+        // if (!wizardEntity.getConfigState()) {
+        //     this.wizardService.resetWizard();
+        // }
 
         // init steps from routing and get length
         this.wizardService.initSteps(activatedRoute.routeConfig.children);

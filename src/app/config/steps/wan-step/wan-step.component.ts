@@ -8,8 +8,8 @@ import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form
     templateUrl: '../form-step-base.html',
     styleUrls: ['./wan-step.component.scss']
 })
-export class WanStepComponent extends FormStepBase implements FormStepBase {
-    @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;
+export class WanStepComponent extends FormStepBase {
+    @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
     title = 'Wan Configuration';
 

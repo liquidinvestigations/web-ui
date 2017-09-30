@@ -18,8 +18,7 @@ if (server) {
         "/api": {
             "target": 'https://' + server,
             "secure": false,
-            "changeOrigin": "true",
-            "pathRewrite": {"^/api": ""}
+            "changeOrigin": "true"
         }
     }
 }

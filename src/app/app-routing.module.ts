@@ -5,16 +5,20 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/admin',
+        redirectTo: 'liquid-investigations',
+    },
+    {
+        path: 'liquid-investigations',
+        loadChildren: './liquid-investigations/liquid-investigations.module#LiquidInvestigationsModule'
     },
     {
         path: 'config',
         loadChildren: './config/wizard.module#WizardModule'
     },
-    {
-        path: 'admin',
-        loadChildren: './admin/admin.module#AdminModule'
-    }
+    // {
+    //     path: 'admin',
+    //     loadChildren: './admin/admin.module#AdminModule'
+    // }
 ];
 
 @NgModule({

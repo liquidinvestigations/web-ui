@@ -54,9 +54,4 @@ export class NodesComponent {
 
     }
 
-    getControl(node: {}) {
-
-        return ;
-    }
-
 }

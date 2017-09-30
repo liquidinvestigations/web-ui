@@ -15,13 +15,13 @@ import { WanStepComponent } from './steps/wan-step/wan-step.component';
 import { ServicesStepComponent } from './steps/services-step/services-step.component';
 import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
 import { FinalStepComponent } from './steps/final-step/final-step.component';
-import { WizardEntity } from './wizard.entity';
 import { AdminStepEntity } from './steps/admin-step/admin-step.entity';
 import { LanStepEntity } from './steps/lan-step/lan-step.entity';
 import { WanStepEntity } from './steps/wan-step/wan-step.entity';
 import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
 import { ServicesStepEntity } from './steps/services-step/services-step.entity';
 import { ServicesElementRendererComponent } from './steps/services-step/services-element-renderer.component';
+import { WizardConfigStateEntity } from './wizard-config-state.entity';
 
 @NgModule({
     imports: [
@@ -50,7 +50,7 @@ import { ServicesElementRendererComponent } from './steps/services-step/services
     ],
     providers: [
         WizardService,
-        WizardEntity,
+        WizardConfigStateEntity,
 
         AdminStepEntity,
         LanStepEntity,

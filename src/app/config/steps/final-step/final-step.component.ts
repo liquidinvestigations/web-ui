@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonStepBase } from '../common-step.base';
-import { WizardEntity } from '../../wizard.entity';
 import { WizardService } from '../../wizard.service';
+import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 
 @Component({
     templateUrl: './final-step.component.html',
     styleUrls: ['./final-step.component.scss']
 })
-export class FinalStepComponent extends CommonStepBase implements CommonStepBase {
+export class FinalStepComponent extends CommonStepBase {
 
     title = '';
 
@@ -16,14 +16,12 @@ export class FinalStepComponent extends CommonStepBase implements CommonStepBase
     url = '';
 
     constructor(
-        private wizardEntity: WizardEntity,
-        protected wizardService: WizardService
+        protected wizardService: WizardService,
+        public wizardConfigStateEntity: WizardConfigStateEntity
     ) {
         super(wizardService);
 
-        if (this.wizardEntity.userConfig) {
-            this.url = this.wizardEntity.userConfig['network'].domain;
-        }
+        this.url = this.wizardConfigStateEntity.getConfigState()['domain'];
     }
 
 }

@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WizardService } from '../../wizard.service';
 import { CommonStepBase } from '../common-step.base';
-import { WizardEntity } from '../../wizard.entity';
 
 @Component({
     selector: 'li-welcome-step',
     templateUrl: './welcome-step.component.html',
     styleUrls: ['./welcome-step.component.scss']
 })
-export class WelcomeStepComponent extends CommonStepBase implements CommonStepBase {
+export class WelcomeStepComponent extends CommonStepBase {
 
     title = '';
 
     showProgress = false;
-    buttonDisabled = true;
 
     buttonConfig = {
         label: 'Start',
@@ -22,23 +20,12 @@ export class WelcomeStepComponent extends CommonStepBase implements CommonStepBa
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         },
-        isDisabled: () => this.buttonDisabled
+        isDisabled: () => this.buttonDisabled,
+        isLoading: () => false
     };
 
 
-    constructor(
-        private wizardEntity: WizardEntity,
-                protected wizardService: WizardService
-    ) {
+    constructor(protected wizardService: WizardService) {
         super(wizardService);
-
-        this.wizardEntity.subscribe(WizardEntity.API_CONFIG_LOADED, () => {
-            this.buttonDisabled = false;
-        });
     }
-
-    ngOnInit() {
-        // need to override otherwise the next button will be on before the API_CONFIG_LOADED
-    }
-
 }

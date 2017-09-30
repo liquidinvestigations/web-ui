@@ -1,33 +1,70 @@
-import { WizardEntity } from '../wizard.entity';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
-import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
+import { ApiClientService } from '../../core/api-client.service';
+import { WizardConfigStateEntity } from '../wizard-config-state.entity';
 
 export abstract class FormStepEntity {
+    private formInstance: DynamicFormGroup;
+    private usePost: boolean = false;
 
-    private formInstance: DynamicFormComponent;
-
-    private serverConfig: {} = null;
+    abstract endpoint: string;
 
     abstract getDynamicFormConfig(): DynamicFormGroup;
 
-    constructor(protected wizardEntity: WizardEntity) {
-        // get current stepEntity form configuration
-        this.serverConfig = wizardEntity.getConfigState();
+    constructor(
+        protected apiService: ApiClientService,
+        public wizardConfigState: WizardConfigStateEntity
+    ) {}
+
+    init(filterValues?: Function) {
+        if (this.endpoint) {
+
+            this.getApiEntityConfig()
+                .subscribe((apiConfig: any) => {
+                    if (filterValues instanceof Function) {
+                        apiConfig = filterValues(apiConfig);
+                    }
+
+                    this.getFormInstance()
+                        .patchValue(apiConfig, { emitEvent: false });
+                });
+        }
     }
 
-    setFormInstance(formInstance: DynamicFormComponent) {
+    getFormInstance() {
+        return this.formInstance;
+    }
+
+    setFormInstance(formInstance: DynamicFormGroup) {
         this.formInstance = formInstance;
     }
 
-    updateValuesFromConfig() {
-        this.formInstance
-            .setValues(
-                this.wizardEntity.getConfigState()
-            );
+    getApiEntityConfig() {
+        return this.apiService
+            .get(this.endpoint)
+            .map(res => res.json());
     }
 
-    updateConfigValues(formValues): void {
-        this.wizardEntity.updateConfigState(formValues);
+    createOnSubmit() {
+        this.usePost = true;
+    }
+
+    updateWithFormValues(formConfig?: {}) {
+        if (this.usePost) {
+            return this.createApiEntityConfig(formConfig);
+        } else {
+            return this.updateApiEntityConfig(formConfig);
+        }
+    }
+
+    createApiEntityConfig(formConfig: {}): any {
+        return this.apiService
+            .post(this.endpoint, formConfig);
+    }
+
+
+    updateApiEntityConfig(formConfig: {}): any {
+        return this.apiService
+            .put(this.endpoint, formConfig);
     }
 
 }

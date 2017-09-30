@@ -31,7 +31,10 @@
                                 class="{{ buttonConfig.buttonClass }}"
                                 (click)="buttonConfig.action()"
                                 [disabled]="buttonConfig.isDisabled()"
-                        >{{ buttonConfig.label }} <i class="{{ buttonConfig.iconClass }}"></i></button>
+                        >{{ buttonConfig.label }}
+                            <i *ngIf="!buttonConfig.isLoading()" class="{{ buttonConfig.iconClass }}"></i>
+                            <i *ngIf="buttonConfig.isLoading()" class="fa fa-spin fa-spinner"></i>
+                        </button>
 
                     </div>
                 </div>

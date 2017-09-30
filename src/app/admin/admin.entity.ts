@@ -101,7 +101,7 @@ export class AdminEntity extends LiEvents {
 
     public requestUserDetails() {
         return this.apiService
-            .get('/users')
+            .get('/api/users')
             .map(res => res.json());
     }
 

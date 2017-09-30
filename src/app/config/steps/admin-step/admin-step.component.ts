@@ -8,8 +8,8 @@ import { DynamicFormComponent } from '../../../shared/dynamic-forms/dynamic-form
     templateUrl: '../form-step-base.html',
     styleUrls: ['./admin-step.component.scss'],
 })
-export class AdminStepComponent extends FormStepBase implements FormStepBase {
-    @ViewChild(DynamicFormComponent) formInstance: DynamicFormComponent;
+export class AdminStepComponent extends FormStepBase {
+    @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
     title = 'Admin Configuration';
 

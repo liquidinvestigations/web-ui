@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
-import { FormStepEntity } from '../form-step.entity';
-import { WizardEntity } from '../../wizard.entity';
-import { LAN_FORM } from '../../../shared/li-forms/lan-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
+import { ApiClientService } from '../../../core/api-client.service';
+import { FormStepEntity } from '../form-step.entity';
+import { LAN_FORM } from '../../../shared/li-forms/lan-form';
+
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/map';
+import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 
 @Injectable()
 export class LanStepEntity extends FormStepEntity {
 
-    constructor(protected wizardEntity: WizardEntity, private dynamicFormService: DynamicFormService) {
-        super(wizardEntity);
+    endpoint: string = '/api/network/lan';
+
+    constructor(
+        protected apiService: ApiClientService,
+        private dynamicFormService: DynamicFormService,
+        public wizardConfigState: WizardConfigStateEntity
+    ) {
+        super(apiService, wizardConfigState);
+        this.init();
     }
 
     getDynamicFormConfig(): DynamicFormGroup {

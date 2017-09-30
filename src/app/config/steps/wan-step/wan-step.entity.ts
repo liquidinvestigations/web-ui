@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { FormStepEntity } from '../form-step.entity';
-import { WizardEntity } from '../../wizard.entity';
-import { WAN_FORM } from '../../../shared/li-forms/wan-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
+import { ApiClientService } from '../../../core/api-client.service';
+import { WAN_FORM } from '../../../shared/li-forms/wan-form';
+import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 
 @Injectable()
 export class WanStepEntity extends FormStepEntity {
 
-    constructor(protected wizardEntity: WizardEntity, private dynamicFormService: DynamicFormService) {
-        super(wizardEntity);
+    endpoint: string = '/api/network/wan';
+
+    constructor(
+        protected apiService: ApiClientService,
+        private dynamicFormService: DynamicFormService,
+        public wizardConfigState: WizardConfigStateEntity
+    ) {
+        super(apiService, wizardConfigState);
+        this.init();
     }
 
     getDynamicFormConfig(): DynamicFormGroup {

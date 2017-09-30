@@ -7,6 +7,7 @@ export abstract class CommonStepBase implements OnInit {
     showProgress = true;
 
     buttonDisabled: boolean = false;
+    isLoading: boolean = false;
 
     buttonConfig = {
         label: 'Next',
@@ -15,7 +16,8 @@ export abstract class CommonStepBase implements OnInit {
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         },
-        isDisabled: () => this.buttonDisabled
+        isDisabled: () => this.buttonDisabled,
+        isLoading: () => this.isLoading
     };
 
 
@@ -28,19 +30,20 @@ export abstract class CommonStepBase implements OnInit {
     constructor(
         protected wizardService: WizardService,
     ) {
-        this.stepInit();
-    }
-
-    protected stepInit() {
         setTimeout(() => {
             this.wizardService.setStep(this);
         });
 
         this.wizardService.removeListeners(WizardService.GO_NEXT);
 
-        this.wizardService.subscribe(WizardService.GO_NEXT, (formValues: any) => {
-            this.onNext(formValues);
-            this.wizardService.goNextStep();
+        this.wizardService.subscribe(WizardService.GO_NEXT, () => {
+            this.buttonDisabled = true;
+
+            let nextResult = this.onNext();
+
+            if (nextResult === undefined || nextResult) {
+                this.wizardService.goNextStep();
+            }
         });
 
         this.wizardService.subscribe(WizardService.END_WIZARD, () => {
@@ -48,7 +51,8 @@ export abstract class CommonStepBase implements OnInit {
         });
     }
 
-    protected onNext(data) { }
+    // in case of FormValues this can be overridden
+    protected onNext(formValues?: {}) { }
 
     protected onFinish() { }
 

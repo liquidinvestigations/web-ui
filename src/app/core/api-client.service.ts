@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { environment } from '../../environments/environment';
 import { LiEvents } from './li-events';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/share';
@@ -96,13 +95,7 @@ export class ApiClientService extends LiEvents {
     }
 
     private createUrl(endpoint: any): string {
-        let url = endpoint;
-
-        if (!environment.production) {
-            url = '/api' + url;
-        }
-
-        return url;
+        return endpoint;
     }
 
 }

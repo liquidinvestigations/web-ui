@@ -31,17 +31,17 @@ export class ServicesComponent extends AdminForm {
         this.dynamicFormService
             .setRenderer(ServicesElementRendererComponent);
 
-        let serviceControls = SERVICES_FORM.controls;
-
-        for (let i in serviceControls) {
-            (serviceControls[i] as DynamicFormControl)
-                .onChange((value, control) => {
-                    this.adminEntity.notifySubscribers(AdminEntity.API_UPDATE_SERVICE, control);
-                });
-        }
-
-        this.dynamicFormConfig = new DynamicFormGroup()
-            .elements([ SERVICES_FORM ]);
+        // let serviceControls = SERVICES_FORM.controls;
+        //
+        // for (let i in serviceControls) {
+        //     (serviceControls[i] as DynamicFormControl)
+        //         .onChange((value, control) => {
+        //             this.adminEntity.notifySubscribers(AdminEntity.API_UPDATE_SERVICE, control);
+        //         });
+        // }
+        //
+        // this.dynamicFormConfig = new DynamicFormGroup()
+        //     .elements([ SERVICES_FORM ]);
     }
 
 }
