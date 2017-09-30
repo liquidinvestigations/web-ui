@@ -8,7 +8,7 @@ import { UsersComponent } from './users/users.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { GeneralStatusComponent } from './general-status/general-status.component';
-import { SshComponent } from './services/ssh/ssh.component';
+import { SshComponent } from './network/ssh/ssh.component';
 import { StatusComponent } from './network/status/status.component';
 import { PanelLayoutModule } from '../panel-layout/panel-layout.module';
 import { SharedModule } from '../shared/shared.module';
@@ -25,18 +25,23 @@ import { AdminEntity } from './admin.entity';
 
     declarations: [
         AdminComponent,
-        StatusComponent,
-        ServicesComponent,
+
+        GeneralStatusComponent,
+
         LanComponent,
         WanComponent,
-        UsersComponent,
-        NodesComponent,
-        GeneralStatusComponent,
         SshComponent,
+
+        StatusComponent,
+        // UsersComponent,
+        // NodesComponent,
+
+        ServicesComponent,
+
         ServicesElementRendererComponent
     ],
     providers: [
-        AdminEntity
+        // AdminEntity
     ],
     entryComponents: [
         ServicesElementRendererComponent

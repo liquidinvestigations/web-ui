@@ -22,7 +22,6 @@ export class AdminStepEntity extends FormStepEntity {
         public wizardConfigState: WizardConfigStateEntity
     ) {
         super(apiService, wizardConfigState);
-        this.init();
         this.createOnSubmit();
     }
 

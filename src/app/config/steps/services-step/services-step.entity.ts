@@ -6,10 +6,10 @@ import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.s
 import { ServicesElementRendererComponent } from './services-element-renderer.component';
 import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 import { ApiClientService } from '../../../core/api-client.service';
+import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
-import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
@@ -21,19 +21,19 @@ export class ServicesStepEntity extends FormStepEntity {
         public wizardConfigState: WizardConfigStateEntity
     ) {
         super(apiService, wizardConfigState);
+    }
 
-        this.init((apiResponses: any) => {
-            let filteredServices = {};
+    filterApiValues(apiResponses: any) {
+        let filteredServices = {};
 
-            for (let service of apiResponses[0]) {
-                filteredServices[service.name] = service.is_enabled;
-            }
+        for (let service of apiResponses[0]) {
+            filteredServices[service.name] = service.is_enabled;
+        }
 
-            return {
-                services: filteredServices,
-                ssh: apiResponses[1].ssh
-            };
-        });
+        return {
+            services: filteredServices,
+            ssh: apiResponses[1].ssh
+        };
     }
 
     getDynamicFormConfig(): DynamicFormGroup {
@@ -63,7 +63,7 @@ export class ServicesStepEntity extends FormStepEntity {
         for (let i in services) {
             requests.push(
                 this.apiService
-                    .put('/api/services/' + i + '/enabled', { enabled: services[i] === true })
+                    .put('/api/services/' + i + '/enabled', {enabled: services[i] === true})
             );
         }
 

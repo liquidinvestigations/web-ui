@@ -17,7 +17,6 @@ export class WanStepEntity extends FormStepEntity {
         public wizardConfigState: WizardConfigStateEntity
     ) {
         super(apiService, wizardConfigState);
-        this.init();
     }
 
     getDynamicFormConfig(): DynamicFormGroup {

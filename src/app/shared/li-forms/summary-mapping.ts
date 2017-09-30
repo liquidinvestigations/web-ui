@@ -1,6 +1,8 @@
 export function mapSummaryConfig(config) {
-    return {
-        lan: {
+    let mapping = {};
+
+    if (config.lan) {
+        mapping['lan'] = {
             title: 'LAN configuration',
             fields: [
                 {
@@ -24,8 +26,11 @@ export function mapSummaryConfig(config) {
                     value: config.lan.hotspot.password
                 }
             ]
-        },
-        wan: {
+        };
+    }
+
+    if (config.wan) {
+        mapping['wan'] = {
             title: 'WAN configuration',
             fields: [
                 {
@@ -53,8 +58,11 @@ export function mapSummaryConfig(config) {
                     value: config.wan.wifi.password
                 }
             ]
-        },
-        services: {
+        };
+    }
+
+    if (config.services) {
+        mapping['services'] = {
             title: 'Services',
             fields: [
                 {
@@ -82,7 +90,8 @@ export function mapSummaryConfig(config) {
                     value: config.services.davros === true
                 }
             ]
-        }
+        };
+    }
 
-    };
+    return mapping;
 }

@@ -7,8 +7,6 @@ import { ActivatedRoute } from '@angular/router';
     encapsulation: ViewEncapsulation.None
 })
 export class AdminComponent {
-
-
     sideMenuButtons = [];
 
     constructor(

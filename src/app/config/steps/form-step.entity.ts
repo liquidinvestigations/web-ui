@@ -15,19 +15,19 @@ export abstract class FormStepEntity {
         public wizardConfigState: WizardConfigStateEntity
     ) {}
 
-    init(filterValues?: Function) {
+    init() {
         if (this.endpoint) {
 
             this.getApiEntityConfig()
                 .subscribe((apiConfig: any) => {
-                    if (filterValues instanceof Function) {
-                        apiConfig = filterValues(apiConfig);
-                    }
-
                     this.getFormInstance()
-                        .patchValue(apiConfig, { emitEvent: false });
+                        .patchValue(this.filterApiValues(apiConfig), { emitEvent: false });
                 });
         }
+    }
+
+    filterApiValues(apiConfig: any) {
+        return apiConfig;
     }
 
     getFormInstance() {

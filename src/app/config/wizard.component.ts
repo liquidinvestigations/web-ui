@@ -2,6 +2,7 @@ import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WizardService } from './wizard.service';
 import { slideLeft } from './wizard-routing.animation';
+import { WizardConfigStateEntity } from './wizard-config-state.entity';
 
 declare let $: any;
 
@@ -34,11 +35,12 @@ export class WizardComponent implements OnInit {
         private zone: NgZone,
         private activatedRoute: ActivatedRoute,
         private wizardService: WizardService,
+        private wizardConfigStateEntity: WizardConfigStateEntity,
     ) {
 
-        // if (!wizardEntity.getConfigState()) {
-        //     this.wizardService.resetWizard();
-        // }
+        if (!wizardConfigStateEntity.getConfigState()) {
+            this.wizardService.resetWizard();
+        }
 
         // init steps from routing and get length
         this.wizardService.initSteps(activatedRoute.routeConfig.children);

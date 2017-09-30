@@ -5,8 +5,9 @@ import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-for
 import { ServicesElementRendererComponent } from './services-element-renderer.component';
 import { AdminEntity } from '../admin.entity';
 import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
-import { AdminForm } from '../common/admin-form';
+import { AdminForm } from '../admin-form';
 import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
+import { ApiClientService } from '../../core/api-client.service';
 
 @Component({
     templateUrl: './services.component.html',
@@ -17,31 +18,55 @@ import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-f
     encapsulation: ViewEncapsulation.None
 })
 export class ServicesComponent extends AdminForm {
-    @ViewChild(DynamicFormComponent) formComponent: DynamicFormComponent;
+    @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
-    dynamicFormConfig: DynamicFormGroup;
+    endpoint: string = '/api/services';
 
     constructor(
         protected dynamicFormService: DynamicFormService,
-        protected adminEntity: AdminEntity
+        protected apiService: ApiClientService,
     ) {
+        super(apiService);
+        this.init();
+    }
 
-        super(dynamicFormService, adminEntity);
+    getDynamicFormConfig() {
 
         this.dynamicFormService
             .setRenderer(ServicesElementRendererComponent);
 
-        // let serviceControls = SERVICES_FORM.controls;
-        //
-        // for (let i in serviceControls) {
-        //     (serviceControls[i] as DynamicFormControl)
-        //         .onChange((value, control) => {
-        //             this.adminEntity.notifySubscribers(AdminEntity.API_UPDATE_SERVICE, control);
-        //         });
-        // }
-        //
-        // this.dynamicFormConfig = new DynamicFormGroup()
-        //     .elements([ SERVICES_FORM ]);
+        let serviceControls = SERVICES_FORM;
+
+        this.handleOnChange(serviceControls.controls);
+
+        return new DynamicFormGroup()
+            .elements([ serviceControls ]);
+    }
+
+    filterApiValues(apiResponse: any) {
+        let filteredServices = {};
+
+        for (let service of apiResponse) {
+            filteredServices[service.name] = service.is_enabled;
+        }
+
+        return {
+            services: filteredServices
+        };
+    }
+
+    private handleOnChange(serviceControls) {
+        for (let i in serviceControls) {
+            (serviceControls[i] as DynamicFormControl)
+                .onChange((value, control) => {
+                    this.updateService(control);
+                });
+        }
+    }
+
+    private updateService(control: DynamicFormControl) {
+        return this.apiService
+            .put('/api/services/' + control.id + '/enabled', { enabled: !!control.value });
     }
 
 }

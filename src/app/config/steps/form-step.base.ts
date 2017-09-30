@@ -5,6 +5,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
 import { Observable } from 'rxjs/Observable';
+import { FormStepEntity } from './form-step.entity';
 
 export abstract class FormStepBase extends CommonStepBase {
     abstract formViewInstance: DynamicFormComponent;
@@ -26,10 +27,12 @@ export abstract class FormStepBase extends CommonStepBase {
     buttonDisabled = true;
 
     constructor(
-        public formStepEntity: any,
+        public formStepEntity: FormStepEntity,
         protected wizardService: WizardService
     ) {
         super(wizardService);
+
+        this.formStepEntity.init();
 
         this.dynamicFormConfig = this.formStepEntity.getDynamicFormConfig();
         this.formStepEntity.setFormInstance(this.dynamicFormConfig);

@@ -30,9 +30,13 @@ export class SummaryStepComponent extends CommonStepBase {
         public wizardConfigStateEntity: WizardConfigStateEntity
     ) {
         super(wizardService);
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
 
         this.currentConfig = mapSummaryConfig(
-            wizardConfigStateEntity.getConfigState()
+            this.wizardConfigStateEntity.getConfigState()
         );
     }
 

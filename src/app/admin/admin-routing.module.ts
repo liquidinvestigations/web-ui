@@ -8,7 +8,7 @@ import { NodesComponent } from './nodes/nodes.component';
 import { StatusComponent } from './network/status/status.component';
 import { ServicesComponent } from './services/services.component';
 import { GeneralStatusComponent } from './general-status/general-status.component';
-import { SshComponent } from './services/ssh/ssh.component';
+import { SshComponent } from './network/ssh/ssh.component';
 
 const routes: Routes = [
     {
@@ -60,19 +60,6 @@ const routes: Routes = [
                             icon: 'fa fa-wifi'
                         }
                     },
-                ],
-                data: {
-                    label: 'network',
-                    icon: 'fa fa-server'
-                }
-            },
-            {
-                path: 'services',
-                children: [
-                    {
-                        path: '',
-                        component: ServicesComponent,
-                    },
                     {
                         path: 'ssh',
                         component: SshComponent,
@@ -82,28 +69,35 @@ const routes: Routes = [
                         }
                     }
                 ],
-
+                data: {
+                    label: 'network',
+                    icon: 'fa fa-server'
+                }
+            },
+            {
+                path: 'services',
+                component: ServicesComponent,
                 data: {
                     label: 'services',
                     icon: 'fa fa-list-ul'
                 }
             },
-            {
-                path: 'users',
-                component: UsersComponent,
-                data: {
-                    label: 'users',
-                    icon: 'fa fa-user-o'
-                }
-            },
-            {
-                path: 'nodes',
-                component: NodesComponent,
-                data: {
-                    label: 'discovery',
-                    icon: 'fa fa-globe'
-                }
-            }
+            // {
+            //     path: 'users',
+            //     component: UsersComponent,
+            //     data: {
+            //         label: 'users',
+            //         icon: 'fa fa-user-o'
+            //     }
+            // },
+            // {
+            //     path: 'nodes',
+            //     component: NodesComponent,
+            //     data: {
+            //         label: 'discovery',
+            //         icon: 'fa fa-globe'
+            //     }
+            // }
         ]
     }
 ];

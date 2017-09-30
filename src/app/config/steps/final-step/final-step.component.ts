@@ -20,7 +20,10 @@ export class FinalStepComponent extends CommonStepBase {
         public wizardConfigStateEntity: WizardConfigStateEntity
     ) {
         super(wizardService);
+    }
 
+    ngOnInit() {
+        super.ngOnInit();
         this.url = this.wizardConfigStateEntity.getConfigState()['domain'];
     }
 
