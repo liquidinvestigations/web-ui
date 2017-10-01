@@ -11,13 +11,30 @@ export class LiEvents {
         }
     }
 
-    public subscribe(event: string, listener: (data: any) => void): number {
-        if (undefined === this.eventListeners[event]) {
-            this.eventListeners[event] = [];
-        }
+    public subscribe(event: string | string[], listener: (data: any) => void): number | number[] {
 
-        return this.eventListeners[event].push(listener) - 1;
+        if (event instanceof Array) {
+            let evIds = [];
+            for (let e of event) {
+
+                if (undefined === this.eventListeners[e]) {
+                    this.eventListeners[e] = [];
+                }
+
+                evIds.push(
+                    this.eventListeners[e].push(listener) - 1
+                );
+            }
+            return evIds;
+        } else {
+            if (undefined === this.eventListeners[event]) {
+                this.eventListeners[event] = [];
+            }
+
+            return this.eventListeners[event].push(listener) - 1;
+        }
     }
+
 
     public unsubscribe(event: string, index: number): void {
         if (this.eventListeners[event]

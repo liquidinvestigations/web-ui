@@ -13,7 +13,6 @@ import { StatusComponent } from './network/status/status.component';
 import { PanelLayoutModule } from '../panel-layout/panel-layout.module';
 import { SharedModule } from '../shared/shared.module';
 import { ServicesElementRendererComponent } from './services/services-element-renderer.component';
-import { AdminEntity } from './admin.entity';
 
 @NgModule({
     imports: [
@@ -28,20 +27,17 @@ import { AdminEntity } from './admin.entity';
 
         GeneralStatusComponent,
 
+        StatusComponent,
         LanComponent,
         WanComponent,
         SshComponent,
 
-        StatusComponent,
-        // UsersComponent,
-        // NodesComponent,
-
         ServicesComponent,
+        ServicesElementRendererComponent,
 
-        ServicesElementRendererComponent
-    ],
-    providers: [
-        // AdminEntity
+        UsersComponent,
+        NodesComponent,
+
     ],
     entryComponents: [
         ServicesElementRendererComponent

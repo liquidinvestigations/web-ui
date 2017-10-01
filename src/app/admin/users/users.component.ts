@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminEntity } from '../admin.entity';
+import { Component } from '@angular/core';
+import { ApiClientService } from '../../core/api-client.service';
 
 @Component({
     templateUrl: './users.component.html',
@@ -26,14 +26,16 @@ export class UsersComponent {
         }
     ];
 
+
     users = [];
 
-    constructor(private adminEntity: AdminEntity) {
-        adminEntity.requestUserDetails()
+    constructor(private apiService: ApiClientService) {
+        this.apiService
+            .get('/api/users')
+            .map(res => res.json())
             .subscribe((data) => {
                 this.users = data;
             });
-
     }
 
 }

@@ -9,18 +9,40 @@ export abstract class AdminForm {
     abstract endpoint: string;
 
     dynamicFormConfig: DynamicFormGroup;
+
     isLoading: boolean = false;
+    buttonDisabled: boolean = false;
+    disableOnUpdate: boolean = true;
 
     private usePost: boolean = false;
 
+    buttonConfig = {
+        label: 'Update',
+        iconClass: 'glyphicon glyphicon-ok',
+        buttonClass: 'btn btn-primary',
+        action: () => {
+            // if successful will call successSubmit
+            this.formViewInstance.onSubmit();
+        },
+        isDisabled: () => this.buttonDisabled,
+        isLoading: () => this.isLoading
+    };
+
     constructor(protected apiService: ApiClientService) {
+        apiService.subscribe([
+            ApiClientService.EV_BEFORE_PUT,
+            ApiClientService.EV_BEFORE_POST
+        ], () => {
+            this.isLoading = true;
+
+            if (this.disableOnUpdate) {
+                this.dynamicFormConfig.disable();
+            }
+        });
     }
 
     init() {
         this.dynamicFormConfig = this.getDynamicFormConfig();
-
-        console.log(this.dynamicFormConfig);
-
         if (this.endpoint) {
             this.refreshConfig();
         }
@@ -30,9 +52,11 @@ export abstract class AdminForm {
         this.getApiEntityConfig()
             .subscribe((apiConfig: any) => {
                 this.dynamicFormConfig
-                    .patchValue(this.filterApiValues(apiConfig), {emitEvent: false});
+                    .patchValue(this.filterApiValues(apiConfig), { emitEvent: false });
 
-                this.dynamicFormConfig.enable();
+                if (this.disableOnUpdate) {
+                    this.dynamicFormConfig.enable();
+                }
             });
     }
 
@@ -73,12 +97,9 @@ export abstract class AdminForm {
     }
 
     successSubmit(formConfig: {}) {
-        this.isLoading = true;
-        this.dynamicFormConfig.disable();
-
         this.updateWithFormValues(formConfig)
             .subscribe(() => {
-                this.isLoading = true;
+                this.isLoading = false;
                 this.refreshConfig();
             });
     }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminEntity } from '../admin.entity';
+import { Component } from '@angular/core';
 import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
+import { ApiClientService } from '../../core/api-client.service';
 
 @Component({
   templateUrl: './nodes.component.html',
@@ -32,15 +32,17 @@ export class NodesComponent {
 
     fg: DynamicFormGroup = new DynamicFormGroup();
 
-    constructor(private adminEntity: AdminEntity) {
-        adminEntity.requestDiscoveredNodes()
+    constructor(private apiService: ApiClientService) {
+        apiService
+            .get('/api/discovery/nodes')
+            .map(res => res.json())
             .subscribe((data) => {
                 for (let node of data) {
 
                     let control = new DynamicFormControl(node.name)
                         .setControlType(DynamicFormControl.TYPE_SLIDER)
                         .onChange((value, self: DynamicFormControl) => {
-                            this.adminEntity.updateNode(self);
+                            this.updateNode(self);
                         });
 
                     this.fg.addControl(node.name, control);
@@ -51,7 +53,11 @@ export class NodesComponent {
                 }
 
             });
+    }
 
+    updateNode(control: DynamicFormControl) {
+        return this.apiService
+            .put('/api/discovery/nodes/' + control.id + '/trusted', { trusted: !!control.value });
     }
 
 }

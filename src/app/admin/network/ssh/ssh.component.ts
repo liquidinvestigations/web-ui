@@ -8,7 +8,7 @@ import { ApiClientService } from '../../../core/api-client.service';
 import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 
 @Component({
-    templateUrl: './ssh.component.html',
+    templateUrl: '../../admin-form.html',
     styleUrls: ['./ssh.component.scss'],
     viewProviders: [
         DynamicFormService

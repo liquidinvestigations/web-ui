@@ -82,22 +82,22 @@ const routes: Routes = [
                     icon: 'fa fa-list-ul'
                 }
             },
-            // {
-            //     path: 'users',
-            //     component: UsersComponent,
-            //     data: {
-            //         label: 'users',
-            //         icon: 'fa fa-user-o'
-            //     }
-            // },
-            // {
-            //     path: 'nodes',
-            //     component: NodesComponent,
-            //     data: {
-            //         label: 'discovery',
-            //         icon: 'fa fa-globe'
-            //     }
-            // }
+            {
+                path: 'users',
+                component: UsersComponent,
+                data: {
+                    label: 'users',
+                    icon: 'fa fa-user-o'
+                }
+            },
+            {
+                path: 'nodes',
+                component: NodesComponent,
+                data: {
+                    label: 'discovery',
+                    icon: 'fa fa-globe'
+                }
+            }
         ]
     }
 ];

@@ -3,7 +3,6 @@ import { SERVICES_FORM } from '../../shared/li-forms/services-form';
 import { DynamicFormService } from '../../shared/dynamic-forms/dynamic-form.service';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
 import { ServicesElementRendererComponent } from './services-element-renderer.component';
-import { AdminEntity } from '../admin.entity';
 import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
 import { AdminForm } from '../admin-form';
 import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
@@ -21,6 +20,8 @@ export class ServicesComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
     endpoint: string = '/api/services';
+
+    disableOnUpdate = false;
 
     constructor(
         protected dynamicFormService: DynamicFormService,

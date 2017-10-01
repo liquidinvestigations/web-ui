@@ -1,0 +1,27 @@
+<div class="settings-container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2">
+                        <dynamic-form [fg]="dynamicFormConfig" [onSuccessSubmit]="successSubmit.bind(this)"
+                                      [showSubmitButton]="false"></dynamic-form>
+
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-5">
+
+                            <button *ngIf="buttonConfig"
+                                    class="{{ buttonConfig.buttonClass }}"
+                                    (click)="buttonConfig.action()"
+                                    [disabled]="buttonConfig.isDisabled()"
+                            >{{ buttonConfig.label }}
+                                <i *ngIf="!buttonConfig.isLoading()" class="{{ buttonConfig.iconClass }}"></i>
+                                <i *ngIf="buttonConfig.isLoading()" class="fa fa-spin fa-spinner"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

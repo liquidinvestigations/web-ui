@@ -7,7 +7,7 @@ import { AdminForm } from '../../admin-form';
 import { ApiClientService } from '../../../core/api-client.service';
 
 @Component({
-    templateUrl: './wan.component.html',
+    templateUrl: '../../admin-form.html',
     styleUrls: ['./wan.component.scss'],
     viewProviders: [
         DynamicFormService
