@@ -1,33 +1,29 @@
-<div class="settings-container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <ng-container *ngFor="let column of tableColumns">
-                                    <th>{{ column.label }}</th>
-                                </ng-container>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <ng-container *ngFor="let user of users">
-                                <tr>
-                                    <ng-container *ngFor="let column of tableColumns">
-                                        <td>{{ user[column.name] }}</td>
-                                    </ng-container>
-                                    <td>actions</td>
-                                </tr>
-                            </ng-container>
-                            </tbody>
-                        </table>
+<br><br>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <ng-container *ngFor="let column of tableColumns">
+                        <th>{{ column.label }}</th>
+                    </ng-container>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let user of users">
+                    <tr>
+                        <ng-container *ngFor="let column of tableColumns">
+                            <td>{{ user[column.name] }}</td>
+                        </ng-container>
+                        <td>actions</td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
 
-                    </div>
-                </div>
-            </div>
         </div>
+
     </div>
 </div>

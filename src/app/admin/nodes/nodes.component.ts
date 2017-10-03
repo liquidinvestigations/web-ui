@@ -11,7 +11,7 @@ export class NodesComponent {
 
     tableColumns = [
         {
-            name: 'name',
+            name: 'hostname',
             label: 'Node name'
         },
         {
@@ -19,7 +19,7 @@ export class NodesComponent {
             label: 'Discovery Interface'
         },
         {
-            name: 'last_seen',
+            name: 'last_seen_at',
             label: 'Last Seen'
         },
         {
@@ -34,18 +34,21 @@ export class NodesComponent {
 
     constructor(private apiService: ApiClientService) {
         apiService
-            .get('/api/discovery/nodes')
+            .get('/api/nodes')
             .map(res => res.json())
             .subscribe((data) => {
                 for (let node of data) {
 
-                    let control = new DynamicFormControl(node.name)
+                    Object.assign(node, node.data);
+
+                    let control = new DynamicFormControl(node.hostname)
                         .setControlType(DynamicFormControl.TYPE_SLIDER)
+                        .setValue(node.is_trusted, {emitEvent: false})
                         .onChange((value, self: DynamicFormControl) => {
                             this.updateNode(self);
                         });
 
-                    this.fg.addControl(node.name, control);
+                    this.fg.addControl(node.hostname, control);
 
                     node['control'] = control;
 

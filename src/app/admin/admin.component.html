@@ -4,8 +4,11 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand">
-                        Liquid Investigation
+                        Liquid Investigations
                     </a>
+                </div>
+                <div class="user-info">
+                    Logged in as: {{ username }} <span class="badge" *ngIf="isAdmin">admin</span>
                 </div>
             </div>
         </div>
@@ -19,9 +22,14 @@
                 </div>
             </div>
             <div class="col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Dashboard</h1>
+                <h1 class="page-header">{{ pageTitle }}</h1>
                 <router-outlet></router-outlet>
             </div>
         </div>
+    </div>
+</div>
+<div class="loading" *ngIf="isLoading">
+    <div class="spinner">
+        <i class="fa fa-spin fa-spinner"></i>
     </div>
 </div>

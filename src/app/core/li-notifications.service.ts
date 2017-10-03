@@ -13,7 +13,7 @@ export class LiNotificationsService extends LiEvents {
     public static readonly NOTIFICATION_CLOSED = 'notification_closed';
 
 
-    show(message: string, type: string = 'info', iconClass: string = '', from: string = 'bottom', align: string = 'right') {
+    show(message: string, type: string = 'info', iconClass: string = '', from: string = 'top', align: string = 'right') {
 
         return $.notify({
             icon: iconClass,

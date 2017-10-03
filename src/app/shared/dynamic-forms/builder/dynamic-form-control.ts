@@ -137,4 +137,14 @@ export class DynamicFormControl extends FormControl {
         super.setValidators(newValidator);
         return this;
     }
+
+    setValue(value: any, options?: {
+        onlySelf?: boolean;
+        emitEvent?: boolean;
+        emitModelToViewChange?: boolean;
+        emitViewToModelChange?: boolean;
+    }) {
+        super.setValue(value, options);
+        return this;
+    }
 }

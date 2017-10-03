@@ -17,6 +17,8 @@ export class ApiClientService extends LiEvents {
     static readonly EV_BEFORE_POST = 'before_post';
     static readonly EV_POST_SUCCESSFUL = 'post_successful';
 
+    static readonly EV_API_ERROR = 'api_error';
+
     private headers: Headers;
 
     constructor(private http: Http) {
@@ -91,6 +93,7 @@ export class ApiClientService extends LiEvents {
     }
 
     private handleBackendErrorOnRead() {
+        this.notifySubscribers(ApiClientService.EV_API_ERROR);
         console.warn('Error');
     }
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { WAN_FORM } from '../../../shared/li-forms/wan-form';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
@@ -9,7 +9,8 @@ import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 
 @Component({
     templateUrl: '../../admin-form.html',
-    styleUrls: ['./ssh.component.scss'],
+    styleUrls: ['../../admin-form.scss'],
+    encapsulation: ViewEncapsulation.None,
     viewProviders: [
         DynamicFormService
     ]

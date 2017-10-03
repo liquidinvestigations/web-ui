@@ -26,12 +26,18 @@ const routes: Routes = [
                 component: GeneralStatusComponent,
                 data: {
                     label: 'status',
-                    icon: 'fa fa-th'
+                    icon: 'fa fa-th',
+                    pageTitle: 'General status'
                 }
             },
             {
                 path: 'network',
                 component: NetworkComponent,
+                data: {
+                    label: 'network',
+                    icon: 'fa fa-server',
+                    pageTitle: 'Network configuration'
+                },
                 children: [
                     {
                         path: '',
@@ -70,18 +76,15 @@ const routes: Routes = [
                             icon: 'fa fa-key'
                         }
                     }
-                ],
-                data: {
-                    label: 'network',
-                    icon: 'fa fa-server'
-                }
+                ]
             },
             {
                 path: 'services',
                 component: ServicesComponent,
                 data: {
                     label: 'services',
-                    icon: 'fa fa-list-ul'
+                    icon: 'fa fa-list-ul',
+                    pageTitle: 'Services'
                 }
             },
             {
@@ -89,7 +92,8 @@ const routes: Routes = [
                 component: UsersComponent,
                 data: {
                     label: 'users',
-                    icon: 'fa fa-user-o'
+                    icon: 'fa fa-user-o',
+                    pageTitle: 'Users'
                 }
             },
             {
@@ -97,7 +101,8 @@ const routes: Routes = [
                 component: NodesComponent,
                 data: {
                     label: 'discovery',
-                    icon: 'fa fa-globe'
+                    icon: 'fa fa-globe',
+                    pageTitle: 'Discovery'
                 }
             }
         ]

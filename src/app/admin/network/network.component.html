@@ -1,6 +1,6 @@
-<div>
+<div class="row">
     <div class="tabs-container">
-        <ul class="nav nav-pills navbar-right" *ngIf="tabs">
+        <ul class="nav nav-tabs" *ngIf="tabs">
             <ng-container *ngFor="let tab of tabs">
                 <li routerLinkActive="active">
                     <a routerLink="{{ tab.path }}">
@@ -11,5 +11,7 @@
             </ng-container>
         </ul>
     </div>
+</div>
+<div class="row">
     <router-outlet></router-outlet>
 </div>

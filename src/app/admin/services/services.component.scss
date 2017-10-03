@@ -1,16 +1,5 @@
-.settings-container {
-
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  right: 0;
-
-  .panel {
-    border-radius: 5px;
-  }
-}
-
 .service-group {
+  height: 80px!important;
+  border-bottom: 1px #eee solid;
   margin-bottom: 15px !important;
 }
