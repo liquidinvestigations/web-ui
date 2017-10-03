@@ -1,0 +1,14 @@
+<div>
+    <ul class="nav nav-tabs" *ngIf="tabs">
+        <ng-container *ngFor="let tab of tabs">
+            <li routerLinkActive="active">
+                <a routerLink="{{ tab.path }}">
+                    <i class="{{ tab.icon }}"></i>
+                    <p class="hidden-xs">{{ tab.label }}</p>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+
+    <router-outlet></router-outlet>
+</div>

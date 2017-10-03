@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { LanComponent } from './network/lan/lan.component';
-import { WanComponent } from './network/wan/wan.component';
 import { UsersComponent } from './users/users.component';
 import { NodesComponent } from './nodes/nodes.component';
-import { StatusComponent } from './network/status/status.component';
 import { ServicesComponent } from './services/services.component';
 import { GeneralStatusComponent } from './general-status/general-status.component';
+import { NetworkComponent } from './network/network.component';
+import { StatusComponent } from './network/status/status.component';
+import { LanComponent } from './network/lan/lan.component';
+import { WanComponent } from './network/wan/wan.component';
 import { SshComponent } from './network/ssh/ssh.component';
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
             },
             {
                 path: 'network',
+                component: NetworkComponent,
                 children: [
                     {
                         path: '',

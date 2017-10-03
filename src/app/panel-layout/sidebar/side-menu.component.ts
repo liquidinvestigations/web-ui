@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SideMenuComponent implements OnInit {
     @Input() sideMenuButtons: any[];
     @Input() parentPath: string = './';
+    @Input() childrenAsTabs: boolean = true;
 
     buttons: any[] = [];
 
@@ -14,7 +15,9 @@ export class SideMenuComponent implements OnInit {
         for (let route of this.sideMenuButtons) {
             if (route.data) {
                 route.data.path = this.parentPath + '/' + route.path;
-                route.data.children = route.children;
+                if (!this.childrenAsTabs) {
+                    route.data.children = route.children;
+                }
                 this.buttons.push(route.data);
             }
         }

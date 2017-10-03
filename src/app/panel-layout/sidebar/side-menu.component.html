@@ -1,6 +1,6 @@
 <ul class="nav">
     <ng-container *ngFor="let button of buttons">
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: !childrenAsTabs}">
             <a routerLink="{{ button.path }}">
                 <i class="{{ button.icon }}"></i>
                 <p class="hidden-xs">{{ button.label }}</p>
