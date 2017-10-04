@@ -10,6 +10,7 @@ export class DynamicFormControl extends FormControl {
     public static readonly TYPE_PASSWORD = 'password';
     public static readonly TYPE_CHECKBOX = 'checkbox';
     public static readonly TYPE_SLIDER = 'slider_checkbox';
+    public static readonly TYPE_TEXTAREA = 'textarea';
 
     public textMask: (string | RegExp)[] = [];
     public groupWrap: boolean;

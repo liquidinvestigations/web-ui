@@ -12,8 +12,8 @@
                 <div class="{{ control?.groupCssClass }} {{ control?.id }} collapsed" [ngClass]="{'in': !control.isHidden}">
                     <dynamic-from-group [fg]="control"></dynamic-from-group>
 
-                    <div *ngIf="control.toggleInteraction" class="form-group text-center">
-                        <button type="button" class="btn btn-sm btn-primary" (click)="control.addNew()"
+                    <div *ngIf="control.toggleInteraction" class="form-group text-center add-new-control-container">
+                        <button type="button" class="btn btn-sm add-new-control" (click)="control.addNew()"
                                 [disabled]="control.reachedMaxElements()">
                             <i class="glyphicon glyphicon-plus-sign"></i> Add
                         </button>

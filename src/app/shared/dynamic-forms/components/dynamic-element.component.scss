@@ -14,6 +14,19 @@
     width: 100%;
 }
 
+.textarea-removable {
+  resize: vertical;
+  height: 50px;
+  min-height: 50px;
+  max-height: 75px;
+}
+
+.textarea-remove-btn {
+  float: right;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
 .switch {
     position: relative;
     display: inline-block;

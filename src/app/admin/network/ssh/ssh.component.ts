@@ -32,10 +32,9 @@ export class SshComponent extends AdminForm {
 
 
     getDynamicFormConfig() {
-
         this.dynamicFormService
-            .setLabelCssClass('col-xs-12 col-sm-5 text-right')
-            .setControlCssClass('col-xs-12 col-sm-7');
+            .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+            .setControlCssClass('col-xs-12 col-sm-8');
 
         return new DynamicFormGroup()
             .elements([SSH_FORM]);

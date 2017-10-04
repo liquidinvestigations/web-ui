@@ -10,12 +10,12 @@ export const SSH_FORM =
                 .setControlType(DynamicFormControl.TYPE_SLIDER),
 
             new DynamicFormArray('authorized_keys')
-                .setArrayCssClass('col-xs-12 col-xs-offset-0 col-sm-9 col-sm-offset-2')
+                .setArrayCssClass('col-xs-12 col-xs-offset-0 col-sm-9 col-sm-offset-3')
                 .generateElement(
                     new DynamicFormControl('key')
                         .wrapInGroup()
                         .setRenderer(false)
-                        .setControlType(DynamicFormControl.TYPE_TEXT)
+                        .setControlType(DynamicFormControl.TYPE_TEXTAREA)
                         .setIsRemovable()
                 )
                 .setIsHidden(

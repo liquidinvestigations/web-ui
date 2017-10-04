@@ -44,7 +44,21 @@
                        [id]="control.id" type="checkbox">
                 <span class="slider round"></span>
             </label>
-
         </ng-container>
+
+        <ng-container *ngSwitchCase="'textarea'">
+
+            <textarea class="form-control input-sm" [ngClass]="{ 'textarea-removable': control.isRemovable }"
+                      [formControlName]="control.id" [placeholder]="control.placeholder"
+                      [id]="control.id">
+            </textarea>
+
+            <div class="text-right textarea-remove-btn" *ngIf="control.isRemovable">
+                <a (click)="removeControl()">
+                    Remove
+                </a>
+            </div>
+        </ng-container>
+
     </ng-container>
 </ng-container>
