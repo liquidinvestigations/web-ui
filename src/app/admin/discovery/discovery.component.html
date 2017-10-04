@@ -1,31 +1,37 @@
 <br><br>
-<div class="row">
+<div class="row" *ngFor="let list of nodes; let i = index">
     <div class="col-xs-12">
+
+        <h4>{{ list.title }}</h4>
+
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-condensed table-striped table-hover">
                 <thead>
                 <tr>
                     <ng-container *ngFor="let column of tableColumns">
                         <th>{{ column.label }}</th>
                     </ng-container>
-                    <th>Whitelisted</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <ng-container *ngFor="let node of nodes; let i = index">
+                <ng-container *ngFor="let node of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">
                             <td>{{ node[column.name] }}</td>
                         </ng-container>
                         <td>
-                            <dynamic-element [fg]="fg" [control]="node['control']"></dynamic-element>
+                            <button class="btn btn-sm btn-danger" *ngIf="i == 0" (click)="updateNode(node.id, false)">
+                                <i class="glyphicon glyphicon-remove"></i> Untrust
+                            </button>
+                            <button class="btn btn-sm btn-success" *ngIf="i == 1" (click)="updateNode(node.id, true)">
+                                <i class="glyphicon glyphicon-ok"></i> Trust
+                            </button>
                         </td>
                     </tr>
                 </ng-container>
                 </tbody>
             </table>
-
         </div>
-
     </div>
 </div>

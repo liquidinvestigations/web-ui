@@ -28,39 +28,47 @@ export class DiscoveryComponent {
         }
     ];
 
-    nodes = [];
-
-    fg: DynamicFormGroup = new DynamicFormGroup();
+    nodes = [
+        {
+            title: 'Trusted nodes',
+            entries: []
+        },
+        {
+            title: 'Untrusted nodes',
+            entries: []
+        }
+    ];
 
     constructor(private apiService: ApiClientService) {
-        apiService
+        this.getNodes();
+    }
+
+    getNodes() {
+        this.nodes[0].entries = [];
+        this.nodes[1].entries = [];
+
+        this.apiService
             .get('/api/nodes')
             .map(res => res.json())
             .subscribe((data) => {
                 for (let node of data) {
-
                     Object.assign(node, node.data);
 
-                    let control = new DynamicFormControl(node.hostname)
-                        .setControlType(DynamicFormControl.TYPE_SLIDER)
-                        .setValue(node.is_trusted, {emitEvent: false})
-                        .onChange((value, self: DynamicFormControl) => {
-                            this.updateNode(self);
-                        });
-
-                    this.fg.addControl(node.hostname, control);
-
-                    node['control'] = control;
-
-                    this.nodes.push(node);
+                    if (node.is_trusted) {
+                        this.nodes[0].entries.push(node);
+                    } else {
+                        this.nodes[1].entries.push(node);
+                    }
                 }
-
             });
     }
 
-    updateNode(control: DynamicFormControl) {
+    updateNode(id, value) {
         return this.apiService
-            .put('/api/discovery/nodes/' + control.id + '/trusted', { trusted: !!control.value });
+            .put('/api/nodes/' + id + '/trusted', { is_trusted: value })
+            .subscribe(() => {
+                this.getNodes();
+            });
     }
 
 }
