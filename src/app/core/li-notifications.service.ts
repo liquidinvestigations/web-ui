@@ -26,6 +26,7 @@ export class LiNotificationsService extends LiEvents {
                 from: from,
                 align: align
             },
+            offset: 70,
             onShow: (self: any) => {
                 this.notifySubscribers(LiNotificationsService.NOTIFICATION_SHOW, self);
             },

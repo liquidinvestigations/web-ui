@@ -32,6 +32,7 @@ export class AdminComponent {
     pageTitle: string = '';
     isLoading: boolean = false;
 
+    currentNotification: any = null;
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
@@ -59,6 +60,9 @@ export class AdminComponent {
             ApiClientService.EV_BEFORE_POST
         ], () => {
             this.isLoading = true;
+            if (this.currentNotification) {
+                this.currentNotification.close();
+            }
         });
 
         apiService.subscribe([
@@ -74,11 +78,19 @@ export class AdminComponent {
             ApiClientService.EV_PUT_SUCCESSFUL,
             ApiClientService.EV_POST_SUCCESSFUL
         ], () => {
-            notificationsService.show('Your settings have been updated', LiNotification.TYPE_SUCCESS);
+            setTimeout(() => {
+                this.currentNotification = notificationsService
+                    .show('Your settings have been updated', LiNotification.TYPE_SUCCESS);
+            }, 1000);
+
         });
 
         apiService.subscribe(ApiClientService.EV_API_ERROR, () => {
-            notificationsService.show('Oups! Could not update your settings due to some server error', LiNotification.TYPE_DANGER);
+            setTimeout(() => {
+                this.currentNotification = notificationsService
+                .show('Oups! Could not update your settings due to some server error', LiNotification.TYPE_DANGER);
+            }, 1000);
+
         });
     }
 
