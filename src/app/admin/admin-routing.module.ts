@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { UsersComponent } from './users/users.component';
-import { NodesComponent } from './nodes/nodes.component';
+import { DiscoveryComponent } from './discovery/discovery.component';
 import { ServicesComponent } from './services/services.component';
 import { GeneralStatusComponent } from './general-status/general-status.component';
 import { NetworkComponent } from './network/network.component';
@@ -97,8 +97,8 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'nodes',
-                component: NodesComponent,
+                path: 'discovery',
+                component: DiscoveryComponent,
                 data: {
                     label: 'discovery',
                     icon: 'fa fa-globe',

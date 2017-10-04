@@ -4,10 +4,10 @@ import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-for
 import { ApiClientService } from '../../core/api-client.service';
 
 @Component({
-  templateUrl: './nodes.component.html',
-  styleUrls: ['./nodes.component.scss']
+  templateUrl: './discovery.component.html',
+  styleUrls: ['./discovery.component.scss']
 })
-export class NodesComponent {
+export class DiscoveryComponent {
 
     tableColumns = [
         {

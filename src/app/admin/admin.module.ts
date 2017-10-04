@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { ServicesComponent } from './services/services.component';
 import { UsersComponent } from './users/users.component';
-import { NodesComponent } from './nodes/nodes.component';
+import { DiscoveryComponent } from './discovery/discovery.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { GeneralStatusComponent } from './general-status/general-status.component';
 import { PanelLayoutModule } from '../panel-layout/panel-layout.module';
@@ -38,7 +38,7 @@ import { SshComponent } from './network/ssh/ssh.component';
         ServicesElementRendererComponent,
 
         UsersComponent,
-        NodesComponent,
+        DiscoveryComponent,
 
     ],
     entryComponents: [

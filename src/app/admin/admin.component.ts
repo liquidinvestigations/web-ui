@@ -3,11 +3,26 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ApiClientService } from '../core/api-client.service';
 import { LiNotificationsService } from '../core/li-notifications.service';
 import { LiNotification } from '../core/li-notification';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+        trigger(
+            'inOutAnimation', [
+                transition(':enter', [
+                    style({opacity: 0}),
+                    animate('500ms', style({opacity: 1}))
+                ]),
+                transition(':leave', [
+                    style({opacity: 1}),
+                    animate('500ms', style({opacity: 0}))
+                ])
+            ]
+        )
+    ]
 })
 export class AdminComponent {
     sideMenuButtons = [];
@@ -18,12 +33,10 @@ export class AdminComponent {
     isLoading: boolean = false;
 
 
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private apiService: ApiClientService,
-        private notificationsService: LiNotificationsService
-    ) {
+    constructor(private router: Router,
+                private activatedRoute: ActivatedRoute,
+                private apiService: ApiClientService,
+                private notificationsService: LiNotificationsService) {
 
         apiService.get('/api/users/whoami')
             .map(res => res.json())
