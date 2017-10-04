@@ -1,8 +1,11 @@
 <br><br>
-<div class="row">
+<div class="row" *ngFor="let list of users; let i = index">
     <div class="col-xs-12">
+
+        <blockquote>{{ list.title }}</blockquote>
+
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-condensed table-striped table-hover">
                 <thead>
                 <tr>
                     <ng-container *ngFor="let column of tableColumns">
@@ -12,18 +15,43 @@
                 </tr>
                 </thead>
                 <tbody>
-                <ng-container *ngFor="let user of users">
+                <ng-container *ngFor="let user of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">
                             <td>{{ user[column.name] }}</td>
                         </ng-container>
-                        <td>actions</td>
+                        <td class="text-right">
+                            <button class="btn btn-sm btn-primary" *ngIf="i == 0" (click)="editUser(user)">
+                                <i class="glyphicon glyphicon-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" *ngIf="i == 0"
+                                    (click)="toggleUser(user.username, false)">
+                                <i class="glyphicon glyphicon-remove"></i> Deactivate
+                            </button>
+                            <button class="btn btn-sm btn-success" *ngIf="i == 1"
+                                    (click)="toggleUser(user.username, true)">
+                                <i class="glyphicon glyphicon-ok"></i> Activate
+                            </button>
+                        </td>
                     </tr>
                 </ng-container>
                 </tbody>
             </table>
 
         </div>
-
     </div>
 </div>
+
+<bs-modal>
+    <div class="bs-modal-header">
+        <h3>Edit user: {{ currentUsername }}</h3>
+    </div>
+    <div class="bs-modal-body">
+        <dynamic-form [fg]="dynamicFormConfig" #modalForm [showSubmitButton]="false" [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
+    </div>
+    <div class="bs-modal-footer">
+        <button class="btn btn-primary" (click)="modalForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Update
+        </button>
+    </div>
+</bs-modal>

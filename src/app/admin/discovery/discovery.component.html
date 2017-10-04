@@ -2,7 +2,7 @@
 <div class="row" *ngFor="let list of nodes; let i = index">
     <div class="col-xs-12">
 
-        <h4>{{ list.title }}</h4>
+        <blockquote>{{ list.title }}</blockquote>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-hover">
@@ -20,7 +20,7 @@
                         <ng-container *ngFor="let column of tableColumns">
                             <td>{{ node[column.name] }}</td>
                         </ng-container>
-                        <td>
+                        <td class="text-right">
                             <button class="btn btn-sm btn-danger" *ngIf="i == 0" (click)="updateNode(node.id, false)">
                                 <i class="glyphicon glyphicon-remove"></i> Untrust
                             </button>
