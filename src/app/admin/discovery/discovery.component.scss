@@ -1,0 +1,13 @@
+table {
+  tr td {
+    vertical-align: middle;
+
+    &:first-child {
+      padding-left: 15px;
+    }
+
+    &.actions-col {
+      width: 200px;
+    }
+  }
+}

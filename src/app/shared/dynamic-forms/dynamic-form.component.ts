@@ -21,7 +21,7 @@ export class DynamicFormComponent {
 
 
     onSubmit() {
-        let controls = this.dynamicFormService.getElementsRefference();
+        let controls = this.dynamicFormService.getElementsReference();
         for (let i in controls) {
             if (controls[i] instanceof DynamicFormControl) {
                 controls[i].markAsTouched();

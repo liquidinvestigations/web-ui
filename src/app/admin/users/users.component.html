@@ -20,7 +20,7 @@
                         <ng-container *ngFor="let column of tableColumns">
                             <td>{{ user[column.name] }}</td>
                         </ng-container>
-                        <td class="text-right">
+                        <td class="text-right actions-col">
                             <button class="btn btn-sm btn-primary" *ngIf="i == 0" (click)="editUser(user)">
                                 <i class="glyphicon glyphicon-edit"></i> Edit
                             </button>
@@ -47,7 +47,8 @@
         <h3>Edit user: {{ currentUsername }}</h3>
     </div>
     <div class="bs-modal-body">
-        <dynamic-form [fg]="dynamicFormConfig" #modalForm [showSubmitButton]="false" [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
+        <dynamic-form [fg]="dynamicFormConfig" #modalForm [showSubmitButton]="false"
+                      [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
         <button class="btn btn-primary" (click)="modalForm.onSubmit()">

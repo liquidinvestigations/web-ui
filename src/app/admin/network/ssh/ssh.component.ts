@@ -10,10 +10,7 @@ import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 @Component({
     templateUrl: '../../admin-form.html',
     styleUrls: ['../../admin-form.scss'],
-    encapsulation: ViewEncapsulation.None,
-    viewProviders: [
-        DynamicFormService
-    ]
+    encapsulation: ViewEncapsulation.None
 })
 export class SshComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
@@ -33,6 +30,7 @@ export class SshComponent extends AdminForm {
 
     getDynamicFormConfig() {
         this.dynamicFormService
+            .resetCssClasses()
             .setLabelCssClass('col-xs-12 col-sm-3 text-right')
             .setControlCssClass('col-xs-12 col-sm-8');
 

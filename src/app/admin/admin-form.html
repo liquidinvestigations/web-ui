@@ -1,21 +1,26 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-8">
+    <div class="col-xs-11 col-xs-offset-1 col-sm-5">
+        <div class="col-xs-12 admin-form">
+            <div class="row">
 
-        <dynamic-form [fg]="dynamicFormConfig" [onSuccessSubmit]="successSubmit.bind(this)"
-                      [showSubmitButton]="false"></dynamic-form>
+                <dynamic-form [fg]="dynamicFormConfig" [onSuccessSubmit]="successSubmit.bind(this)"
+                              [showSubmitButton]="false"></dynamic-form>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-9 text-right" style="padding: 0">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9 text-right" style="padding: 0">
 
-                <button *ngIf="buttonConfig"
-                        class="{{ buttonConfig.buttonClass }}"
-                        (click)="buttonConfig.action()"
-                        [disabled]="buttonConfig.isDisabled()"
-                >{{ buttonConfig.label }}
-                    <i class="{{ buttonConfig.iconClass }}"></i>
-                </button>
+                        <button *ngIf="buttonConfig"
+                                class="{{ buttonConfig.buttonClass }}"
+                                (click)="buttonConfig.action()"
+                                [disabled]="buttonConfig.isDisabled()"
+                        >{{ buttonConfig.label }}
+                            <i class="{{ buttonConfig.iconClass }}"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
-
 </div>
+

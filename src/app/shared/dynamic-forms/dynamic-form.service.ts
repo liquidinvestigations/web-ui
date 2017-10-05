@@ -5,11 +5,18 @@ import { DynamicFormArray } from './builder/dynamic-form-array';
 @Injectable()
 export class DynamicFormService {
 
-    public defaults = {
-        labelCssClass: 'col-xs-12',
-        controlCssClass: 'col-xs-12',
-    };
+    public defaults = {};
+
     private elementsReference = {};
+
+    resetCssClasses() {
+        this.defaults = {
+            labelCssClass: 'col-xs-12',
+            controlCssClass: 'col-xs-12',
+        };
+
+        return this;
+    }
 
     addElementReference(control: DynamicFormControl) {
         if (control.parent instanceof DynamicFormArray) {
@@ -25,7 +32,7 @@ export class DynamicFormService {
         }
     }
 
-    removeElementRefference(control: DynamicFormControl) {
+    removeElementReference(control: DynamicFormControl) {
         if (control.parent instanceof DynamicFormArray) {
             delete this.elementsReference[control.parent.id]['children'][control.id];
         } else {
@@ -33,7 +40,7 @@ export class DynamicFormService {
         }
     }
 
-    getElementsRefference() {
+    getElementsReference() {
         return this.elementsReference;
     }
 

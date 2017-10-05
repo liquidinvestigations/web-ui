@@ -11,9 +11,6 @@ import { ApiClientService } from '../../core/api-client.service';
 @Component({
     templateUrl: './services.component.html',
     styleUrls: ['./services.component.scss'],
-    viewProviders: [
-        DynamicFormService
-    ],
     encapsulation: ViewEncapsulation.None
 })
 export class ServicesComponent extends AdminForm {
@@ -34,6 +31,7 @@ export class ServicesComponent extends AdminForm {
     getDynamicFormConfig() {
 
         this.dynamicFormService
+            .resetCssClasses()
             .setRenderer(ServicesElementRendererComponent);
 
         let serviceControls = SERVICES_FORM;

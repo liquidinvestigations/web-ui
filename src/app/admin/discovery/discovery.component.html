@@ -20,7 +20,7 @@
                         <ng-container *ngFor="let column of tableColumns">
                             <td>{{ node[column.name] }}</td>
                         </ng-container>
-                        <td class="text-right">
+                        <td class="text-right actions-col">
                             <button class="btn btn-sm btn-danger" *ngIf="i == 0" (click)="updateNode(node.id, false)">
                                 <i class="glyphicon glyphicon-remove"></i> Untrust
                             </button>

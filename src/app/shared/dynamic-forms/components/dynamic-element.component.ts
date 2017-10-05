@@ -24,7 +24,7 @@ export class DynamicElementComponent extends DynamicElementRendererBase {
     private removeControl() {
         if (this.fg instanceof DynamicFormArray) {
             this.fg.removeAt(this.fg.controls.indexOf(this.control));
-            this.dynamicFormService.removeElementRefference(this.control);
+            this.dynamicFormService.removeElementReference(this.control);
 
         } else if (this.fg instanceof DynamicFormGroup && this.control.groupWrap) {
             let formArray = (this.fg.parent as DynamicFormArray);

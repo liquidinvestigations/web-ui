@@ -19,3 +19,16 @@
   border-bottom: none;
   margin-bottom: 15px !important;
 }
+
+.admin-form {
+  .textarea-removable {
+    resize: none;
+    height: 75px;
+    min-height: 75px;
+    max-height: 75px;
+  }
+}
+
+.authorized_keys {
+  padding-left: 165px;
+}
