@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { LiEvents } from './li-events';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/map';
 
 declare let $: any;
 
@@ -28,7 +30,7 @@ export class ApiClientService extends LiEvents {
         this.headers.append('Content-Type', 'application/json');
     }
 
-    get (endpoint: string, params = null): Observable<any> {
+    get (endpoint: string | string[], params = null): Observable<any> {
 
         let url = this.createUrl(endpoint);
 
@@ -37,18 +39,33 @@ export class ApiClientService extends LiEvents {
         }
 
         this.notifySubscribers(ApiClientService.EV_BEFORE_GET);
+        let observable;
 
-        let observable = this.http
-            .get(url, this.headers)
-            .share();
+        if (endpoint instanceof Array) {
+            let requests = [];
+            for (url of endpoint) {
+                requests.push(
+                    this.http
+                        .get(url, this.headers)
+                        .map(res => res.json())
+                        .share()
+                );
+            }
 
+            observable = Observable.forkJoin.apply(null, requests);
+        } else {
+            observable = this.http
+                .get(url, this.headers)
+                .map(res => res.json())
+                .share();
+        }
 
         observable
             .subscribe((response: any) => {
-                this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, JSON.parse(response._body));
-            },
-            this.handleBackendErrorOnRead.bind(this)
-        );
+                    this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, response);
+                },
+                this.handleBackendErrorOnRead.bind(this)
+            );
 
         return observable;
     }

@@ -12,8 +12,7 @@
                         (click)="buttonConfig.action()"
                         [disabled]="buttonConfig.isDisabled()"
                 >{{ buttonConfig.label }}
-                    <i *ngIf="!buttonConfig.isLoading()" class="{{ buttonConfig.iconClass }}"></i>
-                    <i *ngIf="buttonConfig.isLoading()" class="fa fa-spin fa-refresh"></i>
+                    <i class="{{ buttonConfig.iconClass }}"></i>
                 </button>
             </div>
         </div>

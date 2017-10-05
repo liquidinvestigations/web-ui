@@ -69,9 +69,7 @@ export abstract class AdminForm {
     }
 
     getApiEntityConfig() {
-        return this.apiService
-            .get(this.endpoint)
-            .map(res => res.json());
+        return this.apiService.get(this.endpoint);
     }
 
     createOnSubmit() {

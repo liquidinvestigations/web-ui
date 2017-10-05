@@ -85,7 +85,6 @@ export class UsersComponent {
 
         this.apiService
             .get('/api/users')
-            .map(res => res.json())
             .subscribe((users: any[]) => {
                 for (let user of users) {
 

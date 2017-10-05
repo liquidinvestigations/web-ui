@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
 import { ApiClientService } from '../../core/api-client.service';
 import { mapSummaryConfig } from '../../shared/li-forms/summary-mapping';
 
@@ -21,15 +18,15 @@ export class GeneralStatusComponent {
 
     services: any[] = [];
 
-    constructor(
-        protected apiService: ApiClientService,
-    ) {
-        Observable.forkJoin(
-            this.apiService.get('/api/network/lan').map(res => res.json()),
-            this.apiService.get('/api/network/wan').map(res => res.json()),
-            this.apiService.get('/api/services').map(res => res.json()),
-            this.apiService.get('/api/network/status').map(res => res.json()),
-        ).subscribe((apiResponses: any) => {
+    constructor(protected apiService: ApiClientService) {
+
+            this.apiService.get([
+                '/api/network/lan',
+                '/api/network/wan',
+                '/api/services',
+                '/api/network/status'
+            ]).subscribe((apiResponses: any) => {
+
             let lanMapping = mapSummaryConfig(apiResponses[0]);
             let wanMapping = mapSummaryConfig(apiResponses[1]);
 

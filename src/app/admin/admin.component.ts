@@ -40,7 +40,6 @@ export class AdminComponent {
                 private notificationsService: LiNotificationsService) {
 
         apiService.get('/api/users/whoami')
-            .map(res => res.json())
             .subscribe((data) => {
                 this.username = data.username;
                 this.isAdmin = data.is_admin;

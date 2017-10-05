@@ -8,8 +8,6 @@ import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 import { ApiClientService } from '../../../core/api-client.service';
 import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ServicesStepEntity extends FormStepEntity {
@@ -49,10 +47,10 @@ export class ServicesStepEntity extends FormStepEntity {
     }
 
     getApiEntityConfig() {
-        return Observable.forkJoin(
-            this.apiService.get('/api/services').map(res => res.json()),
-            this.apiService.get('/api/network/ssh').map(res => res.json()),
-        );
+        return this.apiService.get([
+            '/api/services',
+            '/api/network/ssh'
+        ]);
     }
 
     updateApiEntityConfig(formConfig: {}) {

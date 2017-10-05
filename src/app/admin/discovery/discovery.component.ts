@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
-import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
 import { ApiClientService } from '../../core/api-client.service';
 
 @Component({
@@ -49,7 +47,6 @@ export class DiscoveryComponent {
 
         this.apiService
             .get('/api/nodes')
-            .map(res => res.json())
             .subscribe((data) => {
                 for (let node of data) {
                     Object.assign(node, node.data);
