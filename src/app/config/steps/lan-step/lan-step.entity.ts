@@ -24,7 +24,6 @@ export class LanStepEntity extends FormStepEntity {
 
     getDynamicFormConfig(): DynamicFormGroup {
         this.dynamicFormService
-            .resetCssClasses()
             .setLabelCssClass('col-xs-12 col-sm-5 text-right')
             .setControlCssClass('col-xs-12 col-sm-7');
 

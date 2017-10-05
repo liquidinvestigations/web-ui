@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy,
+    ViewEncapsulation
+} from '@angular/core';
 import { DynamicFormGroup } from './builder/dynamic-form-group';
 import { DynamicFormService } from './dynamic-form.service';
 import { DynamicFormControl } from './builder/dynamic-form-control';
@@ -9,7 +12,7 @@ import { DynamicFormControl } from './builder/dynamic-form-control';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicFormComponent {
+export class DynamicFormComponent implements OnDestroy {
     @Input() fg: DynamicFormGroup;
     @Input() onSuccessSubmit: Function = null;
     @Input() showSubmitButton: boolean = true;
@@ -18,7 +21,6 @@ export class DynamicFormComponent {
 
     constructor(public dynamicFormService: DynamicFormService, public cdRef: ChangeDetectorRef) {
     }
-
 
     onSubmit() {
         let controls = this.dynamicFormService.getElementsReference();
@@ -43,5 +45,9 @@ export class DynamicFormComponent {
 
     setValues(formValues: {}, emit: boolean = false) {
         this.fg.patchValue(formValues, { emitEvent: emit });
+    }
+
+    ngOnDestroy() {
+        this.dynamicFormService.resetFormProps();
     }
 }

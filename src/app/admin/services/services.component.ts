@@ -31,7 +31,6 @@ export class ServicesComponent extends AdminForm {
     getDynamicFormConfig() {
 
         this.dynamicFormService
-            .resetCssClasses()
             .setRenderer(ServicesElementRendererComponent);
 
         let serviceControls = SERVICES_FORM;

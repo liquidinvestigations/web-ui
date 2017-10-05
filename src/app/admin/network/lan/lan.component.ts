@@ -29,7 +29,6 @@ export class LanComponent extends AdminForm {
     getDynamicFormConfig() {
 
         this.dynamicFormService
-            .resetCssClasses()
             .setLabelCssClass('col-xs-12 col-sm-3 text-right')
             .setControlCssClass('col-xs-12 col-sm-7');
 

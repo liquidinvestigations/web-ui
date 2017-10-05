@@ -17,8 +17,6 @@ export class WizardService extends LiEvents {
 
     constructor(private router: Router) {
         super();
-
-        console.log(router);
         this.basePath = 'config';
     }
 

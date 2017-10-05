@@ -9,7 +9,7 @@ export class DynamicFormService {
 
     private elementsReference = {};
 
-    resetCssClasses() {
+    resetFormProps() {
         this.defaults = {
             labelCssClass: 'col-xs-12',
             controlCssClass: 'col-xs-12',

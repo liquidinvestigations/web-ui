@@ -37,7 +37,6 @@ export class ServicesStepEntity extends FormStepEntity {
     getDynamicFormConfig(): DynamicFormGroup {
 
         this.dynamicFormService
-            .resetCssClasses()
             .setRenderer(ServicesElementRendererComponent);
 
         return new DynamicFormGroup()
