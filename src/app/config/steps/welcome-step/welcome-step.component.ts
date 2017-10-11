@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { WizardService } from '../../wizard.service';
 import { CommonStepBase } from '../common-step.base';
+import { WizardStateService } from '../../wizard-state.service';
 
 @Component({
     selector: 'li-welcome-step',
@@ -13,6 +14,9 @@ export class WelcomeStepComponent extends CommonStepBase {
 
     showProgress = false;
 
+    isLoading: boolean = true;
+    buttonDisabled: boolean = true;
+
     buttonConfig = {
         label: 'Start',
         iconClass: 'glyphicon glyphicon-log-in',
@@ -21,11 +25,25 @@ export class WelcomeStepComponent extends CommonStepBase {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);
         },
         isDisabled: () => this.buttonDisabled,
-        isLoading: () => false
+        isLoading: () => this.isLoading
     };
 
-
-    constructor(protected wizardService: WizardService) {
+    constructor(
+        private wizardConfigState: WizardStateService,
+        protected wizardService: WizardService
+    ) {
         super(wizardService);
+
+        this.wizardConfigState
+            .subscribe(WizardStateService.DEVICE_CONFIG_LOADED, () => {
+                this.isLoading = false;
+                this.buttonDisabled = false;
+            });
+    }
+
+    ngOnInit(): void {
+        if (this.buttonConfig) {
+            this.buttonDisabled = true;
+        }
     }
 }

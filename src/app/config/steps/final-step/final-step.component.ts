@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonStepBase } from '../common-step.base';
 import { WizardService } from '../../wizard.service';
-import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
+import { WizardStateService } from '../../wizard-state.service';
 
 @Component({
     templateUrl: './final-step.component.html',
@@ -17,7 +17,7 @@ export class FinalStepComponent extends CommonStepBase {
 
     constructor(
         protected wizardService: WizardService,
-        public wizardConfigStateEntity: WizardConfigStateEntity
+        public wizardConfigStateEntity: WizardStateService
     ) {
         super(wizardService);
     }

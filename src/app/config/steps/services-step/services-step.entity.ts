@@ -1,40 +1,20 @@
 import { Injectable } from '@angular/core';
-import { FormStepEntity } from '../form-step.entity';
 import { SERVICES_FORM } from '../../../shared/li-forms/services-form';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
 import { ServicesElementRendererComponent } from './services-element-renderer.component';
 import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
-import { ApiClientService } from '../../../core/api-client.service';
-import { WizardConfigStateEntity } from '../../wizard-config-state.entity';
-import { Observable } from 'rxjs/Observable';
+import { WizardStateService } from '../../wizard-state.service';
 
 @Injectable()
-export class ServicesStepEntity extends FormStepEntity {
-    endpoint: string = 'multi_api_requests';
+export class ServicesStepEntity {
 
-    constructor(
-        protected apiService: ApiClientService,
-        private dynamicFormService: DynamicFormService,
-        public wizardConfigState: WizardConfigStateEntity
-    ) {
-        super(apiService, wizardConfigState);
-    }
-
-    filterApiValues(apiResponses: any) {
-        let filteredServices = {};
-
-        for (let service of apiResponses[0]) {
-            filteredServices[service.name] = service.is_enabled;
-        }
-
-        return {
-            services: filteredServices,
-            ssh: apiResponses[1].ssh
-        };
+    constructor(private dynamicFormService: DynamicFormService,
+                public wizardConfigState: WizardStateService) {
     }
 
     getDynamicFormConfig(): DynamicFormGroup {
+        let currentConfig = this.wizardConfigState.getConfigState();
 
         this.dynamicFormService
             .setRenderer(ServicesElementRendererComponent);
@@ -42,35 +22,8 @@ export class ServicesStepEntity extends FormStepEntity {
         return new DynamicFormGroup()
             .elements([
                 SSH_FORM,
-                SERVICES_FORM,
+                SERVICES_FORM(currentConfig['services']),
             ]);
-    }
-
-    getApiEntityConfig() {
-        return this.apiService.get([
-            '/api/services',
-            '/api/network/ssh'
-        ]);
-    }
-
-    updateApiEntityConfig(formConfig: {}) {
-        let requests = [];
-
-        let services = formConfig['services'];
-
-        for (let i in services) {
-            requests.push(
-                this.apiService
-                    .put('/api/services/' + i + '/enabled', {enabled: services[i] === true})
-            );
-        }
-
-        requests.push(
-            this.apiService
-                .put('/api/network/ssh', formConfig['ssh'])
-        );
-
-        return Observable.forkJoin(requests);
     }
 
 }

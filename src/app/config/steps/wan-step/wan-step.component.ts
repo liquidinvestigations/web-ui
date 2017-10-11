@@ -14,9 +14,9 @@ export class WanStepComponent extends FormStepBase {
     title = 'Wan Configuration';
 
     constructor(
-        public wanStepentity: WanStepEntity,
+        public wanStepEntity: WanStepEntity,
         protected wizardService: WizardService
     ) {
-        super(wanStepentity, wizardService);
+        super(wanStepEntity, wizardService);
     }
 }

@@ -58,6 +58,7 @@ export class WizardService extends LiEvents {
         if (this.hasNextStep()) {
             this.router.navigate(
                 [this.basePath + '/' + this.steps[this.stepIndex + 1].path],
+                {skipLocationChange: true, replaceUrl: true}
             );
         }
     }

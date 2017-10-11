@@ -32,4 +32,25 @@ export class DynamicFormGroup extends FormGroup {
         super.setValidators(newValidator);
         return this;
     }
+
+    setValue(value: any, options?: {
+        onlySelf?: boolean;
+        emitEvent?: boolean;
+        emitModelToViewChange?: boolean;
+        emitViewToModelChange?: boolean;
+    }) {
+        super.setValue(value, options);
+        return this;
+    }
+
+    patchValue(value: {
+        [key: string]: any;
+    }, options?: {
+        onlySelf?: boolean;
+        emitEvent?: boolean;
+    }) {
+        super.patchValue(value, options);
+        return this;
+    }
+
 }

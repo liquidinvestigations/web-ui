@@ -1,11 +1,7 @@
 import { CommonStepBase } from './common-step.base';
 import { WizardService } from '../wizard.service';
 import { DynamicFormComponent } from '../../shared/dynamic-forms/dynamic-form.component';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
-import { Observable } from 'rxjs/Observable';
-import { FormStepEntity } from './form-step.entity';
 
 export abstract class FormStepBase extends CommonStepBase {
     abstract formViewInstance: DynamicFormComponent;
@@ -26,16 +22,18 @@ export abstract class FormStepBase extends CommonStepBase {
 
     buttonDisabled = true;
 
-    constructor(
-        public formStepEntity: FormStepEntity,
-        protected wizardService: WizardService
-    ) {
+    constructor(public formStepEntity: any,
+                protected wizardService: WizardService) {
         super(wizardService);
 
-        this.formStepEntity.init();
-
         this.dynamicFormConfig = this.formStepEntity.getDynamicFormConfig();
-        this.formStepEntity.setFormInstance(this.dynamicFormConfig);
+        this.dynamicFormConfig
+            .patchValue(
+                formStepEntity.wizardConfigState.getConfigState(),
+                {emitEvent: false}
+            );
+
+        this.dynamicFormConfig.enable({emitEvent: false});
 
         this.buttonDisabled = this.dynamicFormConfig.invalid && this.dynamicFormConfig.touched;
 
@@ -44,34 +42,13 @@ export abstract class FormStepBase extends CommonStepBase {
             .subscribe(() => {
                 this.buttonDisabled = this.dynamicFormConfig.invalid;
             });
-
-        this.wizardService.removeListeners(WizardService.GO_NEXT);
-
-        this.wizardService.subscribe(WizardService.GO_NEXT, (formValues: any) => {
-            this.buttonDisabled = true;
-            this.isLoading = true;
-
-            let nextResult: any = this.onNext(formValues);
-
-            if (nextResult && nextResult instanceof Observable) {
-                nextResult.subscribe(() => {
-                    this.wizardService.goNextStep();
-                    this.formStepEntity.wizardConfigState.updateConfigState(formValues);
-                });
-            } else if (nextResult === undefined || nextResult === true) {
-                this.wizardService.goNextStep();
-                this.formStepEntity.wizardConfigState.updateConfigState(formValues);
-            }
-        });
-
-        this.wizardService.subscribe(WizardService.END_WIZARD, () => {
-            this.onFinish();
-        });
     }
 
     protected onNext(formValues: {}) {
         this.dynamicFormConfig.disable();
-        return this.formStepEntity.updateWithFormValues(formValues);
+        if (formValues) {
+            this.formStepEntity.wizardConfigState.updateConfigState(formValues);
+        }
     }
 
     // if passes form validation. triggers GO_NEXT event -> super

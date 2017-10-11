@@ -21,7 +21,7 @@ import { WanStepEntity } from './steps/wan-step/wan-step.entity';
 import { WelcomeStepComponent } from './steps/welcome-step/welcome-step.component';
 import { ServicesStepEntity } from './steps/services-step/services-step.entity';
 import { ServicesElementRendererComponent } from './steps/services-step/services-element-renderer.component';
-import { WizardConfigStateEntity } from './wizard-config-state.entity';
+import { WizardStateService } from './wizard-state.service';
 
 @NgModule({
     imports: [
@@ -50,7 +50,7 @@ import { WizardConfigStateEntity } from './wizard-config-state.entity';
     ],
     providers: [
         WizardService,
-        WizardConfigStateEntity,
+        WizardStateService,
 
         AdminStepEntity,
         LanStepEntity,

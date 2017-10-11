@@ -33,7 +33,7 @@ export class ServicesComponent extends AdminForm {
         this.dynamicFormService
             .setRenderer(ServicesElementRendererComponent);
 
-        let serviceControls = SERVICES_FORM;
+        let serviceControls = SERVICES_FORM();
 
         this.handleOnChange(serviceControls.controls);
 

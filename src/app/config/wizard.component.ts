@@ -1,8 +1,8 @@
-import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WizardService } from './wizard.service';
 import { slideLeft } from './wizard-routing.animation';
-import { WizardConfigStateEntity } from './wizard-config-state.entity';
+import { WizardStateService } from './wizard-state.service';
 
 declare let $: any;
 
@@ -13,7 +13,7 @@ declare let $: any;
     ],
     styleUrls: ['./wizard.component.scss']
 })
-export class WizardComponent implements OnInit {
+export class WizardComponent implements OnInit, OnDestroy {
     title = '';
 
     showProgress = false;
@@ -30,17 +30,13 @@ export class WizardComponent implements OnInit {
         isLoading?: () => false
     } = null;
 
-    constructor(
-        private wizardElemRef: ElementRef,
-        private zone: NgZone,
-        private activatedRoute: ActivatedRoute,
-        private wizardService: WizardService,
-        private wizardConfigStateEntity: WizardConfigStateEntity,
-    ) {
+    constructor(private wizardElemRef: ElementRef,
+                private zone: NgZone,
+                private activatedRoute: ActivatedRoute,
+                private wizardService: WizardService,
+                private wizardConfigStateEntity: WizardStateService) {
 
-        if (!wizardConfigStateEntity.getConfigState()) {
-            this.wizardService.resetWizard();
-        }
+        wizardConfigStateEntity.init();
 
         // init steps from routing and get length
         this.wizardService.initSteps(activatedRoute.routeConfig.children);
@@ -53,6 +49,12 @@ export class WizardComponent implements OnInit {
             this.showProgress = stepConfig.showProgress;
             this.buttonConfig = stepConfig.buttonConfig;
         });
+
+    }
+
+    resetWizard() {
+        this.wizardService.resetWizard();
+        this.wizardConfigStateEntity.init();
     }
 
     ngOnInit() {
@@ -70,6 +72,12 @@ export class WizardComponent implements OnInit {
     // manage animation state
     isSlideLeft(outlet) {
         return outlet.activatedRoute.routeConfig.path;
+    }
+
+    ngOnDestroy() {
+        this.zone.runOutsideAngular(() => {
+            $(this.wizardElemRef.nativeElement).find('.modal').modal('hide');
+        });
     }
 
 }

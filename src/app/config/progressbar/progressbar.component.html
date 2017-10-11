@@ -9,7 +9,7 @@
 
                 <ng-container *ngFor="let i of steps">
 
-                    <li role="presentation" [style.width]="butlletSpace + '%'"
+                    <li role="presentation" [style.width]="bulletSpace + '%'"
                         [ngClass]="{ 'active': i <= step, 'disabled': i > step, 'last': i == total-1 }">
                         
                         <a href="#" (click)="$event.preventDefault()">

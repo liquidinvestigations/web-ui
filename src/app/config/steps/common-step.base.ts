@@ -36,14 +36,11 @@ export abstract class CommonStepBase implements OnInit {
 
         this.wizardService.removeListeners(WizardService.GO_NEXT);
 
-        this.wizardService.subscribe(WizardService.GO_NEXT, () => {
+        this.wizardService.subscribe(WizardService.GO_NEXT, (formValues: any) => {
             this.buttonDisabled = true;
 
-            let nextResult = this.onNext();
-
-            if (nextResult === undefined || nextResult) {
-                this.wizardService.goNextStep();
-            }
+            this.onNext(formValues);
+            this.wizardService.goNextStep();
         });
 
         this.wizardService.subscribe(WizardService.END_WIZARD, () => {

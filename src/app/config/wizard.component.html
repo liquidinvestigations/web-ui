@@ -24,7 +24,10 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-xs-6 text-left">
-
+                        <a (click)="resetWizard()" class="reset-button">
+                            <i class="glyphicon glyphicon glyphicon-repeat"></i>
+                            Reset wizard
+                        </a>
                     </div>
                     <div class="col-xs-6 text-right">
                         <button *ngIf="buttonConfig"

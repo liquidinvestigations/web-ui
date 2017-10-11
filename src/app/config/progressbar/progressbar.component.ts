@@ -10,7 +10,7 @@ export class ProgressbarComponent implements OnInit {
     @Input('total') total;
     @Input('step') step;
 
-    butlletSpace = 0;
+    bulletSpace = 0;
     progressSlice = 0;
 
     steps = [];
@@ -18,7 +18,7 @@ export class ProgressbarComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.butlletSpace = 100 / this.total;
+        this.bulletSpace = 100 / this.total;
         this.progressSlice = 100 / (this.total - 1);
 
         for (let i = 0; i < this.total; i++) {

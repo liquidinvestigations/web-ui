@@ -7,42 +7,6 @@ export const WAN_FORM = new DynamicFormGroup()
     .elements([
         new DynamicFormGroup('wan')
             .elements([
-                new DynamicFormGroup('static')
-                    .elements([
-                        new DynamicFormControl('ip', 'IP')
-                            .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('000.000.000.000')
-                            .setValidators([
-                                Validators.required,
-                                DynamicFormValidator.IpV4Validator
-                            ])
-                            .setDividerBottom('row'),
-
-                        new DynamicFormControl('netmask', 'Netmask')
-                            .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('000.000.000.000')
-                            .setValidators([
-                                Validators.required,
-                                DynamicFormValidator.IpV4Validator
-                            ]),
-
-                        new DynamicFormControl('gateway', 'Gateway')
-                            .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('000.000.000.000')
-                            .setValidators([
-                                Validators.required,
-                                DynamicFormValidator.IpV4Validator
-                            ]),
-
-                        new DynamicFormControl('dns_server', 'DNS Server')
-                            .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('000.000.000.000')
-                            .setValidators([
-                                Validators.required,
-                                DynamicFormValidator.IpV4Validator
-                            ]),
-
-                    ]),
 
                 new DynamicFormGroup('wifi')
                     .elements([
@@ -59,7 +23,61 @@ export const WAN_FORM = new DynamicFormGroup()
                             .setValidators([
                                 Validators.required,
                             ]),
-                    ])
+                    ]),
+
+                new DynamicFormControl('dhcp', 'DHCP')
+                    .setDividerTop()
+                    .setControlType(DynamicFormControl.TYPE_SLIDER)
+                    .setValue(true)
+                    .onChange((value, formGroup: DynamicFormControl, parentGroup: DynamicFormGroup) => {
+                        if (value) {
+                            parentGroup.controls['static'].disable({emitEvent: false});
+                        } else {
+                            parentGroup.controls['static'].enable({emitEvent: false});
+                        }
+
+                    }),
+
+                new DynamicFormGroup('static')
+                    .elements([
+                        new DynamicFormControl('ip', 'IP')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000')
+                            .setValue('192.168.66.66', {emitEvent: false})
+                            .setValidators([
+                                Validators.required,
+                                DynamicFormValidator.IpV4Validator
+                            ]),
+
+                        new DynamicFormControl('netmask', 'Netmask')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000')
+                            .setValue('255.255.255.0', {emitEvent: false})
+                            .setValidators([
+                                Validators.required,
+                                DynamicFormValidator.IpV4Validator
+                            ]),
+
+                        new DynamicFormControl('gateway', 'Gateway')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000')
+                            .setValue('192.168.66.1', {emitEvent: false})
+                            .setValidators([
+                                Validators.required,
+                                DynamicFormValidator.IpV4Validator
+                            ]),
+
+                        new DynamicFormControl('dns_server', 'DNS Server')
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
+                            .setPlaceholder('000.000.000.000')
+                            .setValue('192.168.66.1', {emitEvent: false})
+                            .setValidators([
+                                Validators.required,
+                                DynamicFormValidator.IpV4Validator
+                            ]),
+
+                    ]),
+
             ])
 
     ]);

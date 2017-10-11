@@ -9,35 +9,6 @@ export const LAN_FORM = new DynamicFormGroup()
         new DynamicFormGroup('lan')
             .elements([
 
-                new DynamicFormControl('eth', 'Use Ethernet on LAN')
-                    .setControlType(DynamicFormControl.TYPE_SLIDER),
-
-                new DynamicFormControl('ip', 'IP')
-                    .setFormGroupCssClass('row')
-                    .setControlType(DynamicFormControl.TYPE_TEXT)
-                    .setPlaceholder('000.000.000.000')
-                    .setValidators([
-                        Validators.required,
-                        DynamicFormValidator.IpV4Validator
-                    ]),
-
-                new DynamicFormControl('netmask', 'Netmask')
-                    .setFormGroupCssClass('row')
-                    .setControlType(DynamicFormControl.TYPE_TEXT)
-                    .setPlaceholder('000.000.000.000')
-                    .setValidators([
-                        Validators.required,
-                        DynamicFormValidator.IpV4Validator
-                    ]),
-
-                new DynamicFormControl('dhcp_range', 'DHCP Range')
-                    .setFormGroupCssClass('row')
-                    .setControlType(DynamicFormControl.TYPE_TEXT)
-                    .setPlaceholder('000.000.000.000-255')
-                    .setValidators([
-                        Validators.required
-                    ]),
-
                 new DynamicFormGroup('hotspot')
                     .elements([
                         new DynamicFormControl('ssid', 'SSID')
@@ -53,7 +24,39 @@ export const LAN_FORM = new DynamicFormGroup()
                             .setValidators([
                                 Validators.required
                             ]),
-                    ])
+                    ]),
 
+                new DynamicFormControl('ip', 'IP')
+                    .setFormGroupCssClass('row')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setPlaceholder('000.000.000.000')
+                    .setValue('10.0.0.1', {emitEvent: false})
+                    .setDividerTop('row')
+                    .setValidators([
+                        Validators.required,
+                        DynamicFormValidator.IpV4Validator
+                    ]),
+
+                new DynamicFormControl('netmask', 'Netmask')
+                    .setFormGroupCssClass('row')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setPlaceholder('000.000.000.000')
+                    .setValue('255.255.255.0', {emitEvent: false})
+                    .setValidators([
+                        Validators.required,
+                        DynamicFormValidator.IpV4Validator
+                    ]),
+
+                new DynamicFormControl('dhcp_range', 'DHCP Range')
+                    .setFormGroupCssClass('row')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setPlaceholder('000.000.000.000-255')
+                    .setValue('10.0.0.100-200', {emitEvent: false})
+                    .setValidators([
+                        Validators.required
+                    ]),
+
+                new DynamicFormControl('eth', 'Use Ethernet on LAN')
+                    .setControlType(DynamicFormControl.TYPE_SLIDER),
             ])
     ]);
