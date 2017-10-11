@@ -10,15 +10,16 @@ export const WAN_FORM = new DynamicFormGroup()
 
                 new DynamicFormGroup('wifi')
                     .elements([
-                        new DynamicFormControl('ssid', 'SSID')
+                        new DynamicFormControl('ssid', 'Connect to Wi-Fi Net')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('your SSID')
+                            .setPlaceholder('your network name')
                             .setValidators([
                                 Validators.required,
                             ]),
 
                         new DynamicFormControl('password', 'Password')
                             .setControlType(DynamicFormControl.TYPE_PASSWORD)
+                            .setPlaceholder('your network password')
                             .setEnableTextToggle()
                             .setValidators([
                                 Validators.required,

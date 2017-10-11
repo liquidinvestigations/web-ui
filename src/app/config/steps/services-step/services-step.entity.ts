@@ -21,7 +21,6 @@ export class ServicesStepEntity {
 
         return new DynamicFormGroup()
             .elements([
-                SSH_FORM,
                 SERVICES_FORM(currentConfig['services']),
             ]);
     }

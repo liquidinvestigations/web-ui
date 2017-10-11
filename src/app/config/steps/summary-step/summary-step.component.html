@@ -3,7 +3,25 @@
 
     <div class="row summary-field" *ngFor="let field of currentConfig['lan'].fields">
         <div class="col-xs-12 col-sm-6 text-right summary-label">{{ field.label }}</div>
-        <div class="col-xs-12 col-sm-6 summary-value">{{ field.value }}</div>
+        <div class="col-xs-12 col-sm-6 summary-value">
+            <span *ngIf="!isPasswordText(field)">
+                {{ field.value }}
+            </span>
+            <span *ngIf="isPasswordText(field)">
+                <ng-container *ngIf="field.showAsText">
+                    {{ field.value }}
+                </ng-container>
+
+                <ng-container *ngIf="!field.showAsText">
+                    {{ showAsBullets(field.value) }}
+                </ng-container>
+
+                <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
+                        <i class="glyphicon"
+                           [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
+                </span>
+            </span>
+        </div>
     </div>
 </div>
 
@@ -12,7 +30,25 @@
 
     <div class="row summary-field" *ngFor="let field of currentConfig['wan'].fields">
         <div class="col-xs-12 col-sm-6 text-right summary-label">{{ field.label }}</div>
-        <div class="col-xs-12 col-sm-6 summary-value">{{ field.value }}</div>
+        <div class="col-xs-12 col-sm-6 summary-value">
+            <span *ngIf="!isPasswordText(field)">
+                {{ field.value }}
+            </span>
+            <span *ngIf="isPasswordText(field)">
+                <ng-container *ngIf="field.showAsText">
+                    {{ field.value }}
+                </ng-container>
+
+                <ng-container *ngIf="!field.showAsText">
+                    {{ showAsBullets(field.value) }}
+                </ng-container>
+
+                <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
+                        <i class="glyphicon"
+                           [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
+                </span>
+            </span>
+        </div>
     </div>
 </div>
 
@@ -21,7 +57,8 @@
 
     <div class="row summary-field" *ngFor="let field of currentConfig['services'].fields">
         <div class="col-xs-12 col-sm-6 text-right summary-label">{{ field.label }}</div>
-        <div class="col-xs-12 col-sm-6 summary-value" [ngClass]="{ 'text-success': field.value, 'text-danger': !field.value }">
+        <div class="col-xs-12 col-sm-6 summary-value"
+             [ngClass]="{ 'text-success': field.value, 'text-danger': !field.value }">
             <i class="glyphicon glyphicon-ok" *ngIf="field.value"></i>
             <i class="glyphicon glyphicon-remove" *ngIf="!field.value"></i>
         </div>

@@ -88,5 +88,15 @@ export class SummaryStepComponent extends CommonStepBase {
         return Observable.forkJoin(requests);
     }
 
+    switchToText(field) {
+        field.showAsText = !field.showAsText;
+    }
 
+    isPasswordText(field) {
+        return field.label.toLowerCase() === 'password';
+    }
+
+    showAsBullets(label) {
+        return label.replace(/./g, '*');
+    }
 }
