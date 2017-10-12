@@ -35,6 +35,8 @@ export class DynamicFormControl extends FormControl {
     private debounceTime: number = DynamicFormControl.DEFAULT_DEBOUNCE;
     private onChangeHandler: Function = null;
 
+    public visibleIf = () => true;
+
     constructor(
         public id?: string,
         public label?: string,
@@ -153,6 +155,11 @@ export class DynamicFormControl extends FormControl {
 
     addViewInfo(viewInfo) {
         this.viewInfo = Object.assign(this.viewInfo, viewInfo);
+        return this;
+    }
+
+    setVisibleIf(visibleIf = () => true) {
+        this.visibleIf = visibleIf;
         return this;
     }
 }

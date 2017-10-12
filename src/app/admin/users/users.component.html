@@ -1,4 +1,14 @@
+<ul class="nav nav-pills">
+    <li>
+        <a (click)="editUser()">
+            <i class="glyphicon glyphicon-user"></i>
+            Add user
+        </a>
+    </li>
+</ul>
+
 <br><br>
+
 <div class="row" *ngFor="let list of users; let i = index">
     <div class="col-xs-12">
 
@@ -44,14 +54,19 @@
 
 <bs-modal>
     <div class="bs-modal-header">
-        <h3>Edit user: {{ currentUsername }}</h3>
+        <h3 *ngIf="isAddMode">Add user</h3>
+        <h3 *ngIf="!isAddMode">Edit user</h3>
     </div>
     <div class="bs-modal-body">
         <dynamic-form [fg]="dynamicFormConfig" #modalForm [showSubmitButton]="false"
                       [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" (click)="modalForm.onSubmit()">
+        <button class="btn btn-primary" (click)="modalForm.onSubmit(true)"  *ngIf="isAddMode">
+            <i class="glyphicon glyphicon-ok"></i> Add
+        </button>
+
+        <button class="btn btn-primary" (click)="modalForm.onSubmit()" *ngIf="!isAddMode">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>

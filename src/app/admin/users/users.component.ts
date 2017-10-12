@@ -41,13 +41,38 @@ export class UsersComponent {
         }
     ];
 
-    currentUsername: string = '';
+    isAddMode: boolean;
 
     constructor(private apiService: ApiClientService) {
         this.getUserList();
 
+        let passwordField = new DynamicFormControl('password', 'Password')
+            .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+            .setControlCssClass('col-xs-12 col-sm-7')
+            .setControlType(DynamicFormControl.TYPE_PASSWORD)
+            .setDividerBottom('row')
+            .setEnableTextToggle()
+            .setVisibleIf(() => {
+                passwordField.updateValueAndValidity({onlySelf: false, emitEvent: false});
+
+                if (this.isAddMode) {
+                    passwordField.setValidators([Validators.required]);
+                } else {
+                    passwordField.setValidators(null);
+                }
+                return this.isAddMode;
+            });
+
+
         this.dynamicFormConfig = new DynamicFormGroup()
             .elements([
+                new DynamicFormControl('username', 'Username')
+                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+                    .setControlCssClass('col-xs-12 col-sm-7')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setValidators([Validators.required]),
+
+                passwordField,
 
                 new DynamicFormControl('is_admin', 'Admin')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
@@ -106,18 +131,38 @@ export class UsersComponent {
     }
 
     editUser(user) {
-        this.currentUsername = user.username;
-        this.dynamicFormConfig.patchValue(user, {emitEvent: false});
+        if (user) {
+            this.isAddMode = false;
+            this.dynamicFormConfig.patchValue(user, {emitEvent: false});
+            this.dynamicFormConfig.controls['username'].disable({emitEvent: false});
+        } else {
+            this.isAddMode = true;
+            this.dynamicFormConfig.reset();
+            this.dynamicFormConfig.controls['username'].enable({emitEvent: false});
+        }
+
         this.modalComponent.show();
     }
 
-    updateUserData(formValues) {
+    updateUserData(formValues, create: boolean = false) {
         this.modalComponent.hide();
-        this.apiService
-            .put('/api/users/' + this.currentUsername + '/', formValues)
-            .subscribe(() => {
-                this.getUserList();
-            });
+
+        if (create) {
+            this.apiService
+                .post('/api/users/', formValues)
+                .subscribe(() => {
+                    this.getUserList();
+                });
+        } else {
+            let username = formValues.username;
+            delete formValues.username;
+
+            this.apiService
+                .put('/api/users/' + username + '/', formValues)
+                .subscribe(() => {
+                    this.getUserList();
+                });
+        }
     }
 
 }

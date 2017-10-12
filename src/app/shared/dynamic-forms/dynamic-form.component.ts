@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnDestroy {
     constructor(public dynamicFormService: DynamicFormService, public cdRef: ChangeDetectorRef) {
     }
 
-    onSubmit() {
+    onSubmit(...args) {
         let controls = this.dynamicFormService.getElementsReference();
         for (let i in controls) {
             if (controls[i] instanceof DynamicFormControl) {
@@ -34,7 +34,8 @@ export class DynamicFormComponent implements OnDestroy {
 
         if (this.fg.valid && this.onSuccessSubmit instanceof Function) {
             this.onSuccessSubmit(
-                this.fg.getRawValue()
+                this.fg.getRawValue(),
+                ...args
             );
         }
     }

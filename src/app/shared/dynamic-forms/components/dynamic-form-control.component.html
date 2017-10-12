@@ -1,4 +1,4 @@
-<ng-container [formGroup]="fg">
+<ng-container [formGroup]="fg" *ngIf="control.visibleIf()">
     <div *ngIf="control.dividerTopCssClass" class="{{ control.dividerTopCssClass }} divider divider-top">
         <hr>
     </div>
