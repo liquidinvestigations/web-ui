@@ -5,9 +5,25 @@
         <div class="table-responsive col-xs-offset-1">
             <table class="table table-condensed table-hover table-striped">
                 <tr *ngFor="let field of config.fields">
-                    <td>{{ field.label }}</td>
-                    <td>
-                        {{ field.value }}
+                    <td class="col-xs-6">{{ field.label }}</td>
+                    <td class="col-xs-6">
+                        <span *ngIf="!isPasswordText(field)">
+                            {{ field.value }}
+                        </span>
+                                    <span *ngIf="isPasswordText(field)">
+                            <ng-container *ngIf="field.showAsText">
+                                {{ field.value }}
+                            </ng-container>
+
+                            <ng-container *ngIf="!field.showAsText">
+                                {{ showAsBullets(field.value) }}
+                            </ng-container>
+
+                            <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
+                                    <i class="glyphicon"
+                                       [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
+                            </span>
+                        </span>
                     </td>
                 </tr>
             </table>

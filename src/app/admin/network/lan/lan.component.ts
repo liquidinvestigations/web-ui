@@ -14,7 +14,7 @@ import { ApiClientService } from '../../../core/api-client.service';
 export class LanComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
 
-    endpoint: string = '/api/network/lan';
+    endpoint: string = '/api/network/lan/';
 
     dynamicFormConfig: DynamicFormGroup;
 
@@ -32,7 +32,7 @@ export class LanComponent extends AdminForm {
             .setLabelCssClass('col-xs-12 col-sm-3 text-right')
             .setControlCssClass('col-xs-12 col-sm-7');
 
-        return LAN_FORM;
+        return LAN_FORM.controls['lan'];
     }
 
 }

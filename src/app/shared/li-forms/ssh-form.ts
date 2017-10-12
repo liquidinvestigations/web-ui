@@ -9,6 +9,9 @@ export const SSH_FORM =
                 .setFormGroupCssClass('service-group')
                 .setControlType(DynamicFormControl.TYPE_SLIDER),
 
+            new DynamicFormControl('port', 'Port')
+                .setControlType(DynamicFormControl.TYPE_TEXT),
+
             new DynamicFormArray('authorized_keys')
                 .setArrayCssClass('col-xs-12')
                 .generateElement(

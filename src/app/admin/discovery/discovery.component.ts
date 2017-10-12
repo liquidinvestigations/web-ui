@@ -46,7 +46,7 @@ export class DiscoveryComponent {
         this.nodes[1].entries = [];
 
         this.apiService
-            .get('/api/nodes')
+            .get('/api/nodes/')
             .subscribe((data) => {
                 for (let node of data) {
                     Object.assign(node, node.data);
@@ -62,7 +62,7 @@ export class DiscoveryComponent {
 
     updateNode(id, value) {
         return this.apiService
-            .put('/api/nodes/' + id + '/trusted', { is_trusted: value })
+            .put('/api/nodes/' + id + '/trusted/', { is_trusted: value })
             .subscribe(() => {
                 this.getNodes();
             });

@@ -3,7 +3,6 @@ import { DynamicFormGroup } from '../dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormControl } from '../dynamic-forms/builder/dynamic-form-control';
 import { DynamicFormValidator } from '../dynamic-forms/validation/dynamic-form.validator';
 
-
 export const LAN_FORM = new DynamicFormGroup()
     .elements([
         new DynamicFormGroup('lan')

@@ -12,12 +12,12 @@ export class StatusComponent {
     constructor(protected apiService: ApiClientService,) {
 
         this.apiService.get([
-            '/api/network/lan',
-            '/api/network/wan'
+            '/api/network/lan/',
+            '/api/network/wan/'
         ])
             .subscribe((apiResponses: any) => {
-                let lanMapping = mapSummaryConfig(apiResponses[0]);
-                let wanMapping = mapSummaryConfig(apiResponses[1]);
+                let lanMapping = mapSummaryConfig({lan : apiResponses[0] });
+                let wanMapping = mapSummaryConfig({ wan: apiResponses[1] });
 
                 this.currentConfig = [
                     {
@@ -30,6 +30,18 @@ export class StatusComponent {
                     },
                 ];
             });
+    }
+
+    switchToText(field) {
+        field.showAsText = !field.showAsText;
+    }
+
+    isPasswordText(field) {
+        return field.label.toLowerCase() === 'password';
+    }
+
+    showAsBullets(label) {
+        return label.replace(/./g, '*');
     }
 
 }

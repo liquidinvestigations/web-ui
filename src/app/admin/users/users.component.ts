@@ -24,13 +24,9 @@ export class UsersComponent {
             label: 'Role'
         },
         {
-            name: 'first_name',
-            label: 'First name'
+            name: 'name',
+            label: 'Name'
         },
-        {
-            name: 'last_name',
-            label: 'Last name'
-        }
     ];
 
 
@@ -84,11 +80,13 @@ export class UsersComponent {
         this.users[1].entries = [];
 
         this.apiService
-            .get('/api/users')
+            .get('/api/users/')
             .subscribe((users: any[]) => {
                 for (let user of users) {
 
                     // user.is_admin = user.is_admin ? 'admin' : 'user';
+
+                    user.name = user.first_name + ' ' + user.last_name;
 
                     if (user.is_active) {
                         this.users[0].entries.push(user);
@@ -101,7 +99,7 @@ export class UsersComponent {
 
     toggleUser(username: string, isActive: boolean) {
         this.apiService
-            .put('/api/users/' + username + '/active', {is_active: isActive})
+            .put('/api/users/' + username + '/active/', {is_active: isActive})
             .subscribe(() => {
                 this.getUserList();
             });
@@ -116,7 +114,7 @@ export class UsersComponent {
     updateUserData(formValues) {
         this.modalComponent.hide();
         this.apiService
-            .put('/api/users/' + this.currentUsername, formValues)
+            .put('/api/users/' + this.currentUsername + '/', formValues)
             .subscribe(() => {
                 this.getUserList();
             });

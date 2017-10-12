@@ -21,7 +21,7 @@
                             <td>{{ user[column.name] }}</td>
                         </ng-container>
                         <td class="text-right actions-col">
-                            <button class="btn btn-sm btn-primary" *ngIf="i == 0" (click)="editUser(user)">
+                            <button class="btn btn-sm btn-primary" (click)="editUser(user)">
                                 <i class="glyphicon glyphicon-edit"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-danger" *ngIf="i == 0"

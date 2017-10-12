@@ -152,7 +152,7 @@ export class DynamicFormControl extends FormControl {
     }
 
     addViewInfo(viewInfo) {
-        this.viewInfo = viewInfo;
+        this.viewInfo = Object.assign(this.viewInfo, viewInfo);
         return this;
     }
 }
