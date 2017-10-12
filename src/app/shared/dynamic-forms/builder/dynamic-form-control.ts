@@ -30,6 +30,8 @@ export class DynamicFormControl extends FormControl {
 
     public isRemovable;
 
+    public viewInfo = {};
+
     private debounceTime: number = DynamicFormControl.DEFAULT_DEBOUNCE;
     private onChangeHandler: Function = null;
 
@@ -146,6 +148,11 @@ export class DynamicFormControl extends FormControl {
         emitViewToModelChange?: boolean;
     }) {
         super.setValue(value, options);
+        return this;
+    }
+
+    addViewInfo(viewInfo) {
+        this.viewInfo = viewInfo;
         return this;
     }
 }

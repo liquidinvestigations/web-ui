@@ -16,6 +16,10 @@ declare let $: any;
 export class WizardComponent implements OnInit, OnDestroy {
     title = '';
 
+    showApiProgress = false;
+    apiProgress = '0';
+    apiProgressText = '';
+
     showProgress = false;
 
     progressStep = 0;
@@ -50,6 +54,15 @@ export class WizardComponent implements OnInit, OnDestroy {
             this.buttonConfig = stepConfig.buttonConfig;
         });
 
+        this.wizardService.subscribe(WizardService.TOGGLE_API_BAR, (toggle: boolean) => {
+            this.showApiProgress = toggle;
+        });
+
+        this.wizardService.subscribe(WizardService.API_BAR_PROGRESS, (data) => {
+            this.apiProgress = data.percentage + '%';
+            this.apiProgressText = data.message;
+            console.log(data.message);
+        });
     }
 
     resetWizard() {

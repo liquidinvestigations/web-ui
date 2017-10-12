@@ -5,8 +5,13 @@
     <div class="service-body">
         <div class="service-label">{{ control.label }}</div>
         <div class="service-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing
+            <span *ngIf="(control.viewInfo && control.viewInfo['description']); else no_desc">
+                {{ control.viewInfo['description'] }}
+            </span>
+            <ng-template #no_desc>
+                <span class="no-description">No description</span>
+            </ng-template>
+
             <a *ngIf="control.id === 'enabled'"
                (click)="toggleShow(control)">Manage keys</a>
         </div>

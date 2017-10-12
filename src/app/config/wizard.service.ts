@@ -11,6 +11,9 @@ export class WizardService extends LiEvents {
 
     public static readonly STEP_LOADED = 'step_loaded';
 
+    public static readonly TOGGLE_API_BAR = 'toggle_api_bar';
+    public static readonly API_BAR_PROGRESS = 'api_bar_progress';
+
     private basePath;
     private stepIndex = 0;
     private steps: Routes = [];
@@ -58,7 +61,7 @@ export class WizardService extends LiEvents {
         if (this.hasNextStep()) {
             this.router.navigate(
                 [this.basePath + '/' + this.steps[this.stepIndex + 1].path],
-                {skipLocationChange: true, replaceUrl: true}
+                { skipLocationChange: true, replaceUrl: true }
             );
         }
     }

@@ -5,6 +5,7 @@ import { mapSummaryConfig } from '../../../shared/li-forms/summary-mapping';
 import { WizardStateService } from '../../wizard-state.service';
 import { ApiClientService } from '../../../core/api-client.service';
 import { Observable } from 'rxjs/Observable';
+import { ProgressiveRequest, ProgressiveRequests } from '../../../core/progressive-requests';
 
 @Component({
     selector: 'li-summary-step',
@@ -27,11 +28,9 @@ export class SummaryStepComponent extends CommonStepBase {
 
     currentConfig: {};
 
-    constructor(
-        private apiService: ApiClientService,
-        protected wizardService: WizardService,
-        public wizardConfigStateEntity: WizardStateService
-    ) {
+    constructor(private apiService: ApiClientService,
+                protected wizardService: WizardService,
+                public wizardConfigStateEntity: WizardStateService) {
         super(wizardService);
     }
 
@@ -65,27 +64,42 @@ export class SummaryStepComponent extends CommonStepBase {
         this.buttonDisabled = true;
         this.isLoading = true;
 
-        this.updateServices(services).
-            subscribe(() => {
-                this.apiService.post('/api/registration/', config)
-                    .subscribe(() => {});
+        let requests = this.updateServices(services);
 
-            this.wizardService.notifySubscribers(WizardService.GO_NEXT);
+        requests.push({
+            request: this.apiService.post('/api/registration/', config),
+            message: 'Configuring device'
+        });
+
+        this.wizardService.notifySubscribers(WizardService.TOGGLE_API_BAR, true);
+
+        let progressiveCalls = new ProgressiveRequests(requests);
+
+        progressiveCalls.subscribe(ProgressiveRequests.API_PROGRESS_BAR_INCREMENT, (data) => {
+            this.wizardService.notifySubscribers(WizardService.API_BAR_PROGRESS, data);
+        });
+
+        progressiveCalls.subscribe(ProgressiveRequests.API_PROGRESS_BAR_END, (data) => {
+            this.wizardService.notifySubscribers(WizardService.API_BAR_PROGRESS, data);
+
+            setTimeout(() => {
+                this.wizardService.notifySubscribers(WizardService.TOGGLE_API_BAR, false);
+                this.wizardService.notifySubscribers(WizardService.GO_NEXT);
+            }, 500);
         });
     }
 
     updateServices(services) {
+        let requests: ProgressiveRequest[] = [];
 
-        let requests = [];
-
-        for (let i in services) {
-            requests.push(
-                this.apiService
-                    .put('/api/services/' + i + '/enabled/', {enabled: services[i] === true})
-            );
+        for (let name in services) {
+            requests.push({
+                request: this.apiService.put('/api/services/' + name + '/enabled/', {is_enabled: services[name] === true}),
+                message: 'Installing ' + name
+            });
         }
 
-        return Observable.forkJoin(requests);
+        return requests;
     }
 
     switchToText(field) {

@@ -32,6 +32,8 @@ export class WizardStateService extends LiEvents {
                 this.userConfig = response[0];
                 this.userConfig['services'] = filteredServices;
 
+                delete this.userConfig['domain'];
+
                 this.notifySubscribers(WizardStateService.DEVICE_CONFIG_LOADED, this.userConfig);
             });
     }

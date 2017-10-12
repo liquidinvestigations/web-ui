@@ -6,10 +6,16 @@ export const SERVICES_FORM = function (installedServices: {} = {}) {
     let serviceControls = {
         hoover: new DynamicFormControl('hoover', 'Hoover')
             .setFormGroupCssClass('service-group')
+            .addViewInfo({
+                description: 'Search Tool'
+            })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         hypothesis: new DynamicFormControl('hypothesis', 'Hypothesis')
             .setFormGroupCssClass('service-group')
+            .addViewInfo({
+                description: 'Annotations'
+            })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         docuwiki: new DynamicFormControl('docuwiki', 'DocuWiki')
@@ -22,6 +28,9 @@ export const SERVICES_FORM = function (installedServices: {} = {}) {
 
         davros: new DynamicFormControl('davros', 'Davros')
             .setFormGroupCssClass('service-group')
+            .addViewInfo({
+                description: 'File Sharing'
+            })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
     };
 
