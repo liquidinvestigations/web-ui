@@ -61,7 +61,6 @@ export class WizardComponent implements OnInit, OnDestroy {
         this.wizardService.subscribe(WizardService.API_BAR_PROGRESS, (data) => {
             this.apiProgress = data.percentage + '%';
             this.apiProgressText = data.message;
-            console.log(data.message);
         });
     }
 

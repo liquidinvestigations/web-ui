@@ -6,6 +6,7 @@ export class DynamicFormControl extends FormControl {
 
     public static readonly DEFAULT_DEBOUNCE = 200;
 
+    public static readonly TYPE_HIDDEN = 'hidden';
     public static readonly TYPE_TEXT = 'text';
     public static readonly TYPE_PASSWORD = 'password';
     public static readonly TYPE_CHECKBOX = 'checkbox';

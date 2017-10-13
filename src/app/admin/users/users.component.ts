@@ -10,9 +10,12 @@ import { Validators } from '@angular/forms';
     styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-    @ViewChild(BsModalComponent) modalComponent: BsModalComponent;
+    @ViewChild('editModal') editModalComponent: BsModalComponent;
+    @ViewChild('changePasswordModal') changePasswordModalComponent: BsModalComponent;
 
-    dynamicFormConfig: DynamicFormGroup;
+    editFormConfig: DynamicFormGroup;
+
+    changePasswordFormConfig: DynamicFormGroup;
 
     tableColumns = [
         {
@@ -64,7 +67,7 @@ export class UsersComponent {
             });
 
 
-        this.dynamicFormConfig = new DynamicFormGroup()
+        this.editFormConfig = new DynamicFormGroup()
             .elements([
                 new DynamicFormControl('username', 'Username')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
@@ -97,10 +100,22 @@ export class UsersComponent {
                     .setControlType(DynamicFormControl.TYPE_SLIDER),
 
             ]);
+
+        this.changePasswordFormConfig = new DynamicFormGroup()
+            .elements([
+                new DynamicFormControl('username')
+                    .setFormGroupCssClass('hidden')
+                    .setControlType(DynamicFormControl.TYPE_HIDDEN),
+
+                new DynamicFormControl('password', 'Password')
+                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+                    .setControlCssClass('col-xs-12 col-sm-7')
+                    .setControlType(DynamicFormControl.TYPE_PASSWORD)
+                    .setEnableTextToggle()
+            ]);
     }
 
     getUserList() {
-
         this.users[0].entries = [];
         this.users[1].entries = [];
 
@@ -122,7 +137,7 @@ export class UsersComponent {
             });
     }
 
-    toggleUser(username: string, isActive: boolean) {
+    toggleActiveUser(username: string, isActive: boolean) {
         this.apiService
             .put('/api/users/' + username + '/active/', {is_active: isActive})
             .subscribe(() => {
@@ -130,22 +145,24 @@ export class UsersComponent {
             });
     }
 
-    editUser(user) {
+    showEditUserModal(user) {
+
+        this.editFormConfig.reset();
+
         if (user) {
             this.isAddMode = false;
-            this.dynamicFormConfig.patchValue(user, {emitEvent: false});
-            this.dynamicFormConfig.controls['username'].disable({emitEvent: false});
+            this.editFormConfig.patchValue(user, {emitEvent: false});
+            this.editFormConfig.controls['username'].disable({emitEvent: false});
         } else {
             this.isAddMode = true;
-            this.dynamicFormConfig.reset();
-            this.dynamicFormConfig.controls['username'].enable({emitEvent: false});
+            this.editFormConfig.controls['username'].enable({emitEvent: false});
         }
 
-        this.modalComponent.show();
+        this.editModalComponent.show();
     }
 
     updateUserData(formValues, create: boolean = false) {
-        this.modalComponent.hide();
+        this.editModalComponent.hide();
 
         if (create) {
             this.apiService
@@ -156,6 +173,7 @@ export class UsersComponent {
         } else {
             let username = formValues.username;
             delete formValues.username;
+            delete formValues.password;
 
             this.apiService
                 .put('/api/users/' + username + '/', formValues)
@@ -164,5 +182,23 @@ export class UsersComponent {
                 });
         }
     }
+
+    showChangePasswordModal(user) {
+        this.changePasswordFormConfig.reset();
+        this.changePasswordFormConfig.patchValue(user, {emitEvent: false});
+        this.changePasswordModalComponent.show();
+    }
+
+    changePassword(formValues) {
+        this.changePasswordModalComponent.hide();
+
+        let username = formValues.username;
+        delete formValues.username;
+
+        this.apiService
+            .post('/api/users/' + username + '/password/', formValues)
+            .subscribe();
+    }
+
 
 }

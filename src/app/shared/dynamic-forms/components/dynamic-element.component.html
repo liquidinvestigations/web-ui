@@ -1,6 +1,9 @@
 <ng-container [formGroup]="fg">
     <ng-container [ngSwitch]="control.controlType">
 
+        <ng-container *ngSwitchCase="'hidden'">
+            <input type="hidden" [formControlName]="control.id" [id]="control.id">
+        </ng-container>
         <ng-container *ngSwitchCase="'text'">
 
             <div class="input-group input-group-sm">

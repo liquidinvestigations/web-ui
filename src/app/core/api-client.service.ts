@@ -60,14 +60,12 @@ export class ApiClientService extends LiEvents {
                 .share();
         }
 
-        observable
-            .subscribe((response: any) => {
+        return observable
+            .do((response: any) => {
                     this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, response);
                 },
                 this.handleBackendErrorOnRead.bind(this)
             );
-
-        return observable;
     }
 
 
@@ -81,13 +79,11 @@ export class ApiClientService extends LiEvents {
             .post(url, payload, this.headers)
             .share();
 
-        observable.subscribe((response: any) => {
-                this.notifySubscribers(ApiClientService.EV_POST_SUCCESSFUL);
+        return observable.do((response: any) => {
+                this.notifySubscribers(ApiClientService.EV_POST_SUCCESSFUL, response);
             },
             this.handleBackendErrorOnRead.bind(this)
         );
-
-        return observable;
     }
 
     put(endpoint: string, payload: {}) {
@@ -100,13 +96,11 @@ export class ApiClientService extends LiEvents {
             .put(url, payload, this.headers)
             .share();
 
-        observable.subscribe((response: any) => {
-                this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL);
+        return observable.do((response: any) => {
+                this.notifySubscribers(ApiClientService.EV_PUT_SUCCESSFUL, response);
             },
             this.handleBackendErrorOnRead.bind(this)
         );
-
-        return observable;
     }
 
     private handleBackendErrorOnRead() {
