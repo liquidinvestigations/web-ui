@@ -87,7 +87,7 @@ export class AdminComponent {
         apiService.subscribe(ApiClientService.EV_API_ERROR, () => {
             setTimeout(() => {
                 this.currentNotification = notificationsService
-                .show('Oups! Could not update your settings due to some server error', LiNotification.TYPE_DANGER);
+                .show('Oups! Server responded with an error', LiNotification.TYPE_DANGER);
             }, 1000);
 
         });

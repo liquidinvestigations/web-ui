@@ -105,7 +105,6 @@ export class ApiClientService extends LiEvents {
 
     private handleBackendErrorOnRead() {
         this.notifySubscribers(ApiClientService.EV_API_ERROR);
-        console.warn('Error');
     }
 
     private createUrl(endpoint: any): string {
