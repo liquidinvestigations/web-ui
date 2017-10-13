@@ -77,6 +77,8 @@ export abstract class AdminForm {
     }
 
     updateWithFormValues(formConfig?: {}) {
+        formConfig = this.beforeSubmit(formConfig);
+
         if (this.usePost) {
             return this.createApiEntityConfig(formConfig);
         } else {
@@ -102,4 +104,7 @@ export abstract class AdminForm {
             });
     }
 
+    beforeSubmit(formConfig) {
+        return formConfig;
+    }
 }

@@ -16,7 +16,7 @@ export class SummaryStepComponent extends CommonStepBase {
 
     buttonConfig = {
         label: 'Install',
-        iconClass: '',
+        iconClass: 'fa fa-cogs',
         buttonClass: 'btn btn-primary',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.END_WIZARD);

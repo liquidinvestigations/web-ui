@@ -55,13 +55,17 @@
 
       .reset-button {
         cursor: pointer;
+        padding: 10px 6px;
       }
 
-      .progress {
-        margin-bottom: 0;
-        margin-top: 5px;
-      }
+      .progress-container {
+        margin-top: -15px;
 
+        .progress {
+          margin-bottom: 0;
+          margin-top: 5px;
+        }
+      }
     }
   }
 }

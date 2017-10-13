@@ -6,6 +6,7 @@ import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynami
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
 
 import { WizardStateService } from '../../wizard-state.service';
+import { DOMAIN_REGEX, USERNAME_REGEX } from '../../../shared/li-forms/validators.regex';
 
 @Injectable()
 export class AdminStepEntity {
@@ -28,7 +29,7 @@ export class AdminStepEntity {
                     .setDividerBottom('row')
                     .setValidators([
                         Validators.required,
-                        DynamicFormValidator.hostnameValidator
+                        DynamicFormValidator.regexValidator(DOMAIN_REGEX, 'Hostname is invalid')
                     ]),
 
                 new DynamicFormControl('username', 'Admin username')
@@ -36,8 +37,10 @@ export class AdminStepEntity {
                     .setPlaceholder('username')
                     .setValidators([
                         Validators.required,
+                        Validators.minLength(3),
+                        Validators.maxLength(64),
                         DynamicFormValidator.regexValidator(
-                            /^[a-z0-9]+$/i,
+                            USERNAME_REGEX,
                             'Username has to be alpha-numeric'
                         )
                     ]),
@@ -46,7 +49,7 @@ export class AdminStepEntity {
                     .setControlType(DynamicFormControl.TYPE_PASSWORD)
                     .setValidators([
                         Validators.required,
-                        Validators.minLength(6)
+                        Validators.minLength(8)
                     ]),
 
                 new DynamicFormControl('confirm_password', 'Confirm Password')

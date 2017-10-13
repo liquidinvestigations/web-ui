@@ -15,6 +15,8 @@ export const WAN_FORM = new DynamicFormGroup()
                             .setPlaceholder('your network name')
                             .setValidators([
                                 Validators.required,
+                                Validators.minLength(1),
+                                Validators.maxLength(31),
                             ]),
 
                         new DynamicFormControl('password', 'Password')
@@ -23,6 +25,8 @@ export const WAN_FORM = new DynamicFormGroup()
                             .setEnableTextToggle()
                             .setValidators([
                                 Validators.required,
+                                Validators.minLength(8),
+                                Validators.maxLength(63),
                             ]),
                     ]),
 

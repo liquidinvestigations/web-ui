@@ -1,7 +1,7 @@
 <ul class="nav nav-pills">
     <li>
         <a (click)="showEditUserModal()">
-            <i class="glyphicon glyphicon-user"></i>
+            <i class="fa fa-user-plus"></i>
             Add user
         </a>
     </li>
@@ -28,7 +28,16 @@
                 <ng-container *ngFor="let user of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">
-                            <td>{{ user[column.name] }}</td>
+                            <td>
+                                <ng-container *ngIf="isBoolean(user[column.name]); else displayString">
+                                    <ng-container *ngIf="user[column.name]; else userText">Admin</ng-container>
+                                    <ng-template #userText>User</ng-template>
+                                    <i class="fa" [ngClass]="{'fa-user': user[column.name]}"></i>
+                                </ng-container>
+                                <ng-template #displayString>
+                                    {{ user[column.name] }}
+                                </ng-template>
+                            </td>
                         </ng-container>
                         <td class="col-sm-3 text-right actions-col">
                             <div class="action">
@@ -37,18 +46,18 @@
 
                             <div class="action">
                                 <button class="btn btn-sm btn-primary" (click)="showEditUserModal(user)">
-                                    <i class="glyphicon glyphicon-edit"></i> Edit
+                                    <i class="fa fa-pencil"></i> Edit
                                 </button>
                             </div>
 
                             <div class="action">
                                 <button class="btn btn-sm btn-danger" *ngIf="i == 0"
                                         (click)="toggleActiveUser(user.username, false)">
-                                    <i class="glyphicon glyphicon-remove"></i> Deactivate
+                                    <i class="fa fa-ban"></i> Deactivate
                                 </button>
                                 <button class="btn btn-sm btn-success" *ngIf="i == 1"
                                         (click)="toggleActiveUser(user.username, true)">
-                                    <i class="glyphicon glyphicon-ok"></i> Activate
+                                    <i class="fa fa-check"></i> Activate
                                 </button>
                             </div>
                         </td>

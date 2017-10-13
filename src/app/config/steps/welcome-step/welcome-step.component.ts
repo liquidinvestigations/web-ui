@@ -19,7 +19,7 @@ export class WelcomeStepComponent extends CommonStepBase {
 
     buttonConfig = {
         label: 'Start',
-        iconClass: 'glyphicon glyphicon-log-in',
+        iconClass: 'fa fa-sign-in',
         buttonClass: 'btn btn-success',
         action: () => {
             this.wizardService.notifySubscribers(WizardService.GO_NEXT);

@@ -24,20 +24,26 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-xs-2 text-left">
-                        <a (click)="resetWizard()" class="reset-button" *ngIf="title === 'Summary'">
-                            <i class="glyphicon glyphicon glyphicon-repeat"></i>
-                            Reset wizard
-                        </a>
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a (click)="resetWizard()" class="reset-button" *ngIf="title === 'Summary'">
+                                    <i class="glyphicon glyphicon glyphicon-repeat"></i>
+                                    Reset wizard
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-xs-8 text-center">
-                        <ng-container *ngIf="showApiProgress">
-                            {{ apiProgressText }}
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped active" role="progressbar" [style.width]="apiProgress">
+                        <div class="progress-container">
+                            <ng-container *ngIf="showApiProgress">
+                                {{ apiProgressText }} &nbsp;
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar" [style.width]="apiProgress">
 
+                                    </div>
                                 </div>
-                            </div>
-                        </ng-container>
+                            </ng-container>
+                        </div>
                     </div>
                     <div class="col-xs-2 text-right">
                         <button *ngIf="buttonConfig"

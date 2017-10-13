@@ -115,6 +115,10 @@ export class UsersComponent {
             ]);
     }
 
+    isBoolean(value: any) {
+        return typeof value === 'boolean';
+    }
+
     getUserList() {
         this.users[0].entries = [];
         this.users[1].entries = [];

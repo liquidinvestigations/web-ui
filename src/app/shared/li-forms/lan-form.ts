@@ -14,14 +14,18 @@ export const LAN_FORM = new DynamicFormGroup()
                             .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setPlaceholder('SSID')
                             .setValidators([
-                                Validators.required
+                                Validators.required,
+                                Validators.minLength(1),
+                                Validators.maxLength(31),
                             ]),
 
                         new DynamicFormControl('password', 'Password')
                             .setControlType(DynamicFormControl.TYPE_PASSWORD)
                             .setEnableTextToggle()
                             .setValidators([
-                                Validators.required
+                                Validators.required,
+                                Validators.minLength(8),
+                                Validators.maxLength(63),
                             ]),
                     ]),
 
@@ -49,10 +53,11 @@ export const LAN_FORM = new DynamicFormGroup()
                 new DynamicFormControl('dhcp_range', 'DHCP Range')
                     .setFormGroupCssClass('row')
                     .setControlType(DynamicFormControl.TYPE_TEXT)
-                    .setPlaceholder('000.000.000.000-255')
+                    .setPlaceholder('000.000.000.000-200')
                     .setValue('10.0.0.100-200', {emitEvent: false})
                     .setValidators([
-                        Validators.required
+                        Validators.required,
+                        DynamicFormValidator.IpV4RangeValidator
                     ]),
 
                 new DynamicFormControl('eth', 'Use Ethernet on LAN')

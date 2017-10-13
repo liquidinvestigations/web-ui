@@ -35,4 +35,20 @@ export class WanComponent extends AdminForm {
         return WAN_FORM.controls['wan'];
     }
 
+    filterApiValues(apiConfig) {
+        apiConfig['dhcp'] = !apiConfig.static;
+
+        return apiConfig;
+    }
+
+    beforeSubmit(formConfig) {
+        let isDHCP = formConfig['dhcp'];
+        delete formConfig['dhcp'];
+
+        if (isDHCP) {
+            formConfig['static'] = null;
+        }
+
+        return formConfig;
+    }
 }
