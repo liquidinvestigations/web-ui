@@ -43,6 +43,15 @@ export abstract class AdminForm {
 
     init() {
         this.dynamicFormConfig = this.getDynamicFormConfig();
+
+        this.buttonDisabled = this.dynamicFormConfig.invalid && this.dynamicFormConfig.touched;
+
+        this.dynamicFormConfig.valueChanges
+            .debounceTime(100)
+            .subscribe(() => {
+                this.buttonDisabled = this.dynamicFormConfig.invalid;
+            });
+
         if (this.endpoint) {
             this.refreshConfig();
         }

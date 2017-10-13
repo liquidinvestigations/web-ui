@@ -80,7 +80,8 @@ export class ServicesComponent extends AdminForm {
 
     private updateService(control: DynamicFormControl) {
         return this.apiService
-            .put('/api/services/' + control.id + '/enabled/', { is_enabled: !!control.value });
+            .put('/api/services/' + control.id + '/enabled/', { is_enabled: !!control.value })
+            .subscribe();
     }
 
 }

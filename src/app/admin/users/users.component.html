@@ -19,9 +19,9 @@
                 <thead>
                 <tr>
                     <ng-container *ngFor="let column of tableColumns">
-                        <th>{{ column.label }}</th>
+                        <th class="col-sm-3">{{ column.label }}</th>
                     </ng-container>
-                    <th></th>
+                    <th class="col-sm-3"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
                                 </ng-template>
                             </td>
                         </ng-container>
-                        <td class="col-sm-3 text-right actions-col">
+                        <td class="text-right actions-col">
                             <div class="action">
                                 <a (click)="showChangePasswordModal(user)"><i class="fa fa-key"></i> Change password</a>
                             </div>
@@ -50,7 +50,7 @@
                                 </button>
                             </div>
 
-                            <div class="action">
+                            <div class="action activate">
                                 <button class="btn btn-sm btn-danger" *ngIf="i == 0"
                                         (click)="toggleActiveUser(user.username, false)">
                                     <i class="fa fa-ban"></i> Deactivate

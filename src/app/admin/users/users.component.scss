@@ -13,6 +13,11 @@ table {
         display: inline-block;
         margin: 0 3px;
         cursor: pointer;
+
+        &.activate button {
+          width: 92px;
+        }
+
       }
     }
   }
