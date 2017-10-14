@@ -149,7 +149,7 @@ export class UsersComponent {
             });
     }
 
-    showEditUserModal(user) {
+    showEditUserModal(user?: {}) {
 
         this.editFormConfig.reset();
 
