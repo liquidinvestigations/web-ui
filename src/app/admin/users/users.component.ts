@@ -4,6 +4,7 @@ import { BsModalComponent } from '../../shared/bs-modal/bs-modal.component';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormControl } from '../../shared/dynamic-forms/builder/dynamic-form-control';
 import { Validators } from '@angular/forms';
+import { PASSWORD_VALIDATOR_RULES, USERNAME_VALIDATOR_RULES } from '../../shared/li-forms/validators.regex';
 
 @Component({
     templateUrl: './users.component.html',
@@ -32,7 +33,6 @@ export class UsersComponent {
         },
     ];
 
-
     users = [
         {
             title: 'Active users',
@@ -49,7 +49,26 @@ export class UsersComponent {
     constructor(private apiService: ApiClientService) {
         this.getUserList();
 
-        let passwordField = new DynamicFormControl('password', 'Password')
+        this.setDefaultEditForm();
+
+        this.changePasswordFormConfig = new DynamicFormGroup()
+            .elements([
+                new DynamicFormControl('username')
+                    .setFormGroupCssClass('hidden')
+                    .setControlType(DynamicFormControl.TYPE_HIDDEN),
+
+                new DynamicFormControl('new_password', 'Password')
+                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+                    .setControlCssClass('col-xs-12 col-sm-7')
+                    .setControlType(DynamicFormControl.TYPE_PASSWORD)
+                    .setValidators(PASSWORD_VALIDATOR_RULES)
+                    .setEnableTextToggle()
+            ]);
+    }
+
+    setDefaultEditForm() {
+
+        let passwordField = new DynamicFormControl('new_password', 'Password')
             .setLabelCssClass('col-xs-12 col-sm-3 text-right')
             .setControlCssClass('col-xs-12 col-sm-7')
             .setControlType(DynamicFormControl.TYPE_PASSWORD)
@@ -59,13 +78,12 @@ export class UsersComponent {
                 passwordField.updateValueAndValidity({onlySelf: false, emitEvent: false});
 
                 if (this.isAddMode) {
-                    passwordField.setValidators([Validators.required]);
+                    passwordField.setValidators(PASSWORD_VALIDATOR_RULES);
                 } else {
                     passwordField.setValidators(null);
                 }
                 return this.isAddMode;
             });
-
 
         this.editFormConfig = new DynamicFormGroup()
             .elements([
@@ -73,13 +91,14 @@ export class UsersComponent {
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
                     .setControlType(DynamicFormControl.TYPE_TEXT)
-                    .setValidators([Validators.required]),
+                    .setValidators(USERNAME_VALIDATOR_RULES),
 
                 passwordField,
 
                 new DynamicFormControl('is_admin', 'Admin')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
+                    .setValue(false, { emitEvent: false })
                     .setControlType(DynamicFormControl.TYPE_SLIDER),
 
                 new DynamicFormControl('first_name', 'First name')
@@ -97,21 +116,9 @@ export class UsersComponent {
                 new DynamicFormControl('is_active', 'Active')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
+                    .setValue(true, { emitEvent: false })
                     .setControlType(DynamicFormControl.TYPE_SLIDER),
 
-            ]);
-
-        this.changePasswordFormConfig = new DynamicFormGroup()
-            .elements([
-                new DynamicFormControl('username')
-                    .setFormGroupCssClass('hidden')
-                    .setControlType(DynamicFormControl.TYPE_HIDDEN),
-
-                new DynamicFormControl('password', 'Password')
-                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
-                    .setControlCssClass('col-xs-12 col-sm-7')
-                    .setControlType(DynamicFormControl.TYPE_PASSWORD)
-                    .setEnableTextToggle()
             ]);
     }
 
@@ -151,7 +158,7 @@ export class UsersComponent {
 
     showEditUserModal(user?: {}) {
 
-        this.editFormConfig.reset();
+        this.setDefaultEditForm();
 
         if (user) {
             this.isAddMode = false;
@@ -169,15 +176,24 @@ export class UsersComponent {
         this.editModalComponent.hide();
 
         if (create) {
+
+            let username = formValues.username;
+            let password = formValues.new_password;
+            delete formValues.new_password;
+
             this.apiService
                 .post('/api/users/', formValues)
                 .subscribe(() => {
-                    this.getUserList();
+                    this.changePassword({
+                        username: username,
+                        new_password: password
+                    }, this.getUserList.bind(this));
                 });
+
         } else {
             let username = formValues.username;
             delete formValues.username;
-            delete formValues.password;
+            delete formValues.new_password;
 
             this.apiService
                 .put('/api/users/' + username + '/', formValues)
@@ -193,7 +209,7 @@ export class UsersComponent {
         this.changePasswordModalComponent.show();
     }
 
-    changePassword(formValues) {
+    changePassword(formValues, callback) {
         this.changePasswordModalComponent.hide();
 
         let username = formValues.username;
@@ -201,7 +217,7 @@ export class UsersComponent {
 
         this.apiService
             .post('/api/users/' + username + '/password/', formValues)
-            .subscribe();
+            .subscribe(callback);
     }
 
 

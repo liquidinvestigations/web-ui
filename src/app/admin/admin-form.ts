@@ -61,7 +61,7 @@ export abstract class AdminForm {
         this.getApiEntityConfig()
             .subscribe((apiConfig: any) => {
                 this.dynamicFormConfig
-                    .patchValue(this.filterApiValues(apiConfig), { emitEvent: false });
+                    .patchValue(this.filterApiValues(apiConfig), {emitEvent: false});
 
                 if (this.disableOnUpdate) {
                     this.dynamicFormConfig.enable();
@@ -107,10 +107,17 @@ export abstract class AdminForm {
 
     successSubmit(formConfig: {}) {
         this.updateWithFormValues(formConfig)
-            .subscribe(() => {
-                this.isLoading = false;
-                this.refreshConfig();
-            });
+            .subscribe(
+                () => {
+                    this.isLoading = false;
+                    this.refreshConfig();
+                },
+                () => {
+                    this.dynamicFormConfig.enable();
+                    this.isLoading = false;
+                    this.buttonDisabled = false;
+                }
+            );
     }
 
     beforeSubmit(formConfig) {

@@ -46,7 +46,7 @@ export class WanComponent extends AdminForm {
         delete formConfig['dhcp'];
 
         if (isDHCP) {
-            formConfig['static'] = null;
+            delete formConfig['static'];
         }
 
         return formConfig;

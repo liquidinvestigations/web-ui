@@ -10,7 +10,7 @@ export const WAN_FORM = new DynamicFormGroup()
 
                 new DynamicFormGroup('wifi')
                     .elements([
-                        new DynamicFormControl('ssid', 'Connect to Wi-Fi Net')
+                        new DynamicFormControl('ssid', 'SSID')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setPlaceholder('your network name')
                             .setValidators([

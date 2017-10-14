@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { CookieService } from 'ngx-cookie-service';
 
 declare let $: any;
+declare  let window: any;
 
 @Injectable()
 export class ApiClientService extends LiEvents {
@@ -107,8 +108,13 @@ export class ApiClientService extends LiEvents {
         );
     }
 
-    private handleBackendErrorOnRead() {
-        this.notifySubscribers(ApiClientService.EV_API_ERROR);
+    private handleBackendErrorOnRead(error: any) {
+
+        if (error.status === 403) {
+            window.location = '/accounts/login/?next=' + window.location.pathname;
+        }
+
+        this.notifySubscribers(ApiClientService.EV_API_ERROR, error.json());
     }
 
     private createUrl(endpoint: any): string {
@@ -120,7 +126,7 @@ export class ApiClientService extends LiEvents {
         let csrfCookie = this.cookieService.get('csrftoken');
 
         if (csrfCookie) {
-            this.headers.set('HTTP_X_CSRF_TOKEN', csrfCookie);
+            this.headers.set('X-CSRFToken', csrfCookie);
         }
     }
 
