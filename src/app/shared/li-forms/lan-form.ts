@@ -12,7 +12,6 @@ export const LAN_FORM = new DynamicFormGroup()
                     .elements([
                         new DynamicFormControl('ssid', 'SSID')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
-                            .setPlaceholder('SSID')
                             .setValidators([
                                 Validators.required,
                                 Validators.minLength(1),
@@ -20,8 +19,7 @@ export const LAN_FORM = new DynamicFormGroup()
                             ]),
 
                         new DynamicFormControl('password', 'Password')
-                            .setControlType(DynamicFormControl.TYPE_PASSWORD)
-                            .setEnableTextToggle()
+                            .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setValidators([
                                 Validators.required,
                                 Validators.minLength(8),

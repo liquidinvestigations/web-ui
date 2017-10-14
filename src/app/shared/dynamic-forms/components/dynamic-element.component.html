@@ -9,7 +9,7 @@
             <div class="input-group input-group-sm">
 
                 <input class="form-control input-sm {{ control.id }}" [formControlName]="control.id" [placeholder]="control.placeholder"
-                       type="text" [textMask]="control.textMask" autocomplete="donttouchme">
+                       type="text" [textMask]="control.textMask" autocomplete="donttouchme" name="psk">
 
                 <span class="input-group-btn" *ngIf="control.isRemovable">
                         <span class="btn btn-default" (click)="removeControl()">
@@ -27,7 +27,7 @@
         <ng-container *ngSwitchCase="'password'">
 
             <input class="form-control input-sm {{ control.id }}" [formControlName]="control.id" [placeholder]="control.placeholder"
-                   type="password" [textMask]="control.textMask" autocomplete="donttouchme">
+                   type="password" [textMask]="control.textMask" autocomplete="donttouchme" name="psk">
 
             <span *ngIf="control.enableTextToggle" class="show-password" (click)="switchToText()">
                     <i class="glyphicon glyphicon-eye-open"></i>
