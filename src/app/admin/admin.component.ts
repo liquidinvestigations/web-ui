@@ -87,7 +87,7 @@ export class AdminComponent {
         apiService.subscribe(ApiClientService.EV_API_ERROR, (error) => {
             setTimeout(() => {
                 this.currentNotification = notificationsService
-                .show(error.detail, LiNotification.TYPE_DANGER);
+                .show(error.detail || 'A server error has occurred.', LiNotification.TYPE_DANGER);
             }, 1000);
 
         });
