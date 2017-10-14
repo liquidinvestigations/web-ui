@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { LiEvents } from './li-events';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/share';
@@ -50,7 +50,7 @@ export class ApiClientService extends LiEvents {
             for (url of endpoint) {
                 requests.push(
                     this.http
-                        .get(url, this.headers)
+                        .get(url, new RequestOptions({headers: this.headers}))
                         .map(res => res.json())
                         .share()
                 );
@@ -59,7 +59,7 @@ export class ApiClientService extends LiEvents {
             observable = Observable.forkJoin.apply(null, requests);
         } else {
             observable = this.http
-                .get(url, this.headers)
+                .get(url, new RequestOptions({headers: this.headers}))
                 .map(res => res.json())
                 .share();
         }
@@ -80,7 +80,7 @@ export class ApiClientService extends LiEvents {
         this.notifySubscribers(ApiClientService.EV_BEFORE_POST);
 
         let observable = this.http
-            .post(url, payload, this.headers)
+            .post(url, payload, new RequestOptions({headers: this.headers}))
             .share();
 
         return observable.do((response: any) => {
@@ -97,7 +97,7 @@ export class ApiClientService extends LiEvents {
         this.notifySubscribers(ApiClientService.EV_BEFORE_PUT);
 
         let observable = this.http
-            .put(url, payload, this.headers)
+            .put(url, payload, new RequestOptions({headers: this.headers}))
             .share();
 
         return observable.do((response: any) => {
@@ -117,12 +117,10 @@ export class ApiClientService extends LiEvents {
     }
 
     setCSRFHeader() {
-        this.headers.delete('csrftoken');
-
         let csrfCookie = this.cookieService.get('csrftoken');
 
         if (csrfCookie) {
-            this.headers.append('HTTP-X-CSRF-TOKEN', csrfCookie);
+            this.headers.set('HTTP-X-CSRF-TOKEN', csrfCookie);
         }
     }
 
