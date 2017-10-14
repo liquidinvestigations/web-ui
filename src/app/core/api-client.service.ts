@@ -32,12 +32,6 @@ export class ApiClientService extends LiEvents {
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
-
-        let csrfCookie = this.cookieService.get('csrftoken');
-
-        if (csrfCookie) {
-            this.headers.append('HTTP-X-CSRF-TOKEN', csrfCookie);
-        }
     }
 
     get (endpoint: string | string[], params = null): Observable<any> {
@@ -118,7 +112,18 @@ export class ApiClientService extends LiEvents {
     }
 
     private createUrl(endpoint: any): string {
+        this.setCSRFHeader();
         return endpoint;
+    }
+
+    setCSRFHeader() {
+        this.headers.delete('csrftoken');
+
+        let csrfCookie = this.cookieService.get('csrftoken');
+
+        if (csrfCookie) {
+            this.headers.append('HTTP-X-CSRF-TOKEN', csrfCookie);
+        }
     }
 
 }
