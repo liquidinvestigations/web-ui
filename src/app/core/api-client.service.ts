@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
+import { CookieService } from 'ngx-cookie-service';
 
 declare let $: any;
 
@@ -23,11 +24,20 @@ export class ApiClientService extends LiEvents {
 
     private headers: Headers;
 
-    constructor(private http: Http) {
+    constructor(
+        private http: Http,
+        private cookieService: CookieService
+    ) {
         super();
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
+
+        let csrfCookie = this.cookieService.get('csrftoken');
+
+        if (csrfCookie) {
+            this.headers.append('HTTP-X-CSRF-TOKEN', csrfCookie);
+        }
     }
 
     get (endpoint: string | string[], params = null): Observable<any> {
