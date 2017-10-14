@@ -16,13 +16,13 @@ const routes: Routes = [
         loadChildren: './config/wizard.module#WizardModule'
     },
     {
-        path: 'admin',
+        path: 'admin-ui',
         loadChildren: './admin/admin.module#AdminModule'
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

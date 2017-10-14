@@ -34,6 +34,19 @@ export function mapSummaryConfig(config) {
             title: 'WAN configuration',
             fields: [
                 {
+                    label: 'SSID',
+                    value: config.wan.wifi.ssid
+                },
+                {
+                    label: 'Password',
+                    value: config.wan.wifi.password
+                }
+            ]
+        };
+
+        if (config.wan.static) {
+            mapping['wan'].fields.concat([
+                {
                     label: 'IP',
                     value: config.wan.static.ip
                 },
@@ -48,17 +61,9 @@ export function mapSummaryConfig(config) {
                 {
                     label: 'DNS Server',
                     value: config.wan.static.dns_server
-                },
-                {
-                    label: 'SSID',
-                    value: config.wan.wifi.ssid
-                },
-                {
-                    label: 'Password',
-                    value: config.wan.wifi.password
                 }
-            ]
-        };
+            ]);
+        }
     }
 
     if (config.services) {
