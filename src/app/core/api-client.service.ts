@@ -120,7 +120,7 @@ export class ApiClientService extends LiEvents {
         let csrfCookie = this.cookieService.get('csrftoken');
 
         if (csrfCookie) {
-            this.headers.set('HTTP-X-CSRF-TOKEN', csrfCookie);
+            this.headers.set('HTTP_X_CSRF_TOKEN', csrfCookie);
         }
     }
 
