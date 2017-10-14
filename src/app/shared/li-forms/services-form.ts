@@ -18,12 +18,18 @@ export const SERVICES_FORM = function (installedServices: {} = {}) {
             })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
 
-        docuwiki: new DynamicFormControl('docuwiki', 'DocuWiki')
+        dokuwiki: new DynamicFormControl('dokuwiki', 'DokuWiki')
             .setFormGroupCssClass('service-group')
+            .addViewInfo({
+                description: 'Wiki'
+            })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         matrix: new DynamicFormControl('matrix', 'Matrix')
             .setFormGroupCssClass('service-group')
+            .addViewInfo({
+                description: 'Chat'
+            })
             .setControlType(DynamicFormControl.TYPE_SLIDER),
 
         davros: new DynamicFormControl('davros', 'Davros')
