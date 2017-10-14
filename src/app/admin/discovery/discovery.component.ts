@@ -42,12 +42,12 @@ export class DiscoveryComponent {
     }
 
     getNodes() {
-        this.nodes[0].entries = [];
-        this.nodes[1].entries = [];
-
         this.apiService
             .get('/api/nodes/')
             .subscribe((data) => {
+                this.nodes[0].entries = [];
+                this.nodes[1].entries = [];
+
                 for (let node of data) {
                     Object.assign(node, node.data);
 

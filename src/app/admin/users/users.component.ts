@@ -127,16 +127,13 @@ export class UsersComponent {
     }
 
     getUserList() {
-        this.users[0].entries = [];
-        this.users[1].entries = [];
-
         this.apiService
             .get('/api/users/')
             .subscribe((users: any[]) => {
+                this.users[0].entries = [];
+                this.users[1].entries = [];
+
                 for (let user of users) {
-
-                    // user.is_admin = user.is_admin ? 'admin' : 'user';
-
                     user.name = user.first_name + ' ' + user.last_name;
 
                     if (user.is_active) {
