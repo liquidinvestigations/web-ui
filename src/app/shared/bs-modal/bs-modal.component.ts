@@ -7,14 +7,23 @@ declare let $: any;
     templateUrl: './bs-modal.component.html'
 })
 export class BsModalComponent {
-
     @Input() callbacks: Function[];
+    @Input() defaultCloseBtn: boolean = true;
 
     constructor(private elRef: ElementRef) {
     }
 
-    show() {
-        $(this.elRef.nativeElement).find('.modal').modal('show');
+    show(noClose?: boolean) {
+        let modal = $(this.elRef.nativeElement).find('.modal');
+
+        if (noClose) {
+            modal.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+
+        modal.modal('show');
     }
 
     hide() {

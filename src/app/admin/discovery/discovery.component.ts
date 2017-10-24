@@ -49,6 +49,11 @@ export class DiscoveryComponent {
                 this.nodes[1].entries = [];
 
                 for (let node of data) {
+
+                    node.data['last_seen_at'] = node.data['last_seen_at']
+                        .replace('\T', ' ')
+                        .replace('\Z', '');
+
                     Object.assign(node, node.data);
 
                     if (node.is_trusted) {

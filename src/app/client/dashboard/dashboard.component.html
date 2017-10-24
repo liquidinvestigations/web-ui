@@ -1,0 +1,8 @@
+<ng-container *ngFor="let page of pages; let i = index">
+    <a class="col-xs-12 col-sm-3 text-center dashboard-item item-{{ i }}" routerLink="{{ '../' + page.path }}">
+        <img src="{{ page.data.img }}" class="img-circle dashboard-img">
+        <div class="description">
+            <h4>{{ page.data.label }}</h4>
+        </div>
+    </a>
+</ng-container>

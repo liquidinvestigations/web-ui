@@ -1,0 +1,14 @@
+body {
+  background: url("../../assets/liquid-investigations/img/wizard-background.jpg");
+  background-size: cover;
+}
+.modal {
+  text-align: center;
+  padding: 0 !important;
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+}

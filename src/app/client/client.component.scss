@@ -1,7 +1,7 @@
 $topBarHeight: 60px;
 $transparency: 0.32;
 
-$themeBg: #7197bb;
+$themeBg: #7b8ca3;
 
 body {
   padding-top: $topBarHeight;
@@ -26,7 +26,7 @@ body {
   background: rgba(255, 255, 255, $transparency);
 }
 
-.page-wrapper {
+.page-wrapper-client {
   .navbar-fixed-top {
 
     height: $topBarHeight;
@@ -197,3 +197,12 @@ body {
   }
 }
 
+iframe {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 80px;
+  border: none;
+}

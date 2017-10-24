@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFormModule } from './dynamic-forms/dynamic-form.module';
 import { BsModalComponent } from './bs-modal/bs-modal.component';
+import { TrustPipe } from './trust.pipe';
+import { IframeComponent } from './iframe.component';
 
 @NgModule({
     imports: [
@@ -9,13 +11,17 @@ import { BsModalComponent } from './bs-modal/bs-modal.component';
         DynamicFormModule,
     ],
     declarations: [
-        BsModalComponent
+        BsModalComponent,
+        IframeComponent,
+        TrustPipe,
     ],
     providers: [
     ],
     exports: [
         DynamicFormModule,
-        BsModalComponent
+        BsModalComponent,
+        IframeComponent,
+        TrustPipe,
     ]
 })
 export class SharedModule {}

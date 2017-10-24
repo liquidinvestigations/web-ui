@@ -111,7 +111,7 @@ export class ApiClientService extends LiEvents {
     private handleBackendErrorOnRead(error: any) {
 
         if (error.status === 403) {
-            window.location = '/accounts/login/?next=' + window.location.pathname;
+            window.location = '/login/' + window.location.pathname;
         }
 
         this.notifySubscribers(ApiClientService.EV_API_ERROR, error.json());
