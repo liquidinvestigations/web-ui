@@ -36,7 +36,9 @@ export class DynamicFormGroupComponent {
 
         if (group.controls) {
             for (let i in group.controls) {
-                controls.push(group.controls[i]);
+                if (group.controls.hasOwnProperty(i)) {
+                    controls.push(group.controls[i]);
+                }
             }
         }
 

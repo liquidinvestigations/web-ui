@@ -43,9 +43,11 @@ export const SERVICES_FORM = function (installedServices: {} = {}) {
     let elements = [];
 
     for (let name in installedServices) {
-        elements.push(
-            serviceControls[name]
-        );
+        if (installedServices.hasOwnProperty(name)) {
+            elements.push(
+                serviceControls[name]
+            );
+        }
     }
 
     return new DynamicFormGroup('services')

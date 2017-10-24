@@ -95,10 +95,12 @@ export class SummaryStepComponent extends CommonStepBase {
         let requests: ProgressiveRequest[] = [];
 
         for (let name in services) {
-            requests.push({
-                request: this.apiService.put('/api/services/' + name + '/enabled/', {is_enabled: services[name] === true}),
-                message: 'Configuring ' + name
-            });
+            if (services.hasOwnProperty(name)) {
+                requests.push({
+                    request: this.apiService.put('/api/services/' + name + '/enabled/', {is_enabled: services[name] === true}),
+                    message: 'Configuring ' + name
+                });
+            }
         }
 
         return requests;

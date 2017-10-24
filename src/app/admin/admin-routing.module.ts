@@ -10,6 +10,8 @@ import { StatusComponent } from './network/status/status.component';
 import { LanComponent } from './network/lan/lan.component';
 import { WanComponent } from './network/wan/wan.component';
 import { SshComponent } from './network/ssh/ssh.component';
+import { VpnComponent } from './vpn/vpn.component';
+import { VpnStatusComponent } from './vpn/status/vpn-status.component';
 
 const routes: Routes = [
     {
@@ -76,6 +78,30 @@ const routes: Routes = [
                             icon: 'fa fa-key'
                         }
                     }
+                ]
+            },
+            {
+                path: 'vpn',
+                component: VpnComponent,
+                data: {
+                    label: 'vpn',
+                    icon: 'fa fa-server',
+                    pageTitle: 'VPN configuration'
+                },
+                children: [
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        redirectTo: 'status'
+                    },
+                    {
+                        path: 'status',
+                        component: VpnStatusComponent,
+                        data: {
+                            label: 'Status',
+                            icon: 'fa fa-line-chart'
+                        }
+                    },
                 ]
             },
             {
