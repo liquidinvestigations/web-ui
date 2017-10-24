@@ -80,11 +80,11 @@
                       [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" (click)="editForm.onSubmit(true)" *ngIf="isAddMode">
+        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(true)" *ngIf="isAddMode">
             <i class="glyphicon glyphicon-ok"></i> Add
         </button>
 
-        <button class="btn btn-primary" (click)="editForm.onSubmit(false)" *ngIf="!isAddMode">
+        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(false)" *ngIf="!isAddMode">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>
@@ -99,7 +99,7 @@
                       [onSuccessSubmit]="changePassword.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" (click)="changePasswordForm.onSubmit()">
+        <button class="btn btn-primary" [disabled]="changePasswordForm.isDisabled()" (click)="changePasswordForm.onSubmit()">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>

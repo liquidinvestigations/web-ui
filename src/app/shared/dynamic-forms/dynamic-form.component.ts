@@ -48,6 +48,10 @@ export class DynamicFormComponent implements OnDestroy {
         this.fg.patchValue(formValues, { emitEvent: emit });
     }
 
+    isDisabled() {
+        return this.fg.touched && this.fg.invalid;
+    }
+
     ngOnDestroy() {
         this.dynamicFormService.resetFormProps();
     }

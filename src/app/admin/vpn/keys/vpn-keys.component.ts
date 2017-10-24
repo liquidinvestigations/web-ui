@@ -52,6 +52,7 @@ export class VpnKeysComponent {
         this.revokeKeyFormConfig = new DynamicFormGroup()
             .elements([
                 new DynamicFormControl('id', '')
+                    .setFormGroupCssClass('hidden')
                     .setControlType(DynamicFormControl.TYPE_HIDDEN),
 
                 new DynamicFormControl('revoked_reason', 'Reason')

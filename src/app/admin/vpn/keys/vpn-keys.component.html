@@ -75,8 +75,8 @@
                       [onSuccessSubmit]="generateKey.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" (click)="generateKeyForm.onSubmit()">
-            <i class="glyphicon glyphicon-ok"></i> Update
+        <button class="btn btn-primary" [disabled]="generateKeyForm.isDisabled()" (click)="generateKeyForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Generate
         </button>
     </div>
 </bs-modal>
@@ -109,7 +109,7 @@
                       [onSuccessSubmit]="revokeKey.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" (click)="revokeKeyForm.onSubmit()">
+        <button class="btn btn-primary" [disabled]="revokeKeyForm.isDisabled()"  (click)="revokeKeyForm.onSubmit()">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>

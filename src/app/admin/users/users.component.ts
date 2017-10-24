@@ -44,7 +44,7 @@ export class UsersComponent {
         }
     ];
 
-    isAddMode: boolean;
+    isAddMode: boolean = false;
 
     constructor(private apiService: ApiClientService) {
         this.getUserList();
