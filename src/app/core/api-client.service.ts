@@ -35,7 +35,7 @@ export class ApiClientService extends LiEvents {
         this.headers.append('Content-Type', 'application/json');
     }
 
-    get (endpoint: string | string[], params = null): Observable<any> {
+    get(endpoint: string | string[], params = null): Observable<any> {
 
         let url = this.createUrl(endpoint);
 
@@ -73,6 +73,31 @@ export class ApiClientService extends LiEvents {
             );
     }
 
+    download(endpoint: string | string[], type: string, params = null): Observable<any> {
+
+        let url = this.createUrl(endpoint);
+
+        if (params) {
+            url += '?' + $.param(params);
+        }
+
+        this.notifySubscribers(ApiClientService.EV_BEFORE_GET);
+
+        let observable = this.http
+            .get(url, new RequestOptions({headers: this.headers}))
+            .share();
+
+        return observable
+            .do((response: any) => {
+                    this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, response);
+
+                    const blob = new Blob([response._body], { type: type });
+
+                    window.open(window.URL.createObjectURL(blob));
+                },
+                this.handleBackendErrorOnRead.bind(this)
+            );
+    }
 
     post(endpoint: string, payload: {}) {
 

@@ -1,0 +1,28 @@
+table {
+  tr td {
+    vertical-align: middle;
+
+    &:first-child {
+      padding-left: 15px;
+    }
+
+    &.actions-col {
+      min-width: 330px;
+
+      .action {
+        display: inline-block;
+        margin: 0 3px;
+        cursor: pointer;
+
+        &.activate button {
+          width: 92px;
+        }
+
+      }
+    }
+  }
+}
+
+.divider {
+  margin: 0 10px;
+}

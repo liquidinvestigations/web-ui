@@ -1,0 +1,116 @@
+<ul class="nav nav-pills">
+    <li>
+        <a (click)="showGenerateKeyModal()">
+            <i class="fa fa-plus"></i>
+            Generate new key
+        </a>
+    </li>
+
+    <li>
+        <a (click)="showUploadKeyModal()">
+            <i class="fa fa-upload"></i>
+            Upload key
+        </a>
+    </li>
+</ul>
+
+<br><br>
+
+<div class="row" *ngFor="let list of keys; let i = index">
+    <div class="col-xs-12">
+
+        <blockquote>{{ list.title }}</blockquote>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                <tr>
+                    <ng-container *ngFor="let column of tableColumns">
+                        <th class="col-sm-3">{{ column.label }}</th>
+                    </ng-container>
+                    <th class="col-sm-3"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let key of list.entries">
+                    <tr>
+                        <ng-container *ngFor="let column of tableColumns">
+                            <td>
+                                {{ key[column.name] }}
+                            </td>
+                        </ng-container>
+                        <td class="text-right actions-col">
+                            <div class="action">
+                                <a (click)="downloadKey(key)"><i class="fa fa-download"></i> Download</a>
+                            </div>
+
+                            <div class="action">
+                                <a (click)="showKeyDetailsModal(key)">
+                                    <i class="fa fa-bars"></i> Details
+                                </a>
+                            </div>
+
+                            <div class="action activate">
+                                <button class="btn btn-sm btn-danger" *ngIf="i == 0"
+                                    (click)="showRevokeKeyModal(key)">
+                                    <i class="fa fa-ban"></i> Revoke
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<bs-modal #generateKeyModal>
+    <div class="bs-modal-header">
+        <h3>Generate key</h3>
+    </div>
+    <div class="bs-modal-body">
+        <dynamic-form [fg]="generateKeyFormConfig" #generateKeyForm [showSubmitButton]="false"
+                      [onSuccessSubmit]="generateKey.bind(this)"></dynamic-form>
+    </div>
+    <div class="bs-modal-footer">
+        <button class="btn btn-primary" (click)="generateKeyForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Update
+        </button>
+    </div>
+</bs-modal>
+
+<bs-modal #keyDetailsModal>
+    <div class="bs-modal-header">
+        <h3>Key details</h3>
+    </div>
+    <div class="bs-modal-body">
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-striped">
+                <tr *ngFor="let field of keyDetails">
+                    <td class="col-xs-6">{{ field.label }}</td>
+                    <td class="col-xs-6">
+                        <i *ngIf="field.iconClass" class="{{ field.iconClass }}"></i>
+                        {{ field.displayValue }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</bs-modal>
+
+<bs-modal #revokeKeyModal>
+    <div class="bs-modal-header">
+        <h3>Generate key</h3>
+    </div>
+    <div class="bs-modal-body">
+        <dynamic-form [fg]="revokeKeyFormConfig" #revokeKeyForm [showSubmitButton]="false"
+                      [onSuccessSubmit]="revokeKey.bind(this)"></dynamic-form>
+    </div>
+    <div class="bs-modal-footer">
+        <button class="btn btn-primary" (click)="revokeKeyForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Update
+        </button>
+    </div>
+</bs-modal>

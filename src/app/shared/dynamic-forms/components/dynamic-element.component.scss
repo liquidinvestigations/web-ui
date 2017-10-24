@@ -82,6 +82,11 @@
   }
 }
 
+input.label:empty {
+  display: inherit;
+  color: inherit;
+  text-align: inherit;
+}
 
 
 
