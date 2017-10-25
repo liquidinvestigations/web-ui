@@ -61,5 +61,25 @@
             </div>
         </ng-container>
 
+        <ng-container *ngSwitchCase="'file'">
+            <div class="btn btn-default" (click)="uploadBtn.click()">
+                <i class="fa fa-upload"></i> Choose file
+                <input type="hidden" [formControlName]="control.id" [name]="control.id">
+
+                <input (change)="uploadFile(uploadBtn)" #uploadBtn class="hidden" type="file">
+            </div>
+            <br>
+            <br>
+            <div>
+                <ng-container *ngIf="!uploadBtn.value">
+                    No file chosen
+                </ng-container>
+
+                <ng-container *ngIf="uploadBtn.value">
+                    File: {{ uploadBtn.files[0].name }}
+                </ng-container>
+            </div>
+        </ng-container>
+
     </ng-container>
 </ng-container>

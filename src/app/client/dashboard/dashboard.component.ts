@@ -15,8 +15,6 @@ export class DashboardComponent {
         let routeConfig = this.activatedRoute.parent.routeConfig.children;
 
         this.pages = routeConfig.filter((route) => route.path && route.path !== 'dashboard');
-
-        console.log(this.pages);
     }
 
 }

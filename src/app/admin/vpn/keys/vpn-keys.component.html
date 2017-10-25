@@ -109,8 +109,23 @@
                       [onSuccessSubmit]="revokeKey.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" [disabled]="revokeKeyForm.isDisabled()"  (click)="revokeKeyForm.onSubmit()">
-            <i class="glyphicon glyphicon-ok"></i> Update
+        <button class="btn btn-danger" [disabled]="revokeKeyForm.isDisabled()"  (click)="revokeKeyForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Revoke
+        </button>
+    </div>
+</bs-modal>
+
+<bs-modal #uploadKeyModal>
+    <div class="bs-modal-header">
+        <h3>Upload key</h3>
+    </div>
+    <div class="bs-modal-body">
+        <dynamic-form [fg]="uploadKeyFormConfig" #uploadKeyForm [showSubmitButton]="false"
+                      [onSuccessSubmit]="uploadKey.bind(this)"></dynamic-form>
+    </div>
+    <div class="bs-modal-footer">
+        <button class="btn btn-primary" [disabled]="uploadKeyForm.isDisabled()"  (click)="uploadKeyForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Upload
         </button>
     </div>
 </bs-modal>

@@ -13,9 +13,11 @@ export class VpnKeysComponent {
     @ViewChild('generateKeyModal') generateKeyModalComponent: BsModalComponent;
     @ViewChild('keyDetailsModal') keyDetailsModalComponent: BsModalComponent;
     @ViewChild('revokeKeyModal') revokeKeyModalComponent: BsModalComponent;
+    @ViewChild('uploadKeyModal') uploadKeyModalComponent: BsModalComponent;
 
     generateKeyFormConfig: DynamicFormGroup;
     revokeKeyFormConfig: DynamicFormGroup;
+    uploadKeyFormConfig: DynamicFormGroup;
 
     tableColumns = [
         {
@@ -61,6 +63,13 @@ export class VpnKeysComponent {
                     .setControlType(DynamicFormControl.TYPE_TEXT)
                     .setValidators([Validators.required])
             ]);
+
+        this.uploadKeyFormConfig = new DynamicFormGroup()
+            .elements([
+                new DynamicFormControl('upload')
+                    .setControlCssClass('col-xs-12 text-center')
+                    .setControlType(DynamicFormControl.TYPE_FILE)
+            ]);
     }
 
     getVpnKeys() {
@@ -105,9 +114,9 @@ export class VpnKeysComponent {
     downloadKey(key) {
         this.apiService.download(
             '/api/vpn/server/keys/' + key.id + '/download/',
-            'application/x-openvpn-profile'
-        )
-            .subscribe(() => {});
+            'application/x-openvpn-profile',
+            key.label.replace(/ /g, '_')
+        ).subscribe();
     }
 
     showRevokeKeyModal(key) {
@@ -126,6 +135,23 @@ export class VpnKeysComponent {
             .subscribe(() => {
                 this.getVpnKeys();
             });
+    }
+
+    showUploadKeyModal() {
+        this.uploadKeyFormConfig.reset();
+        this.uploadKeyModalComponent.show();
+    }
+
+    uploadKey(formValues) {
+        this.uploadKeyModalComponent.hide();
+
+        this.apiService
+            .upload(
+                '/api/vpn/client/upload/',
+                'application/x-openvpn-profile',
+                formValues.upload
+            )
+            .subscribe();
     }
 
     private mapKeyDetails(response) {

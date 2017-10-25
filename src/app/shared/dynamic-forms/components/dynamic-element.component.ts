@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
 import { DynamicFormControl } from '../builder/dynamic-form-control';
 import { DynamicElementRendererBase } from './render/dynamic-element-renderer.base';
 import { DynamicFormArray } from '../builder/dynamic-form-array';
@@ -17,7 +17,10 @@ export class DynamicElementComponent extends DynamicElementRendererBase {
     @Input() fg: ( DynamicFormGroup | DynamicFormArray );
     @Input() control: DynamicFormControl;
 
-    constructor(public dynamicFormService: DynamicFormService) {
+    constructor(
+        public dynamicFormService: DynamicFormService,
+        public cdRef: ChangeDetectorRef,
+    ) {
         super();
     }
 
@@ -29,6 +32,16 @@ export class DynamicElementComponent extends DynamicElementRendererBase {
         } else if (this.fg instanceof DynamicFormGroup && this.control.groupWrap) {
             let formArray = (this.fg.parent as DynamicFormArray);
             formArray.removeAt(formArray.controls.indexOf(this.fg));
+        }
+    }
+
+    uploadFile(element: any) {
+        if (element.files && element.files[0]) {
+            const formData = new FormData();
+            formData.append(element.files.name, element.files[0]);
+
+            this.control.setValue(formData);
+            this.cdRef.detectChanges();
         }
     }
 
