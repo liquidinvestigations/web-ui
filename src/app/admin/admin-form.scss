@@ -1,38 +1,33 @@
-.divider-bottom {
-  hr {
-    width: 45%;
-  }
-}
-
-.add-new-control-container {
-  text-align: left;
-
-  .add-new-control {
-    margin-left: -15px;
-    margin-top: -25px;
-    position: absolute;
-  }
-}
-
-.service-group {
-  height: 45px!important;
-  border-bottom: none;
-  margin-bottom: 15px !important;
-}
-
 .admin-form {
-  .textarea-removable {
+  /deep/ .textarea-removable {
     resize: none;
     height: 75px;
     min-height: 75px;
     max-height: 75px;
   }
+
+  /deep/ .authorized_keys {
+    padding-left: 167px;
+  }
+
+  /deep/ .port {
+    width: 55px !important;
+  }
+
+  /deep/ .divider {
+    hr {
+      width: 80%;
+    }
+  }
+
+  /deep/ .add-new-control-container {
+    text-align: left;
+
+    .add-new-control {
+      margin-left: -15px;
+      margin-top: -25px;
+      position: absolute;
+    }
+  }
 }
 
-.authorized_keys {
-  padding-left: 192px;
-}
-
-.port {
-  width: 55px !important;
-}

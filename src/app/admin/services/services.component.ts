@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SERVICES_FORM } from '../../shared/li-forms/services-form';
 import { DynamicFormService } from '../../shared/dynamic-forms/dynamic-form.service';
 import { DynamicFormGroup } from '../../shared/dynamic-forms/builder/dynamic-form-group';
@@ -11,7 +11,7 @@ import { ApiClientService } from '../../core/api-client.service';
 @Component({
     templateUrl: './services.component.html',
     styleUrls: ['./services.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    // encapsulation: ViewEncapsulation.None
 })
 export class ServicesComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;

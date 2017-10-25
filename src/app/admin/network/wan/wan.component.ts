@@ -9,7 +9,6 @@ import { ApiClientService } from '../../../core/api-client.service';
 @Component({
     templateUrl: '../../admin-form.html',
     styleUrls: ['../../admin-form.scss'],
-    encapsulation: ViewEncapsulation.None
 })
 export class WanComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;

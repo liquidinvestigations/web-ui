@@ -9,7 +9,7 @@ import { DynamicFormControl } from './builder/dynamic-form-control';
 @Component({
     selector: 'dynamic-form',
     templateUrl: './dynamic-form.component.html',
-    encapsulation: ViewEncapsulation.None,
+    // encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnDestroy {

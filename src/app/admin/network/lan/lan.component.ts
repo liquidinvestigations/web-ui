@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { LAN_FORM } from '../../../shared/li-forms/lan-form';
 import { DynamicFormService } from '../../../shared/dynamic-forms/dynamic-form.service';
@@ -9,7 +9,6 @@ import { ApiClientService } from '../../../core/api-client.service';
 @Component({
     templateUrl: '../../admin-form.html',
     styleUrls: ['../../admin-form.scss'],
-    encapsulation: ViewEncapsulation.None
 })
 export class LanComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;

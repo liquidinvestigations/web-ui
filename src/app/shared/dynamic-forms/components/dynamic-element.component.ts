@@ -11,7 +11,7 @@ import { DynamicFormGroup } from '../builder/dynamic-form-group';
     styleUrls: [
         './dynamic-element.component.scss'
     ],
-    encapsulation: ViewEncapsulation.None
+    // encapsulation: ViewEncapsulation.None
 })
 export class DynamicElementComponent extends DynamicElementRendererBase {
     @Input() fg: ( DynamicFormGroup | DynamicFormArray );

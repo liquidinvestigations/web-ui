@@ -23,6 +23,10 @@ table {
   }
 }
 
-.divider {
+/deep/ .divider {
   margin: 0 10px;
+
+  hr {
+    width: 80%;
+  }
 }

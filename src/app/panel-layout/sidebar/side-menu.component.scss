@@ -1,8 +1,56 @@
-.nav li {
-  img {
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    float: left;
+$transparency: 0.32;
+
+.nav {
+  li > a {
+    margin: 15px auto;
+    color: #fff;
+    transition: background 0.5s ease-out;
+
+    img {
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+      float: left;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, $transparency);
+      transition: background 0.5s ease-in;
+    }
   }
+
+  li.active > a {
+    background: rgba(255, 255, 255, $transparency);
+  }
+}
+
+
+@media (min-width: 768px) {
+
+    .nav {
+      margin-top: 20px;
+
+      li > a {
+        margin: 15px 0;
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+    }
+
+    i {
+      font-size: 24px;
+      float: left;
+      margin-right: 15px;
+      line-height: 30px;
+      width: 30px;
+      text-align: center;
+    }
+
+    p {
+      margin: 0;
+      line-height: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
 }

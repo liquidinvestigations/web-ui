@@ -6,7 +6,7 @@ import { BsModalComponent } from '../shared/bs-modal/bs-modal.component';
 @Component({
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    // encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
     @ViewChild('loginModal') loginModal: BsModalComponent;
