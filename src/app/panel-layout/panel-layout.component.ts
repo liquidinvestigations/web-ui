@@ -29,6 +29,17 @@ export class PanelLayoutComponent {
     @Input('bgThemeColor') bgThemeColor: string = '#7197bb';
 
     sideMenuButtons = [];
+    commonMenuButtons = [
+        {
+            path: 'about',
+            data: {
+                label: 'About',
+                icon: 'fa fa-question-circle',
+                pageTitle: 'About'
+            }
+        }
+    ];
+
     username: string = '';
     isAdmin: boolean = false;
 

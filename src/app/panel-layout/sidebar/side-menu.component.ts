@@ -16,7 +16,7 @@ export class SideMenuComponent implements OnInit {
 
     ngOnInit() {
         for (let route of this.sideMenuButtons) {
-            if (route.data) {
+            if (route.data && !route.data.abstract) {
                 route.data.path = this.parentPath + '/' + route.path;
                 if (!this.childrenAsTabs) {
                     route.data.children = route.children;

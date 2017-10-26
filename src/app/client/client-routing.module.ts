@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientComponent } from './client.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AboutComponent } from '../static/about/about.component';
 
 const routes: Routes = [
     {
@@ -66,8 +67,15 @@ const routes: Routes = [
                     pageTitle: 'Davros',
                     subdomain: 'davros'
                 }
+            },
+            {
+                path: 'about',
+                component: AboutComponent,
+                data: {
+                    pageTitle: 'About',
+                    abstract: true
+                }
             }
-
         ]
     }
 ];

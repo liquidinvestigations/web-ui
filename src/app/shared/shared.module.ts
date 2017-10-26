@@ -4,6 +4,7 @@ import { DynamicFormModule } from './dynamic-forms/dynamic-form.module';
 import { BsModalComponent } from './bs-modal/bs-modal.component';
 import { TrustPipe } from './trust.pipe';
 import { IframeComponent } from './iframe.component';
+import { AboutComponent } from '../static/about/about.component';
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import { IframeComponent } from './iframe.component';
         BsModalComponent,
         IframeComponent,
         TrustPipe,
+        AboutComponent,
     ],
     providers: [
     ],
@@ -22,6 +24,7 @@ import { IframeComponent } from './iframe.component';
         BsModalComponent,
         IframeComponent,
         TrustPipe,
+        AboutComponent,
     ]
 })
 export class SharedModule {}

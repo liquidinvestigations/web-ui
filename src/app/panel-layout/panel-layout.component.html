@@ -19,12 +19,18 @@
             <div class="col-xs-2 col-sm-3 col-md-2 sidebar" [style.background]="bgThemeColor">
                 <div class="logo-container">
                     <a routerLink="/">
-                        <img src="./assets/liquid-investigations/img/li_logo.png">
+                        <img src="./assets/liquid-investigations/img/li_logo.svg">
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
                     <li-side-menu [sideMenuButtons]="sideMenuButtons"></li-side-menu>
                 </div>
+
+                <div class="sidebar-wrapper common-buttons" *ngIf="commonMenuButtons">
+                    <hr>
+                    <li-side-menu [sideMenuButtons]="commonMenuButtons"></li-side-menu>
+                </div>
+
             </div>
             <div class="col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">{{ pageTitle }}</h1>

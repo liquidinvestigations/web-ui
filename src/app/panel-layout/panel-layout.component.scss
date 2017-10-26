@@ -1,6 +1,7 @@
 $topBarHeight: 60px;
 $transparency: 0.32;
 $themeBg: #7197bb;
+$logo-border: 15px;
 
 .page-wrapper {
 
@@ -15,10 +16,10 @@ $themeBg: #7197bb;
       position: absolute;
       top: 0;
       right: 2%;
-      color: #fff;
+      color: #333;
       padding: 15px;
       border-radius: 0 0 5px 5px;
-      background: rgba(255, 255, 255, $transparency);
+      background: rgba(255, 255, 255, 0.7);
     }
   }
 
@@ -37,14 +38,16 @@ $themeBg: #7197bb;
 
     .logo-container {
       text-align: center;
-      border-right: 3px $themeBg solid;
+      border-right: $logo-border transparent solid;
+      border-left: $logo-border transparent solid;
 
       a {
         display: inline-block;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.7);
         width: 100%;
         height: 100%;
         border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
 
         img {
           width: 80%;
@@ -56,6 +59,12 @@ $themeBg: #7197bb;
       padding: 20px;
       text-align: center;
       color: #fff;
+
+      &.common-buttons {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
     }
 
   }
