@@ -1,6 +1,9 @@
 .modal {
-  background: url("../../assets/liquid-investigations/img/wizard-background.jpg");
-  background-size: cover;
+  background: #7197bb;
+}
+
+.modal .modal-content * {
+  transition: min-height 0.4s ease-in;
 }
 
 .modal {
@@ -10,14 +13,12 @@
   .outlet-container {
     margin-top: 15px;
     overflow-x: hidden;
-    min-height: 55vh;
+    overflow-y: visible;
+    min-height: 40vh;
   }
 
   &:before {
     content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
     margin-right: -4px;
   }
 

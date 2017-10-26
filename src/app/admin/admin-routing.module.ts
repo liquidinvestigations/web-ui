@@ -86,7 +86,7 @@ const routes: Routes = [
                 component: VpnComponent,
                 data: {
                     label: 'vpn',
-                    icon: 'fa fa-server',
+                    img: './assets/liquid-investigations/img/vpn.svg',
                     pageTitle: 'VPN configuration'
                 },
                 children: [

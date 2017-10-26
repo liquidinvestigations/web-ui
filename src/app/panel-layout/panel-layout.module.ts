@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './sidebar/side-menu.component';
 import { PanelLayoutComponent } from './panel-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { TabsComponent } from './tabs/tabs.component';
 
 @NgModule({
     imports: [
@@ -13,9 +14,11 @@ import { SharedModule } from '../shared/shared.module';
     ],
     declarations: [
         SideMenuComponent,
+        TabsComponent,
         PanelLayoutComponent
     ],
     exports: [
+        TabsComponent,
         PanelLayoutComponent
     ]
 })

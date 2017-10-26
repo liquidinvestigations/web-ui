@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { NotFoundComponent } from './static/404/not-found.component';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         AppComponent,
         LoginComponent,
+        NotFoundComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

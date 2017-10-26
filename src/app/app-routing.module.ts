@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './static/404/not-found.component';
 
 const routes: Routes = [
     {
@@ -27,11 +28,15 @@ const routes: Routes = [
     {
         path: 'admin-ui',
         loadChildren: './admin/admin.module#AdminModule'
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

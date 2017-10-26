@@ -66,6 +66,14 @@ $themeBg: #7197bb;
     .page-header {
       margin-top: 0;
     }
+
+    /deep/ .nav.nav-pills a {
+      cursor: pointer;
+    }
+
+    /deep/ td {
+      vertical-align: middle;
+    }
   }
 
   @media (min-width: 768px) {
