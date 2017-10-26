@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ApiClientService } from '../core/api-client.service';
 import { LiNotificationsService } from '../core/li-notifications.service';
@@ -26,6 +26,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]
 })
 export class PanelLayoutComponent {
+    @Input('bgThemeColor') bgThemeColor: string = '#7197bb';
+
     sideMenuButtons = [];
     username: string = '';
     isAdmin: boolean = false;

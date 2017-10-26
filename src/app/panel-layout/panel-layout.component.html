@@ -1,5 +1,5 @@
 <div class="page-wrapper">
-    <nav class="navbar navbar-fixed-top col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+    <nav class="navbar navbar-fixed-top col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" [style.background]="bgThemeColor">
         <div class="container-fluid">
             <div class="user-info animated" *ngIf="!!username" [ngClass]="{'fadeInDown': !!username}">
                 Logged in as: {{ username }} <a routerLink="/admin-ui" class="badge bg-primary" *ngIf="isAdmin">admin</a>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-2 col-sm-3 col-md-2 sidebar">
+            <div class="col-xs-2 col-sm-3 col-md-2 sidebar" [style.background]="bgThemeColor">
                 <div class="logo-container">
                     <a routerLink="/">
                         <img src="./assets/liquid-investigations/img/li_logo.png">
