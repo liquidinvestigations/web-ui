@@ -2,7 +2,8 @@
 <div class="row" *ngFor="let list of nodes; let i = index">
     <div class="col-xs-12">
 
-        <blockquote>{{ list.title }}</blockquote>
+        <h3>{{ list.title }}</h3>
+        <hr>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-hover">
@@ -15,6 +16,11 @@
                 </tr>
                 </thead>
                 <tbody>
+                <ng-container *ngIf="!list.entries.length">
+                    <tr>
+                        <td class="text-center text-faded" [attr.colspan]="tableColumns.length + 1">No entries found</td>
+                    </tr>
+                </ng-container>
                 <ng-container *ngFor="let node of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">

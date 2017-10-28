@@ -10,15 +10,6 @@
                             <i *ngIf="field.iconClass" class="{{ field.iconClass }}"></i>
                             {{ field.displayValue }}
                         </td>
-                        <td>
-                            <ng-container *ngIf="field.toggleAction">
-                                <label class="switch">
-                                    <input class="checkbox" type="checkbox"
-                                           [attr.checked]="field.value ? 'checked' : null" (change)="field.toggleAction(field.value, config)">
-                                    <span class="slider round"></span>
-                                </label>
-                            </ng-container>
-                        </td>
                     </tr>
                 </table>
             </div>

@@ -24,6 +24,10 @@ var deps = [
         to: assetsPath + '/vanillaTextMask'
     },
     {
+        from: './node_modules/date-format-lite/dist/index-min.js',
+        to: assetsPath + '/date-format-lite'
+    },
+    {
         from: './node_modules/font-awesome/css/font-awesome.min.css',
         to: assetsPath + '/font-awesome/css/'
     },
@@ -35,7 +39,9 @@ var deps = [
 
 
 for (var i in deps) {
-    cpx.copy(deps[i].from, deps[i].to);
+    if (deps.hasOwnProperty(i)) {
+        cpx.copy(deps[i].from, deps[i].to);
+    }
 }
 
 console.log("Done copy external");

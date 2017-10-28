@@ -48,6 +48,16 @@ export class DynamicFormComponent implements OnDestroy {
         this.fg.patchValue(formValues, { emitEvent: emit });
     }
 
+    getFieldValue(id: string) {
+        let controlRef = this.dynamicFormService.getControlRef(id);
+
+        if (controlRef && controlRef.value) {
+            return controlRef.value;
+        }
+
+        return;
+    }
+
     isDisabled() {
         return this.fg.touched && this.fg.invalid;
     }

@@ -11,7 +11,7 @@
     <label for="checkbox" class="enable-slider-label">Enable VPN client</label>
     <label class="switch">
         <input id="checkbox" class="checkbox" type="checkbox"
-               [attr.checked]="isClientEnabled" (change)="toggleClientStatus()">
+               [attr.checked]="isClientEnabled ? true : null" (change)="toggleClientStatus()">
         <span class="slider round"></span>
     </label>
 </div>

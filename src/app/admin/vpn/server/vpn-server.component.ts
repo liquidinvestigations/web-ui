@@ -25,10 +25,6 @@ export class VpnServerComponent {
         {
             name: 'label',
             label: 'Label'
-        },
-        {
-            name: 'label',
-            label: 'Label'
         }
     ];
 
@@ -50,7 +46,7 @@ export class VpnServerComponent {
     constructor(private apiService: ApiClientService) {
         this.generateKeyFormConfig = new DynamicFormGroup()
             .elements([
-                new DynamicFormControl('label', 'Key name')
+                new DynamicFormControl('label', 'Label')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
                     .setControlType(DynamicFormControl.TYPE_TEXT)
@@ -63,12 +59,17 @@ export class VpnServerComponent {
                     .setFormGroupCssClass('hidden')
                     .setControlType(DynamicFormControl.TYPE_HIDDEN),
 
+                new DynamicFormControl('label', 'Label')
+                    .setFormGroupCssClass('hidden')
+                    .setControlType(DynamicFormControl.TYPE_HIDDEN),
+
                 new DynamicFormControl('revoked_reason', 'Reason')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
                     .setControlType(DynamicFormControl.TYPE_TEXT)
                     .setValidators([Validators.required])
             ]);
+
         this.init();
     }
 
@@ -164,7 +165,7 @@ export class VpnServerComponent {
             'revoked_at': {
                 label: 'Revoked at',
                 filter: (value, key) => {
-                    return 'Filter value' + value;
+                    return value.date().format('YYYY-MM-DD hh:mm');
                 }
             },
             'revoked_by': {

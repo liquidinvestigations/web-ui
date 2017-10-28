@@ -12,8 +12,8 @@
 <div class="row" *ngFor="let list of users; let i = index">
     <div class="col-xs-12">
 
-        <blockquote>{{ list.title }}</blockquote>
-
+        <h3>{{ list.title }}</h3>
+        <hr>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-hover">
                 <thead>
@@ -25,6 +25,11 @@
                 </tr>
                 </thead>
                 <tbody>
+                <ng-container *ngIf="!list.entries.length">
+                    <tr>
+                        <td class="text-center text-faded" [attr.colspan]="tableColumns.length + 1">No entries found</td>
+                    </tr>
+                </ng-container>
                 <ng-container *ngFor="let user of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">
@@ -80,11 +85,13 @@
                       [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(true)" *ngIf="isAddMode">
+        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(true)"
+                *ngIf="isAddMode">
             <i class="glyphicon glyphicon-ok"></i> Add
         </button>
 
-        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(false)" *ngIf="!isAddMode">
+        <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(false)"
+                *ngIf="!isAddMode">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>
@@ -99,7 +106,8 @@
                       [onSuccessSubmit]="changePassword.bind(this)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
-        <button class="btn btn-primary" [disabled]="changePasswordForm.isDisabled()" (click)="changePasswordForm.onSubmit()">
+        <button class="btn btn-primary" [disabled]="changePasswordForm.isDisabled()"
+                (click)="changePasswordForm.onSubmit()">
             <i class="glyphicon glyphicon-ok"></i> Update
         </button>
     </div>

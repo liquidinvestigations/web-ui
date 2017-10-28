@@ -11,7 +11,7 @@
     <label for="checkbox" class="enable-slider-label">Enable VPN server</label>
     <label class="switch">
         <input id="checkbox" class="checkbox" type="checkbox"
-               [attr.checked]="isServerEnabled" (change)="toggleServerStatus()">
+               [attr.checked]="isServerEnabled ? true : null" (change)="toggleServerStatus()">
         <span class="slider round"></span>
     </label>
 </div>
@@ -21,19 +21,24 @@
 <div class="row" *ngFor="let list of keys; let i = index">
     <div class="col-xs-12">
 
-        <blockquote>{{ list.title }}</blockquote>
-
+        <h3>{{ list.title }}</h3>
+        <hr>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-hover">
                 <thead>
                 <tr>
                     <ng-container *ngFor="let column of tableColumns">
-                        <th class="col-sm-3">{{ column.label }}</th>
+                        <th class="col-sm-3 col-{{ column.name }}">{{ column.label }}</th>
                     </ng-container>
                     <th class="col-sm-3"></th>
                 </tr>
                 </thead>
                 <tbody>
+                <ng-container *ngIf="!list.entries.length">
+                    <tr>
+                        <td class="text-center text-faded" [attr.colspan]="tableColumns.length + 1">No entries found</td>
+                    </tr>
+                </ng-container>
                 <ng-container *ngFor="let key of list.entries">
                     <tr>
                         <ng-container *ngFor="let column of tableColumns">
@@ -106,7 +111,7 @@
 
 <bs-modal #revokeKeyModal>
     <div class="bs-modal-header">
-        <h3>Generate key</h3>
+        <h3>Revoke key - {{ revokeKeyForm.getFieldValue('label') }}</h3>
     </div>
     <div class="bs-modal-body">
         <dynamic-form [fg]="revokeKeyFormConfig" #revokeKeyForm [showSubmitButton]="false"
@@ -114,7 +119,7 @@
     </div>
     <div class="bs-modal-footer">
         <button class="btn btn-danger" [disabled]="revokeKeyForm.isDisabled()"  (click)="revokeKeyForm.onSubmit()">
-            <i class="glyphicon glyphicon-ok"></i> Revoke
+            <i class="fa fa-ban"></i> Revoke
         </button>
     </div>
 </bs-modal>

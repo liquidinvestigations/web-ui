@@ -41,15 +41,6 @@ export class VpnStatusComponent {
             },
             'is_enabled': {
                 label: 'Enabled',
-                toggleAction: (value, config) => {
-                    if (-1 < ['client', 'server'].indexOf(config.key)) {
-                        this.apiService
-                            .post('/api/vpn/' + config.key + '/', {is_enabled: !value})
-                            .subscribe(() => {
-                                this.refreshStatus();
-                            });
-                    }
-                }
             },
             'is_running': {
                 label: 'Running'

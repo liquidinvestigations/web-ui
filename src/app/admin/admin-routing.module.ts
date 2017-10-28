@@ -32,7 +32,7 @@ const routes: Routes = [
                 data: {
                     label: 'status',
                     icon: 'fa fa-th',
-                    pageTitle: 'General status'
+                    pageTitle: 'General Status'
                 }
             },
             {
@@ -41,7 +41,7 @@ const routes: Routes = [
                 data: {
                     label: 'network',
                     icon: 'fa fa-server',
-                    pageTitle: 'Network configuration'
+                    pageTitle: 'Network Configuration'
                 },
                 children: [
                     {
@@ -89,7 +89,7 @@ const routes: Routes = [
                 data: {
                     label: 'vpn',
                     img: './assets/liquid-investigations/img/vpn.svg',
-                    pageTitle: 'VPN configuration'
+                    pageTitle: 'VPN Configuration'
                 },
                 children: [
                     {

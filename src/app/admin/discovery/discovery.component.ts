@@ -51,8 +51,7 @@ export class DiscoveryComponent {
                 for (let node of data) {
 
                     node.data['last_seen_at'] = node.data['last_seen_at']
-                        .replace('\T', ' ')
-                        .replace('\Z', '');
+                        .date().format('YYYY-MM-DD hh:mm:ss');
 
                     Object.assign(node, node.data);
 
