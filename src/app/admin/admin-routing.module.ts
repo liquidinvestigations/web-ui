@@ -40,7 +40,7 @@ const routes: Routes = [
                 component: NetworkComponent,
                 data: {
                     label: 'network',
-                    icon: 'fa fa-server',
+                    icon: 'fa fa-sitemap',
                     pageTitle: 'Network Configuration'
                 },
                 children: [

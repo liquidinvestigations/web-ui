@@ -7,23 +7,28 @@
                     <tr *ngFor="let field of config.fields">
                         <td class="col-xs-6">{{ field.label }}</td>
                         <td class="col-xs-6">
-                        <span *ngIf="!isPasswordText(field)">
-                            {{ field.value }}
-                        </span>
-                            <span *ngIf="isPasswordText(field)">
-                            <ng-container *ngIf="field.showAsText">
+                            <span *ngIf="!isPasswordText(field)">
                                 {{ field.value }}
-                            </ng-container>
-
-                            <ng-container *ngIf="!field.showAsText">
-                                {{ showAsBullets(field.value) }}
-                            </ng-container>
-
-                            <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
-                                    <i class="glyphicon"
-                                       [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
                             </span>
-                        </span>
+                            <span *ngIf="isPasswordText(field)">
+                                <ng-container *ngIf="field.showAsText">
+                                    {{ field.value }}
+                                </ng-container>
+
+                                <ng-container *ngIf="!field.showAsText">
+                                    {{ showAsBullets(field.value) }}
+                                </ng-container>
+
+                                <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
+                                        <i class="glyphicon"
+                                           [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
+                                </span>
+                            </span>
+                            <span *ngIf="field.button">
+                                <a class="{{ field.button.buttonClass }}" (click)="field.button.action(config)">
+                                    <i class="{{ field.button.iconClass }}"></i> {{ field.button.label }}
+                                </a>
+                            </span>
                         </td>
                     </tr>
                 </table>
@@ -31,3 +36,19 @@
         </div>
     </div>
 </div>
+
+<bs-modal #changeDomainModal>
+    <div class="bs-modal-header">
+        <h3>Change domain</h3>
+    </div>
+    <div class="bs-modal-body">
+        <dynamic-form [fg]="changeDomainFormConfig" #changeDomainForm [showSubmitButton]="false"
+                      [onSuccessSubmit]="changeDomain.bind(this)"></dynamic-form>
+    </div>
+    <div class="bs-modal-footer">
+        <button class="btn btn-primary" [disabled]="changeDomainForm.isDisabled()"
+                (click)="changeDomainForm.onSubmit()">
+            <i class="glyphicon glyphicon-ok"></i> Change
+        </button>
+    </div>
+</bs-modal>
