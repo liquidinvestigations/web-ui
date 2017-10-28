@@ -14,5 +14,10 @@
                 </table>
             </div>
         </div>
+        <ng-container *ngIf="!currentConfig.length">
+            <div class="well well-sm text-faded text-center">
+                No information
+            </div>
+        </ng-container>
     </div>
 </div>

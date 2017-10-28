@@ -17,13 +17,15 @@ export class GeneralStatusComponent {
 
         this.apiService.get('/api/network/status/')
             .subscribe((response: any) => {
-                for (let i = 0; i < response.interfaces.length; i++) {
-                    this.currentConfig.push(
-                        {
-                            title: 'Interface #' + i,
-                            fields: this.mapStatus(response.interfaces[i])
-                        }
-                    );
+                if (response.interfaces) {
+                    for (let i = 0; i < response.interfaces.length; i++) {
+                        this.currentConfig.push(
+                            {
+                                title: 'Interface #' + i,
+                                fields: this.mapStatus(response.interfaces[i])
+                            }
+                        );
+                    }
                 }
             });
     }
