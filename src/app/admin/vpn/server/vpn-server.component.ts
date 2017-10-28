@@ -16,12 +16,19 @@ export class VpnServerComponent {
 
     generateKeyFormConfig: DynamicFormGroup;
     revokeKeyFormConfig: DynamicFormGroup;
-    uploadKeyFormConfig: DynamicFormGroup;
 
     tableColumns = [
         {
+            name: 'id',
+            label: 'ID'
+        },
+        {
             name: 'label',
-            label: 'Key name'
+            label: 'Label'
+        },
+        {
+            name: 'label',
+            label: 'Label'
         }
     ];
 
@@ -121,12 +128,8 @@ export class VpnServerComponent {
             });
     }
 
-    downloadKey(key) {
-        this.apiService.download(
-            '/api/vpn/server/keys/' + key.id + '/download/',
-            'application/x-openvpn-profile',
-            key.label.replace(/ /g, '_')
-        ).subscribe();
+    getDownloadUrl(key) {
+        return '/api/vpn/server/keys/' + key.id + '/download/';
     }
 
     showRevokeKeyModal(key) {
@@ -150,7 +153,7 @@ export class VpnServerComponent {
     private mapKeyDetails(response) {
         const mapping = {
             'label': {
-                label: 'Key name'
+                label: 'Label'
             },
             'revoked': {
                 label: 'Revoked'

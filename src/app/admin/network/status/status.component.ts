@@ -9,17 +9,32 @@ import { mapSummaryConfig } from '../../../shared/li-forms/summary-mapping';
 export class StatusComponent {
     currentConfig: any[] = [];
 
-    constructor(protected apiService: ApiClientService,) {
+    constructor(protected apiService: ApiClientService) {
 
         this.apiService.get([
             '/api/network/lan/',
-            '/api/network/wan/'
+            '/api/network/wan/',
+            '/api/network/domain/'
         ])
             .subscribe((apiResponses: any) => {
                 let lanMapping = mapSummaryConfig({lan : apiResponses[0] });
                 let wanMapping = mapSummaryConfig({ wan: apiResponses[1] });
 
                 this.currentConfig = [
+                    {
+                        title: 'Domain',
+                        fields: [
+                            {
+                                label: apiResponses[2].domain,
+                                value: {
+                                    btnClass: 'btn btn-primary',
+                                    iconClass: 'fa fa-globe',
+                                    label: 'Change domain',
+
+                                }
+                            }
+                        ]
+                    },
                     {
                         title: 'Lan configuration',
                         fields: lanMapping['lan'].fields

@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'client',
+        redirectTo: 'admin-ui',
     },
     {
         path: 'login',

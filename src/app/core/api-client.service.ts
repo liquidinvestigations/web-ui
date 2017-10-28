@@ -126,37 +126,20 @@ export class ApiClientService extends LiEvents {
         );
     }
 
-    download(endpoint: string | string[], type: string, filename: string): Observable<any> {
-
-        let url = this.createUrl(endpoint);
-
-        this.notifySubscribers(ApiClientService.EV_BEFORE_GET);
-
-        let observable = this.http
-            .get(url, new RequestOptions({headers: this.headers}))
-            .share();
-
-        return observable
-            .do((response: any) => {
-                    this.notifySubscribers(ApiClientService.EV_GET_SUCCESSFUL, response);
-
-                    let a = window.document.createElement('a');
-                    let blob = new Blob([response._body], { type: type });
-                    a.href = window.URL.createObjectURL(blob);
-                    a.download = filename;
-                    a.click();
-                },
-                this.handleBackendErrorOnRead.bind(this)
-            );
-    }
-
     private handleBackendErrorOnRead(error: any) {
 
         if (error.status === 403) {
-            window.location = '/login/' + window.location.pathname;
+            window.location = '/accounts/login/?next=' + window.location.pathname;
         }
 
-        this.notifySubscribers(ApiClientService.EV_API_ERROR, error.json());
+        let errObject: {};
+        try {
+            errObject = error.json();
+        } catch (e) {
+            errObject = {};
+        }
+
+        this.notifySubscribers(ApiClientService.EV_API_ERROR, errObject);
     }
 
     private createUrl(endpoint: any): string {

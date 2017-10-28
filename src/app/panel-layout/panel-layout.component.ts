@@ -6,6 +6,7 @@ import { LiNotification } from '../core/li-notification';
 
 import { animate, style, transition, trigger } from '@angular/animations';
 
+declare let window: any;
 @Component({
     selector: 'li-layout',
     templateUrl: './panel-layout.component.html',
@@ -59,8 +60,7 @@ export class PanelLayoutComponent {
             .subscribe((data) => {
 
                 if (! data.is_authenticated) {
-                    let path  = this.activatedRoute.firstChild.routeConfig.path;
-                    this.router.navigate(['/login']);
+                    window.location = '/accounts/login/?next=' + window.location.pathname;
                 }
 
                 this.username = data.username;

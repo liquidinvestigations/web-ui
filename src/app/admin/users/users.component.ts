@@ -113,11 +113,12 @@ export class UsersComponent {
                     .setControlType(DynamicFormControl.TYPE_TEXT)
                     .setValidators([Validators.required]),
 
-                new DynamicFormControl('is_active', 'Active')
+                new DynamicFormControl('is_active', '')
                     .setLabelCssClass('col-xs-12 col-sm-3 text-right')
                     .setControlCssClass('col-xs-12 col-sm-7')
+                    .setFormGroupCssClass('hidden')
                     .setValue(true, { emitEvent: false })
-                    .setControlType(DynamicFormControl.TYPE_SLIDER),
+                    .setControlType(DynamicFormControl.TYPE_HIDDEN),
 
             ]);
     }
@@ -189,7 +190,6 @@ export class UsersComponent {
 
         } else {
             let username = formValues.username;
-            delete formValues.username;
             delete formValues.new_password;
 
             this.apiService

@@ -43,7 +43,9 @@
                         </ng-container>
                         <td class="text-right actions-col">
                             <div class="action">
-                                <a (click)="downloadKey(key)"><i class="fa fa-download"></i> Download</a>
+                                <a href="{{ getDownloadUrl(key) }}" target="_blank" *ngIf="i == 0">
+                                    <i class="fa fa-download"></i> Download
+                                </a>
                             </div>
 
                             <div class="action">
