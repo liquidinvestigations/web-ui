@@ -12,8 +12,9 @@ import { WanComponent } from './network/wan/wan.component';
 import { SshComponent } from './network/ssh/ssh.component';
 import { VpnComponent } from './vpn/vpn.component';
 import { VpnStatusComponent } from './vpn/status/vpn-status.component';
-import { VpnKeysComponent } from './vpn/keys/vpn-keys.component';
 import { AboutComponent } from '../static/about/about.component';
+import { VpnServerComponent } from './vpn/server/vpn-server.component';
+import { VpnClientComponent } from './vpn/client/vpn-client.component';
 
 const routes: Routes = [
     {
@@ -105,11 +106,19 @@ const routes: Routes = [
                         }
                     },
                     {
-                        path: 'keys',
-                        component: VpnKeysComponent,
+                        path: 'server',
+                        component: VpnServerComponent,
                         data: {
-                            label: 'Manage keys',
-                            icon: 'fa fa-key'
+                            label: 'VPN Server',
+                            icon: 'fa fa-server'
+                        }
+                    },
+                    {
+                        path: 'client',
+                        component: VpnClientComponent,
+                        data: {
+                            label: 'VPN Client',
+                            icon: 'fa fa-user-circle'
                         }
                     },
                 ]

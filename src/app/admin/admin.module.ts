@@ -15,8 +15,9 @@ import { LanComponent } from './network/lan/lan.component';
 import { WanComponent } from './network/wan/wan.component';
 import { SshComponent } from './network/ssh/ssh.component';
 import { VpnComponent } from './vpn/vpn.component';
+import { VpnServerComponent } from './vpn/server/vpn-server.component';
+import { VpnClientComponent } from './vpn/client/vpn-client.component';
 import { VpnStatusComponent } from './vpn/status/vpn-status.component';
-import { VpnKeysComponent } from './vpn/keys/vpn-keys.component';
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { VpnKeysComponent } from './vpn/keys/vpn-keys.component';
 
         VpnComponent,
         VpnStatusComponent,
-        VpnKeysComponent,
+        VpnServerComponent,
+        VpnClientComponent,
     ],
     entryComponents: [
         ServicesElementRendererComponent

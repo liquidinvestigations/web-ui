@@ -1,19 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { ApiClientService } from '../../../core/api-client.service';
 import { BsModalComponent } from '../../../shared/bs-modal/bs-modal.component';
 import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
 import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
-import { Validators } from '@angular/forms';
 
 @Component({
-    templateUrl: './vpn-keys.component.html',
-    styleUrls: ['./vpn-keys.component.scss']
+    templateUrl: './vpn-server.component.html',
+    styleUrls: ['./vpn-server.component.scss']
 })
-export class VpnKeysComponent {
+export class VpnServerComponent {
     @ViewChild('generateKeyModal') generateKeyModalComponent: BsModalComponent;
     @ViewChild('keyDetailsModal') keyDetailsModalComponent: BsModalComponent;
     @ViewChild('revokeKeyModal') revokeKeyModalComponent: BsModalComponent;
-    @ViewChild('uploadKeyModal') uploadKeyModalComponent: BsModalComponent;
 
     generateKeyFormConfig: DynamicFormGroup;
     revokeKeyFormConfig: DynamicFormGroup;
@@ -39,9 +38,9 @@ export class VpnKeysComponent {
 
     keyDetails: any[] = [];
 
-    constructor(private apiService: ApiClientService) {
-        this.getVpnKeys();
+    isServerEnabled: boolean = false;
 
+    constructor(private apiService: ApiClientService) {
         this.generateKeyFormConfig = new DynamicFormGroup()
             .elements([
                 new DynamicFormControl('label', 'Key name')
@@ -63,13 +62,24 @@ export class VpnKeysComponent {
                     .setControlType(DynamicFormControl.TYPE_TEXT)
                     .setValidators([Validators.required])
             ]);
+        this.init();
+    }
 
-        this.uploadKeyFormConfig = new DynamicFormGroup()
-            .elements([
-                new DynamicFormControl('upload')
-                    .setControlCssClass('col-xs-12 text-center')
-                    .setControlType(DynamicFormControl.TYPE_FILE)
-            ]);
+    init() {
+        this.getVpnKeys();
+
+        this.apiService.get('/api/vpn/')
+            .subscribe((response: any) => {
+                this.isServerEnabled = response['server'].is_enabled;
+            });
+    }
+
+    toggleServerStatus() {
+        this.apiService
+            .put('/api/vpn/server/', {is_enabled: !this.isServerEnabled})
+            .subscribe(() => {
+                this.init();
+            });
     }
 
     getVpnKeys() {
@@ -121,7 +131,7 @@ export class VpnKeysComponent {
 
     showRevokeKeyModal(key) {
         this.revokeKeyFormConfig.reset();
-        this.revokeKeyFormConfig.patchValue(key, { emitEvent: false });
+        this.revokeKeyFormConfig.patchValue(key, {emitEvent: false});
         this.revokeKeyModalComponent.show();
     }
 
@@ -135,23 +145,6 @@ export class VpnKeysComponent {
             .subscribe(() => {
                 this.getVpnKeys();
             });
-    }
-
-    showUploadKeyModal() {
-        this.uploadKeyFormConfig.reset();
-        this.uploadKeyModalComponent.show();
-    }
-
-    uploadKey(formValues) {
-        this.uploadKeyModalComponent.hide();
-
-        this.apiService
-            .upload(
-                '/api/vpn/client/upload/',
-                'application/x-openvpn-profile',
-                formValues.upload
-            )
-            .subscribe();
     }
 
     private mapKeyDetails(response) {

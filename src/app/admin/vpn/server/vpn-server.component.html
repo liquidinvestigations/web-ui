@@ -5,14 +5,16 @@
             Generate new key
         </a>
     </li>
-
-    <li>
-        <a (click)="showUploadKeyModal()">
-            <i class="fa fa-upload"></i>
-            Upload key
-        </a>
-    </li>
 </ul>
+
+<div class="pull-right">
+    <label for="checkbox" class="enable-slider-label">Enable VPN server</label>
+    <label class="switch">
+        <input id="checkbox" class="checkbox" type="checkbox"
+               [attr.checked]="isServerEnabled" (change)="toggleServerStatus()">
+        <span class="slider round"></span>
+    </label>
+</div>
 
 <br><br>
 
@@ -111,21 +113,6 @@
     <div class="bs-modal-footer">
         <button class="btn btn-danger" [disabled]="revokeKeyForm.isDisabled()"  (click)="revokeKeyForm.onSubmit()">
             <i class="glyphicon glyphicon-ok"></i> Revoke
-        </button>
-    </div>
-</bs-modal>
-
-<bs-modal #uploadKeyModal>
-    <div class="bs-modal-header">
-        <h3>Upload key</h3>
-    </div>
-    <div class="bs-modal-body">
-        <dynamic-form [fg]="uploadKeyFormConfig" #uploadKeyForm [showSubmitButton]="false"
-                      [onSuccessSubmit]="uploadKey.bind(this)"></dynamic-form>
-    </div>
-    <div class="bs-modal-footer">
-        <button class="btn btn-primary" [disabled]="uploadKeyForm.isDisabled()"  (click)="uploadKeyForm.onSubmit()">
-            <i class="glyphicon glyphicon-ok"></i> Upload
         </button>
     </div>
 </bs-modal>
