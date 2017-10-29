@@ -26,6 +26,7 @@ node('cloud') {
         }
         stage('Archive') {
             sh 'tar -zcvf web-ui-dist.tar.gz dist'
+            archiveArtifacts 'web-ui-dist.tar.gz'
         }
     } finally {
         deleteDir()
