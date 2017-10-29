@@ -38,7 +38,7 @@ export class DynamicElementComponent extends DynamicElementRendererBase {
     uploadFile(element: any) {
         if (element.files && element.files[0]) {
             const formData = new FormData();
-            formData.append(element.files.name, element.files[0]);
+            formData.append(element.files[0].name, element.files[0]);
 
             this.control.setValue(formData);
             this.cdRef.detectChanges();

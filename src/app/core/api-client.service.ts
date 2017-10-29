@@ -110,6 +110,11 @@ export class ApiClientService extends LiEvents {
     upload(endpoint, type: string, payload: any) {
         let headers = new Headers();
         headers.append('Content-Type', type);
+        let csrfCookie = this.cookieService.get('csrftoken');
+
+        if (csrfCookie) {
+            headers.set('X-CSRFToken', csrfCookie);
+        }
 
         let url = this.createUrl(endpoint);
 
