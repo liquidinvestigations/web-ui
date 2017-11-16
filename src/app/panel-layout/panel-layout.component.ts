@@ -74,12 +74,6 @@ export class PanelLayoutComponent {
                 let currentRouteData = this.activatedRoute.firstChild.routeConfig.data;
 
                 this.pageTitle = currentRouteData['pageTitle'];
-
-                if (currentRouteData.subdomain) {
-                    // this.subdomain = window.location.protocol + '//' + currentRouteData.subdomain + '.' + window.location.hostname;
-                    this.subdomain = window.location.protocol + '//' + window.location.hostname + '/service/' + currentRouteData.subdomain;
-                    this.isLoading = true;
-                }
             }
         });
 
