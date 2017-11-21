@@ -11,7 +11,6 @@ export abstract class AdminForm {
     dynamicFormConfig: DynamicFormGroup;
 
     isLoading: boolean = false;
-    buttonDisabled: boolean = false;
     disableOnUpdate: boolean = true;
 
     private usePost: boolean = false;
@@ -24,7 +23,6 @@ export abstract class AdminForm {
             // if successful will call successSubmit
             this.formViewInstance.onSubmit();
         },
-        isDisabled: () => this.buttonDisabled,
         isLoading: () => this.isLoading
     };
 
@@ -43,14 +41,6 @@ export abstract class AdminForm {
 
     init() {
         this.dynamicFormConfig = this.getDynamicFormConfig();
-
-        this.buttonDisabled = this.dynamicFormConfig.invalid && this.dynamicFormConfig.touched;
-
-        this.dynamicFormConfig.valueChanges
-            .debounceTime(100)
-            .subscribe(() => {
-                this.buttonDisabled = this.dynamicFormConfig.invalid;
-            });
 
         if (this.endpoint) {
             this.refreshConfig();
@@ -115,7 +105,6 @@ export abstract class AdminForm {
                 () => {
                     this.dynamicFormConfig.enable();
                     this.isLoading = false;
-                    this.buttonDisabled = false;
                 }
             );
     }

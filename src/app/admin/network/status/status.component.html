@@ -16,7 +16,7 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="!field.showAsText">
-                                    {{ showAsBullets(field.value) }}
+                                    {{ showAsBullets(8) }}
                                 </ng-container>
 
                                 <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">

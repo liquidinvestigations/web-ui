@@ -60,13 +60,14 @@ export class VpnStatusComponent {
         for (let prop in response) {
             if (response.hasOwnProperty(prop) && mapping[prop] && response[prop] !== null) {
                 let iconClass = '';
+                let cssClass = '';
                 let itemValue = response[prop];
                 let displayValue = response[prop];
 
                 switch (typeof itemValue) {
                     case 'boolean':
-                        iconClass = response[prop] ? 'fa fa-check text-success' : 'fa fa-times text-danger';
-                        displayValue = '';
+                        cssClass = response[prop] ? 'text-success' : 'text-danger';
+                        displayValue = response[prop] ? 'yes' : 'no';
                         break;
                 }
 
@@ -74,6 +75,7 @@ export class VpnStatusComponent {
                 item.value = itemValue;
                 item.displayValue = displayValue;
                 item.iconClass = iconClass;
+                item.cssClass = cssClass;
 
                 out.push(item);
             }

@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './static/404/not-found.component';
@@ -21,7 +20,6 @@ import { NotFoundComponent } from './static/404/not-found.component';
     ],
     declarations: [
         AppComponent,
-        LoginComponent,
         NotFoundComponent,
     ],
     providers: [],

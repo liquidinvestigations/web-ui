@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './static/404/not-found.component';
 
 const routes: Routes = [
@@ -8,18 +7,6 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: 'admin-ui',
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'login/:redirect',
-        component: LoginComponent
-    },
-    {
-        path: 'client',
-        loadChildren: './client/client.module#ClientModule'
     },
     {
         path: 'config',

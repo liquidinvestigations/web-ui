@@ -182,8 +182,7 @@ export class VpnServerComponent {
 
                 switch (typeof itemValue) {
                     case 'boolean':
-                        iconClass = response[prop] ? 'fa fa-check text-success' : 'fa fa-times text-danger';
-                        displayValue = '';
+                        displayValue = response[prop] ? 'yes' : 'no';
                         break;
                 }
 

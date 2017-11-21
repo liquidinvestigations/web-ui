@@ -2,7 +2,7 @@
     <div class="admin-form">
 
         <dynamic-form [fg]="dynamicFormConfig" [onSuccessSubmit]="successSubmit.bind(this)"
-                      [showSubmitButton]="false"></dynamic-form>
+                      [showSubmitButton]="false" #adminForm></dynamic-form>
 
         <div class="row">
             <div class="col-xs-12 col-sm-9 text-right" style="padding: 0">
@@ -10,7 +10,7 @@
                 <button *ngIf="buttonConfig"
                         class="{{ buttonConfig.buttonClass }}"
                         (click)="buttonConfig.action()"
-                        [disabled]="buttonConfig.isDisabled()"
+                        [disabled]="adminForm.isDisabled()"
                 >{{ buttonConfig.label }}
                     <i class="{{ buttonConfig.iconClass }}"></i>
                 </button>

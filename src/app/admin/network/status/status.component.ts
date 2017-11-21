@@ -82,8 +82,8 @@ export class StatusComponent {
         return field.label.toLowerCase() === 'password';
     }
 
-    showAsBullets(label) {
-        return label.replace(/./g, '*');
+    showAsBullets(count) {
+        return (new Array(count + 1)).join('*');
     }
 
     changeDomain(formValues) {

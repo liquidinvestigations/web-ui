@@ -61,7 +61,8 @@ $logo-border: 15px;
       color: #fff;
 
       &.common-buttons {
-        position: absolute;
+        position: relative;
+        margin-top: 30px;
         bottom: 0;
         width: 100%;
       }
