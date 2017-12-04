@@ -82,7 +82,7 @@
     </div>
     <div class="bs-modal-body">
         <dynamic-form [fg]="editFormConfig" #editForm [showSubmitButton]="false"
-                      [onSuccessSubmit]="updateUserData.bind(this)"></dynamic-form>
+                      [onSuccessSubmit]="updateUserData.bind(this, editFormConfig.getRawValue(), this.isAddMode)"></dynamic-form>
     </div>
     <div class="bs-modal-footer">
         <button class="btn btn-primary" [disabled]="editForm.isDisabled()" (click)="editForm.onSubmit(true)"

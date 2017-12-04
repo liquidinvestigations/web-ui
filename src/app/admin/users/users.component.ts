@@ -174,18 +174,15 @@ export class UsersComponent {
         this.editModalComponent.hide();
 
         if (create) {
-
-            let username = formValues.username;
             let password = formValues.new_password;
             delete formValues.new_password;
+
+            formValues['password'] = password;
 
             this.apiService
                 .post('/api/users/', formValues)
                 .subscribe(() => {
-                    this.changePassword({
-                        username: username,
-                        new_password: password
-                    }, this.getUserList.bind(this));
+                    this.getUserList();
                 });
 
         } else {
