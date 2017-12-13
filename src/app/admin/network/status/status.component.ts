@@ -50,15 +50,18 @@ export class StatusComponent {
                         fields: [
                             {
                                 label: apiResponses[2].domain,
-                                button: {
-                                    buttonClass: 'change-domain',
-                                    iconClass: 'fa fa-globe',
-                                    label: 'Change domain name',
-                                    action: () => {
-                                        this.changeDomainFormConfig.reset();
-                                        this.changeDomainModal.show();
-                                    }
-                                }
+                                fields: null,
+
+                                // @see https://github.com/liquidinvestigations/liquidinvestigations/issues/231
+                                // button: {
+                                //     buttonClass: 'change-domain',
+                                //     iconClass: 'fa fa-globe',
+                                //     label: 'Change domain name',
+                                //     action: () => {
+                                //         this.changeDomainFormConfig.reset();
+                                //         this.changeDomainModal.show();
+                                //     }
+                                // }
                             }
                         ]
                     },
