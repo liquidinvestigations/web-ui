@@ -41,9 +41,9 @@ Dev details regarding several app modules:
 * [Static Views](tree/master/src/app/static)
 
 Underneath is a list that points out where texts are:
- * [About View](blob/master/src/app/static/about/about.component.html) - contains the About view text
- * [Config - Welcome Step](blob/master/src/app/config/steps/welcome-step/welcome-step.component.html) - the Wizard welcome text
- * [Config - Final Step](blob/master/src/app/config/steps/final-step/final-step.component.html) - the Wizard final text description
+ * [About View](src/app/static/about/about.component.html) - contains the About view text
+ * [Config - Welcome Step](src/app/config/steps/welcome-step/welcome-step.component.html) - the Wizard welcome text
+ * [Config - Final Step](src/app/config/steps/final-step/final-step.component.html) - the Wizard final text description
  
  
   
