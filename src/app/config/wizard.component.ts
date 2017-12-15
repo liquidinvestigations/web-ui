@@ -47,6 +47,7 @@ export class WizardComponent implements OnInit, OnDestroy {
 
         this.stepsLength = this.wizardService.getProgressStepsLength();
 
+        // when step component is loaded update UI
         this.wizardService.subscribe(WizardService.STEP_LOADED, (stepConfig) => {
             this.title = stepConfig.title;
             this.progressStep = stepConfig.progressStep;
@@ -54,10 +55,12 @@ export class WizardComponent implements OnInit, OnDestroy {
             this.buttonConfig = stepConfig.buttonConfig;
         });
 
+        // toggle progress bar
         this.wizardService.subscribe(WizardService.TOGGLE_API_BAR, (toggle: boolean) => {
             this.showApiProgress = toggle;
         });
 
+        // update progress bar
         this.wizardService.subscribe(WizardService.API_BAR_PROGRESS, (data) => {
             this.apiProgress = data.percentage + '%';
             this.apiProgressText = data.message;

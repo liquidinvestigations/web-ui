@@ -1,4 +1,4 @@
-# Developer notes
+# Admin Panel
 
 This module is organized as separate views they can share the common html template `admin-form.html` and extend the admin-form.ts
 

@@ -35,10 +35,10 @@ The last command will output a dist folder that contains all the app assets.
         # outputs a dist folder and recompiles the app whenever changes are made to the code
 
 Dev details regarding several app modules:
-* [Admin Module](tree/master/src/app/admin)
-* [Config Module](tree/master/src/app/config)
-* [Panel Layout](tree/master/src/app/panel-layout)
-* [Static Views](tree/master/src/app/static)
+* [Admin Module](web-ui/blob/master/src/app/admin)
+* [Config Module](web-ui/blob/master/src/app/config)
+* [Panel Layout](web-ui/blob/master/src/app/panel-layout)
+* [Static Views](web-ui/blob/master/src/app/static)
 
 Underneath is a list that points out where texts are:
  * [About View](src/app/static/about/about.component.html) - contains the About view text

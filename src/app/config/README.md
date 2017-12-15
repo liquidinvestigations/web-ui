@@ -1,4 +1,4 @@
-# Developer notes
+# Config wizard
 
 The config UI is organized in steps, each step is described as a component that extends either the form-step-base.ts or the common-step-base.ts
 
