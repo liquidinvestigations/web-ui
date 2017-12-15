@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { DynamicFormModule } from './dynamic-forms/dynamic-form.module';
 import { BsModalComponent } from './bs-modal/bs-modal.component';
 import { TrustPipe } from './trust.pipe';
-import { IframeComponent } from './iframe.component';
 import { AboutComponent } from '../static/about/about.component';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { AboutComponent } from '../static/about/about.component';
     ],
     declarations: [
         BsModalComponent,
-        IframeComponent,
         TrustPipe,
         AboutComponent,
     ],
@@ -22,7 +20,6 @@ import { AboutComponent } from '../static/about/about.component';
     exports: [
         DynamicFormModule,
         BsModalComponent,
-        IframeComponent,
         TrustPipe,
         AboutComponent,
     ]
