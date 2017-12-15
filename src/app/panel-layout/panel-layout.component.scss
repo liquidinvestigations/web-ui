@@ -93,7 +93,6 @@ $logo-border: 15px;
     }
   }
 
-
   .loading {
     background: rgba(255, 255, 255, 0.7) no-repeat;
     width: 100%;
@@ -108,10 +107,27 @@ $logo-border: 15px;
       left: 0;
       right: 17%;
 
+      margin: 0 auto;
+
+      padding: 15px 5px 5px;
+
+      width: 250px;
+
+      background: #fff;
+
+      border: 1px #eee solid;
+      border-radius: 4px;
+
       text-align: center;
 
-      font-size: 100px;
-      color: #bbbbbb;
+      p {
+        margin-top: 15px;
+      }
+
+      & > i {
+        color: #bbbbbb;
+        font-size: 100px;
+      }
     }
   }
 }

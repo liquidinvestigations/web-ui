@@ -44,12 +44,13 @@ export class PanelLayoutComponent {
     username: string = '';
     isAdmin: boolean = false;
 
-    subdomain = null;
-
     pageTitle: string = '';
     isLoading: boolean = false;
 
     currentNotification: any = null;
+
+    pollingText: string = '';
+    showRepair: boolean = false;
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
@@ -84,6 +85,9 @@ export class PanelLayoutComponent {
         ], () => {
             this.isLoading = true;
 
+            this.pollingText = '';
+            this.showRepair = false;
+
             if (this.currentNotification) {
                 this.currentNotification.close();
             }
@@ -109,16 +113,38 @@ export class PanelLayoutComponent {
 
         });
 
+        this.apiService.subscribe(ApiClientService.EV_POLLING_STATUS, (data) => {
+            if (data) {
+                if (data.detail) {
+                    this.pollingText = data.detail;
+                }
+
+                if (data.status === 'broken') {
+                    this.showRepair = true;
+                }
+            } else {
+                this.pollingText = 'Currently doing some work';
+            }
+        });
+
+        this.apiService.subscribe(ApiClientService.EV_POLLING_ERROR, () => {
+            this.showRepair = true;
+            this.pollingText = 'Sorry about that. You should click on Repair';
+        });
+
         apiService.subscribe(ApiClientService.EV_API_ERROR, (error) => {
             setTimeout(() => {
                 this.currentNotification = notificationsService
                     .show(error.detail || 'A server error has occurred.', LiNotification.TYPE_DANGER);
             }, 1000);
-
         });
     }
 
-    finishedLoading() {
-        this.isLoading = false;
+    repairConfig() {
+        this.apiService
+            .post('/api/configure/repair/')
+            .subscribe((response: any) => {
+                this.pollingText = response.detail;
+            });
     }
 }
