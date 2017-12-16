@@ -1,7 +1,7 @@
 <ul class="nav">
     <ng-container *ngFor="let button of buttons">
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: !childrenAsTabs}">
-            <a routerLink="{{ button.path }}">
+            <a routerLink="{{ button.path }}" [class.disabled]="disabled">
                 <i *ngIf="button.icon" class="{{ button.icon }}"></i>
                 <img *ngIf="button.img" src="{{ button.img }}" class="img-rounded">
                 <p class="hidden-xs">{{ button.label }}</p>

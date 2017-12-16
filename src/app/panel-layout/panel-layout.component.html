@@ -28,12 +28,12 @@
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
-                    <li-side-menu [sideMenuButtons]="sideMenuButtons"></li-side-menu>
+                    <li-side-menu [sideMenuButtons]="sideMenuButtons" [disabled]="isLoading"></li-side-menu>
                 </div>
 
                 <div class="sidebar-wrapper common-buttons" *ngIf="commonMenuButtons">
                     <hr>
-                    <li-side-menu [sideMenuButtons]="commonMenuButtons"></li-side-menu>
+                    <li-side-menu [sideMenuButtons]="commonMenuButtons" [disabled]="isLoading"></li-side-menu>
                 </div>
 
             </div>

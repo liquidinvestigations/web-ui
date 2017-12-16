@@ -11,6 +11,7 @@ export class SideMenuComponent implements OnInit {
     @Input() sideMenuButtons: any[];
     @Input() parentPath: string = './';
     @Input() childrenAsTabs: boolean = true;
+    @Input() disabled: boolean = false;
 
     buttons: any[] = [];
 

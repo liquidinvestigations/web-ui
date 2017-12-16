@@ -2,6 +2,16 @@ $transparency: 0.32;
 
 .nav {
   li > a {
+
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+
+      p {
+        color: rgba(255,255,255,0.7);
+      }
+    }
+
     margin: 15px auto;
     color: #fff;
     transition: background 0.5s ease-out;

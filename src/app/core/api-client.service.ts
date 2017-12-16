@@ -78,7 +78,7 @@ export class ApiClientService extends LiEvents {
             );
     }
 
-    post(endpoint: string, payload: {} = {}, useLongPolling: boolean = false) {
+    post(endpoint: string, payload: {} = {}, useLongPolling: boolean = true) {
 
         let url = this.createUrl(endpoint);
 
@@ -96,7 +96,7 @@ export class ApiClientService extends LiEvents {
             );
     }
 
-    put(endpoint: string, payload: {} = {}, useLongPolling: boolean = false) {
+    put(endpoint: string, payload: {} = {}, useLongPolling: boolean = true) {
 
         let url = this.createUrl(endpoint);
 

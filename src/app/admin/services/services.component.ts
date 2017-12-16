@@ -11,7 +11,6 @@ import { ApiClientService } from '../../core/api-client.service';
 @Component({
     templateUrl: './services.component.html',
     styleUrls: ['./services.component.scss'],
-    // encapsulation: ViewEncapsulation.None
 })
 export class ServicesComponent extends AdminForm {
     @ViewChild(DynamicFormComponent) formViewInstance: DynamicFormComponent;
@@ -80,7 +79,7 @@ export class ServicesComponent extends AdminForm {
 
     private updateService(control: DynamicFormControl) {
         return this.apiService
-            .put('/api/services/' + control.id + '/enabled/', { is_enabled: !!control.value }, true)
+            .put('/api/services/' + control.id + '/enabled/', { is_enabled: !!control.value })
             .subscribe(() => {
                 this.refreshConfig();
             });
