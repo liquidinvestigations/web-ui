@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './sidebar/side-menu.component';
 import { PanelLayoutComponent } from './panel-layout.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { TableListComponent } from './table-list/table-list.component';
 
 @NgModule({
     imports: [
@@ -13,11 +14,13 @@ import { TabsComponent } from './tabs/tabs.component';
     declarations: [
         SideMenuComponent,
         TabsComponent,
-        PanelLayoutComponent
+        PanelLayoutComponent,
+        TableListComponent,
     ],
     exports: [
         TabsComponent,
-        PanelLayoutComponent
+        PanelLayoutComponent,
+        TableListComponent,
     ]
 })
 export class PanelLayoutModule {

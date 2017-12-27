@@ -1,54 +1,8 @@
 <div class="col-xs-11 col-xs-offset-1 col-sm-8">
     <div class="row">
-        <div class="col-xs-12 status-container" *ngFor="let config of currentConfig">
-            <h4>{{ config.title }}</h4>
-            <div class="table-responsive col-xs-offset-1">
-                <table class="table table-condensed table-hover table-striped">
-                    <tr *ngFor="let field of config.fields">
-                        <td class="col-xs-6">{{ field.label }}</td>
-                        <td class="col-xs-6">
-                            <span *ngIf="!isPasswordText(field)">
-                                {{ field.value }}
-                            </span>
-                            <span *ngIf="isPasswordText(field)">
-                                <ng-container *ngIf="field.showAsText">
-                                    {{ field.value }}
-                                </ng-container>
-
-                                <ng-container *ngIf="!field.showAsText">
-                                    {{ showAsBullets(8) }}
-                                </ng-container>
-
-                                <span *ngIf="isPasswordText(field)" (click)="switchToText(field)" class="show-pass">
-                                        <i class="glyphicon"
-                                           [ngClass]="{'glyphicon-eye-close': field.showAsText, 'glyphicon-eye-open': !field.showAsText}"></i>
-                                </span>
-                            </span>
-                            <span *ngIf="field.button">
-                                <a class="{{ field.button.buttonClass }}" (click)="field.button.action(config)">
-                                    <i class="{{ field.button.iconClass }}"></i> {{ field.button.label }}
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <li-table-list [config]="currentConfig['domain']"></li-table-list>
+        <li-table-list [config]="currentConfig['lan']"></li-table-list>
+        <li-table-list [config]="currentConfig['wan']"></li-table-list>
+        <li-table-list [config]="currentConfig['status']"></li-table-list>
     </div>
 </div>
-
-<bs-modal #changeDomainModal>
-    <div class="bs-modal-header">
-        <h3>Change domain</h3>
-    </div>
-    <div class="bs-modal-body">
-        <dynamic-form [fg]="changeDomainFormConfig" #changeDomainForm [showSubmitButton]="false"
-                      [onSuccessSubmit]="changeDomain.bind(this)"></dynamic-form>
-    </div>
-    <div class="bs-modal-footer">
-        <button class="btn btn-primary" [disabled]="changeDomainForm.isDisabled()"
-                (click)="changeDomainForm.onSubmit()">
-            <i class="glyphicon glyphicon-ok"></i> Change
-        </button>
-    </div>
-</bs-modal>
