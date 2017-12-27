@@ -52,10 +52,17 @@ export class PanelLayoutComponent {
     pollingText: string = '';
     showRepair: boolean = false;
 
+    domain: string = '';
+
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private apiService: ApiClientService,
                 private notificationsService: LiNotificationsService) {
+
+        this.apiService.get('/api/network/domain/')
+            .subscribe((data) => {
+                this.domain = data.domain;
+            });
 
         apiService.get('/api/users/whoami/')
             .subscribe((data) => {

@@ -7,10 +7,14 @@ $logo-border: 15px;
 
   .navbar {
 
-    height: $topBarHeight;
+    min-height: $topBarHeight;
     z-index: 900;
     border: 0;
     background: $themeBg;
+
+    .admin-panel-title {
+      color: #fff;
+    }
 
     .user-info {
       position: absolute;
@@ -35,6 +39,7 @@ $logo-border: 15px;
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
+    min-width: 80px;
 
     .logo-container {
       text-align: center;
@@ -71,7 +76,7 @@ $logo-border: 15px;
   }
 
   .main {
-    padding: $topBarHeight + 15;
+    padding-top: $topBarHeight + 15;
 
     .page-header {
       margin-top: 0;
@@ -90,6 +95,12 @@ $logo-border: 15px;
     .main {
       padding-right: 40px;
       padding-left: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .main {
+      padding-top: 130px;
     }
   }
 

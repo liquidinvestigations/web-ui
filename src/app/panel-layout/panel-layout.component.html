@@ -1,6 +1,12 @@
 <div class="page-wrapper">
     <nav class="navbar navbar-fixed-top col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" [style.background]="bgThemeColor">
         <div class="container-fluid">
+
+            <div class="col-xs-12 visible-xs">&nbsp;</div>
+            <div class="col-xs-12 visible-xs">&nbsp;</div>
+            <div class="col-xs-12 col-sm-8">
+                <h3 class="admin-panel-title">{{ domain }} Admin Panel</h3>
+            </div>
             <div class="user-info animated" *ngIf="!!username" [ngClass]="{'fadeInDown': !!username}">
                 Logged in as: {{ username }} <span class="badge bg-primary" *ngIf="isAdmin">admin</span>
                 <a href="/accounts/logout/?next=/" class="badge bg-success"><i class="fa fa-sign-out"></i></a>
