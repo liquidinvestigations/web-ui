@@ -1,18 +1,6 @@
-<div class="col-xs-11 col-xs-offset-1 col-sm-8">
-    <div class="row">
-        <div class="col-xs-12 status-container" *ngFor="let config of currentConfig">
-            <h4>{{ config.title }}</h4>
-            <div class="table-responsive col-xs-offset-1">
-                <table class="table table-condensed table-hover table-striped">
-                    <tr *ngFor="let field of config.fields">
-                        <td class="col-xs-6">{{ field.label }}</td>
-                        <td class="col-xs-6 {{ field.cssClass }}">
-                            <i *ngIf="field.iconClass" class="{{ field.iconClass }}"></i>
-                            {{ field.displayValue }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-xs-12 col-md-offset-1 col-md-8">
+        <li-table-list [config]="currentConfig['server']"></li-table-list>
+        <li-table-list [config]="currentConfig['client']"></li-table-list>
     </div>
 </div>

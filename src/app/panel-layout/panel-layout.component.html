@@ -1,22 +1,38 @@
 <div class="page-wrapper">
-    <nav class="navbar navbar-fixed-top col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" [style.background]="bgThemeColor">
-        <div class="container-fluid">
 
-            <div class="col-xs-12 visible-xs">&nbsp;</div>
-            <div class="col-xs-12 visible-xs">&nbsp;</div>
-            <div class="col-xs-12 col-sm-8">
-                <h3 class="admin-panel-title">{{ domain }} Admin Panel</h3>
-            </div>
-            <div class="user-info animated" *ngIf="!!username" [ngClass]="{'fadeInDown': !!username}">
-                Logged in as: {{ username }} <span class="badge bg-primary" *ngIf="isAdmin">admin</span>
-                <a href="/accounts/logout/?next=/" class="badge bg-success"><i class="fa fa-sign-out"></i></a>
+    <div class="sidebar" [style.background]="bgThemeColor">
+        <div class="logo-container">
+            <a href="/">
+                <img src="./assets/liquid-investigations/img/li_logo.svg">
+            </a>
+        </div>
+        <div class="menu-wrapper">
+            <li-side-menu [sideMenuButtons]="sideMenuButtons" [disabled]="isLoading"></li-side-menu>
+
+            <div class="common-buttons" *ngIf="commonMenuButtons">
+                <hr>
+                <li-side-menu [sideMenuButtons]="commonMenuButtons" [disabled]="isLoading"></li-side-menu>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="loading col-xs-offset-2 col-sm-offset-2" *ngIf="isLoading" [@inOutAnimation]>
+    <div class="main">
+        <nav class="navbar" [style.background]="bgThemeColor">
+            <div class="container-fluid">
+                <div class="col-xs-12 visible-xs">&nbsp;</div>
+                <div class="col-xs-12 visible-xs">&nbsp;</div>
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <h3 class="admin-panel-title">{{ domain }} Admin Panel</h3>
+                </div>
+                <div class="user-info animated" *ngIf="!!username" [ngClass]="{'fadeInDown': !!username}">
+                    Logged in as: {{ username }} <span class="badge bg-primary" *ngIf="isAdmin">admin</span>
+                    <a href="/accounts/logout/?next=/" class="badge bg-success"><i class="fa fa-sign-out"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-wrapper">
+            <div class="loading" *ngIf="isLoading" [@inOutAnimation]>
                 <div class="spinner">
                     <i class="fa fa-spin fa-refresh"></i>
 
@@ -27,27 +43,14 @@
                 </div>
             </div>
 
-            <div class="col-xs-2 col-sm-3 col-md-2 sidebar" [style.background]="bgThemeColor">
-                <div class="logo-container">
-                    <a href="/">
-                        <img src="./assets/liquid-investigations/img/li_logo.svg">
-                    </a>
-                </div>
-                <div class="sidebar-wrapper">
-                    <li-side-menu [sideMenuButtons]="sideMenuButtons" [disabled]="isLoading"></li-side-menu>
-                </div>
-
-                <div class="sidebar-wrapper common-buttons" *ngIf="commonMenuButtons">
-                    <hr>
-                    <li-side-menu [sideMenuButtons]="commonMenuButtons" [disabled]="isLoading"></li-side-menu>
-                </div>
-
-            </div>
-            <div class="col-xs-10 col-xs-offset-2 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="container-fluid li-content">
                 <h1 class="page-header">{{ pageTitle }}</h1>
-                <router-outlet></router-outlet>
+                <div class="col-xs-12">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 

@@ -11,6 +11,7 @@ export class TableListComponent {
         fields: {
             label: string,
             value: string,
+            cssClass: string,
             error_message: string,
             showAsText: boolean
         }[]

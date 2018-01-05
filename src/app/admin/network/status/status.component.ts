@@ -1,11 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiClientService } from '../../../core/api-client.service';
 import { mapSummaryConfig } from '../../../shared/li-forms/summary-mapping';
-import { BsModalComponent } from '../../../shared/bs-modal/bs-modal.component';
-import { DynamicFormGroup } from '../../../shared/dynamic-forms/builder/dynamic-form-group';
-import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynamic-form-control';
-import { Validators } from '@angular/forms';
-import { DynamicFormValidator } from '../../../shared/dynamic-forms/validation/dynamic-form.validator';
 
 @Component({
     templateUrl: './status.component.html',

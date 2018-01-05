@@ -11,7 +11,7 @@
         <table class="table table-condensed table-hover table-striped">
             <tr *ngFor="let field of config.fields">
                 <td class="col-xs-6">{{ field.label }}</td>
-                <td class="col-xs-6">
+                <td class="col-xs-6 {{ field?.cssClass }}">
                     <div>
                         <ng-container *ngIf="!isPasswordText(field)">
                             {{ field.value }}

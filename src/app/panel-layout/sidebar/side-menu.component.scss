@@ -8,7 +8,7 @@ $transparency: 0.32;
       cursor: default;
 
       p {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
       }
     }
 
@@ -16,13 +16,28 @@ $transparency: 0.32;
     color: #fff;
     transition: background 0.5s ease-out;
 
-    img {
+    .img-wrapper {
+      display: inline-block;
+
       width: 32px;
       height: 32px;
-      display: inline-block;
       float: left;
+
+      @media (max-width: 768px) {
+        & {
+          width: 14px;
+          height: 14px;
+          float: none;
+        }
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
     }
 
+    &:focus,
     &:hover {
       background: rgba(255, 255, 255, $transparency);
       transition: background 0.5s ease-in;
@@ -34,33 +49,32 @@ $transparency: 0.32;
   }
 }
 
-
 @media (min-width: 768px) {
 
-    .nav {
-      margin-top: 20px;
+  .nav {
+    margin-top: 20px;
 
-      li > a {
-        margin: 15px 0;
-        padding-left: 25px;
-        padding-right: 25px;
-      }
+    li > a {
+      margin: 15px 0;
+      padding-left: 25px;
+      padding-right: 25px;
     }
+  }
 
-    i {
-      font-size: 24px;
-      float: left;
-      margin-right: 15px;
-      line-height: 30px;
-      width: 30px;
-      text-align: center;
-    }
+  i {
+    font-size: 24px;
+    float: left;
+    margin-right: 15px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+  }
 
-    p {
-      margin: 0;
-      line-height: 30px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
+  p {
+    margin: 0;
+    line-height: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
 }

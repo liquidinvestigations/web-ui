@@ -6,7 +6,10 @@ import { ApiClientService } from '../../../core/api-client.service';
     styleUrls: ['./vpn-status.component.scss']
 })
 export class VpnStatusComponent {
-    currentConfig: any[] = [];
+    currentConfig: {} = {
+        server: {},
+        client: {},
+    };
 
     constructor(protected apiService: ApiClientService) {
         this.refreshStatus();
@@ -18,19 +21,15 @@ export class VpnStatusComponent {
         )
             .subscribe((response: any) => {
 
-                this.currentConfig = [
-                    {
-                        title: 'Server configuration',
-                        fields: this.mapVpnResponse(response['server']),
-                        key: 'server'
-                    },
-                    {
-                        title: 'Client configuration',
-                        fields: this.mapVpnResponse(response['client']),
-                        key: 'client'
-                    },
-                ];
+                this.currentConfig['server'] = {
+                    title: 'Server configuration',
+                    fields: this.mapVpnResponse(response['server']),
+                };
 
+                this.currentConfig['client'] = {
+                    title: 'Client configuration',
+                    fields: this.mapVpnResponse(response['client']),
+                };
             });
     }
 
@@ -72,7 +71,7 @@ export class VpnStatusComponent {
                 }
 
                 let item = Object.create(mapping[prop]);
-                item.value = itemValue;
+                item.value = displayValue;
                 item.displayValue = displayValue;
                 item.iconClass = iconClass;
                 item.cssClass = cssClass;
