@@ -61,6 +61,11 @@ $logo-border: 15px;
     flex-grow: 1;
     flex-direction: column;
 
+    position: absolute;
+    left: $sideMenuWidth;
+    right: 0;
+    height: 100%;
+
     @media (max-width: 768px) {
       & {
         left: $smallSideMenuWidth;
