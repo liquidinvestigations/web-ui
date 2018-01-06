@@ -5,8 +5,10 @@ import { LiNotificationsService } from '../core/li-notifications.service';
 import { LiNotification } from '../core/li-notification';
 
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Subject, Observable } from 'rxjs/Rx';
 
 declare let window: any;
+
 @Component({
     selector: 'li-layout',
     templateUrl: './panel-layout.component.html',
@@ -52,6 +54,10 @@ export class PanelLayoutComponent {
     pollingText: string = '';
     showRepair: boolean = false;
 
+    showRepairNotification = false;
+
+    infinitePolling: Subject<boolean>;
+
     domain: string = '';
 
     constructor(private router: Router,
@@ -67,7 +73,7 @@ export class PanelLayoutComponent {
         apiService.get('/api/users/whoami/')
             .subscribe((data) => {
 
-                if (! data.is_authenticated) {
+                if (!data.is_authenticated) {
                     window.location = '/accounts/login/?next=' + window.location.pathname;
                 }
 
@@ -83,6 +89,13 @@ export class PanelLayoutComponent {
 
                 this.pageTitle = currentRouteData['pageTitle'];
             }
+        });
+
+        apiService.subscribe([
+            ApiClientService.EV_BEFORE_PUT,
+            ApiClientService.EV_BEFORE_POST
+        ], () => {
+            this.showRepairNotification = false;
         });
 
         apiService.subscribe([
@@ -120,18 +133,50 @@ export class PanelLayoutComponent {
 
         });
 
+        // create infinite polling on the page
+        this.infinitePolling = new Subject();
+        this.infinitePolling
+            .switchMap(
+                paused => paused
+                    ? Observable.never()
+                    : this.apiService.infinitePolling()
+            )
+            .subscribe();
+
+        this.infinitePolling.next(false);
+
+        // whenever polling started via a request we need to pause the infinite polling
+        this.apiService.subscribe(ApiClientService.EV_POLLING_CUD_STARTED, () => {
+            this.isLoading = true;
+            this.infinitePolling.next(true);
+        });
+
+        // whenever polling stopped via a request we need to pause the infinite polling
+        this.apiService.subscribe(ApiClientService.EV_POLLING_CUD_STOPPED, () => {
+            this.isLoading = false;
+            this.infinitePolling.next(false);
+        });
+
         this.apiService.subscribe(ApiClientService.EV_POLLING_STATUS, (data) => {
+
+            if (this.showRepairNotification) {
+                return;
+            }
+
             if (data) {
+
+                this.isLoading = data.status !== 'ok';
+                this.showRepair = data.status === 'broken';
+
                 if (data.detail) {
                     this.pollingText = data.detail;
                 }
-
-                if (data.status === 'broken') {
-                    this.showRepair = true;
-                }
             } else {
-                this.pollingText = 'Currently doing some work';
+                this.isLoading = true;
+                this.showRepair = false;
+                this.pollingText = 'System is reconfiguring.';
             }
+
         });
 
         this.apiService.subscribe(ApiClientService.EV_POLLING_ERROR, () => {
@@ -148,10 +193,20 @@ export class PanelLayoutComponent {
     }
 
     repairConfig() {
+        this.showRepair = false;
+        this.showRepairNotification = false;
+        this.infinitePolling.next(true);
+
         this.apiService
             .post('/api/configure/repair/')
             .subscribe((response: any) => {
                 this.pollingText = response.detail;
             });
+    }
+
+    showFixNotification() {
+        this.isLoading = false;
+        this.showRepair = false;
+        this.showRepairNotification = true;
     }
 }

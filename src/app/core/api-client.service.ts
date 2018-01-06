@@ -4,11 +4,9 @@ import { LiEvents } from './li-events';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publish';
 import 'rxjs/add/observable/forkJoin';
 
 import { CookieService } from 'ngx-cookie-service';
-import { Observer } from 'rxjs/Observer';
 
 declare let $: any;
 declare let window: any;
@@ -26,8 +24,11 @@ export class ApiClientService extends LiEvents {
 
     static readonly EV_API_ERROR = 'api_error';
 
+    static readonly EV_POLLING_CUD_STARTED = 'api_polling_cud_started';
+    static readonly EV_POLLING_CUD_STOPPED = 'api_polling_cud_stopped';
     static readonly EV_POLLING_STATUS = 'api_polling_status';
     static readonly EV_POLLING_ERROR = 'api_polling_error';
+
     static readonly POLLING_INTERVAL = 1000;
 
     private headers: Headers;
@@ -168,73 +169,48 @@ export class ApiClientService extends LiEvents {
     }
 
     private longPolling(request: Observable<any>, useLongPolling: boolean = false) {
-        if (useLongPolling) {
-
-            return Observable.create((requestObserver: Observer<any>) => {
-                request
-                    .subscribe((response: any) => {
-
-                        let checkStatus = (data, pollingSubscription) => {
-                            if (data) {
-                                this.notifySubscribers(ApiClientService.EV_POLLING_STATUS, data);
-
-                                if (data.status === 'ok') {
-                                    pollingSubscription.unsubscribe();
-                                    this.notifySubscribers(ApiClientService.EV_POLLING_STATUS, {});
-                                    requestObserver.next(response);
-
-                                    return true;
-                                }
-                            }
-
-                            return false;
-                        };
-
-                        let handlePollError = (error, pollingSubscription) => {
-                            pollingSubscription.unsubscribe();
-
-                            if (error.status === 502 || error._body instanceof ProgressEvent) {
-                                pollStatus();
-                            } else {
-                                this.notifySubscribers(ApiClientService.EV_POLLING_ERROR);
-                            }
-                        };
-
-                        let pollStatus = () => {
-                            let pollingObservable = Observable
-                                .interval(ApiClientService.POLLING_INTERVAL)
-                                .switchMap(() => this.http.get('/api/configure/status/'))
-                                .map((data) => data.json());
-
-                            let pollingSubscription = pollingObservable
-                                .subscribe((data) => {
-                                    checkStatus(data, pollingSubscription);
-                                }, (error) => {
-                                    handlePollError(error, pollingSubscription);
-                                });
-
-                            return request;
-                        };
-
-                        let pollingObservable =
-                            this.http.get('/api/configure/status/')
-                                .map((data) => data.json());
-
-                        let pollingSubscription = pollingObservable
-                            .subscribe((data) => {
-                                if (!checkStatus(data, pollingSubscription)) {
-                                    pollStatus();
-                                }
-                            }, (error) => {
-                                handlePollError(error, pollingSubscription);
-                            });
-                    }, (err: any) => {
-                        requestObserver.error(err);
-                    });
-            });
+        if (!useLongPolling) {
+            return request;
         }
 
-        return request;
+        return request
+            .switchMap(
+                (requestValue) => {
+                    this.notifySubscribers(ApiClientService.EV_POLLING_CUD_STARTED);
+
+                    let timer = this.infinitePolling();
+
+                    return timer
+                        .skipUntil(timer.filter(data => data && data.status === 'ok'))
+                        .take(1)
+                        .map(() => requestValue)
+                        .do(() => {
+                            this.notifySubscribers(ApiClientService.EV_POLLING_CUD_STOPPED);
+                        }, () => {
+                            this.notifySubscribers(ApiClientService.EV_POLLING_ERROR);
+                        });
+                }
+            );
     }
 
+    infinitePolling() {
+        let timer = Observable.timer(0, ApiClientService.POLLING_INTERVAL);
+
+        return Observable.race(
+            timer
+            .switchMap(() => this.http.get('/api/configure/status/'))
+                .map((data) => data.json()),
+
+            timer.switchMap(
+                () => Observable.of(0).delay(ApiClientService.POLLING_INTERVAL + 1)
+            )
+        )
+
+            .share()
+            .do((data) => {
+                this.notifySubscribers(ApiClientService.EV_POLLING_STATUS, data);
+            })
+
+            .retryWhen(errors => errors.delay(ApiClientService.POLLING_INTERVAL));
+    }
 }

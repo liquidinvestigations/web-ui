@@ -94,6 +94,11 @@ $logo-border: 15px;
       margin-bottom: 0;
       flex: none;
 
+      .alert {
+        margin: 0;
+        border-radius: 0;
+      }
+
       .admin-panel-title {
         color: #fff;
       }
@@ -127,7 +132,7 @@ $logo-border: 15px;
 
 .loading {
   background: rgba(255, 255, 255, 0.7) no-repeat;
-  width: 100%;
+  width: 83%;
   height: 100%;
   position: absolute;
   z-index: 1030;

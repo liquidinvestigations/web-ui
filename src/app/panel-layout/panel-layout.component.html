@@ -29,12 +29,23 @@
                     <a href="/accounts/logout/?next=/" class="badge bg-success"><i class="fa fa-sign-out"></i></a>
                 </div>
             </div>
+            <div class="row alert alert-danger" *ngIf="showRepairNotification" [@inOutAnimation]>
+                Your configuration is broken.
+                <button class="btn btn-sm btn-warning pull-right" (click)="repairConfig()">
+                    <i class="fa fa-wrench"></i> Repair
+                </button>
+            </div>
         </nav>
 
         <div class="content-wrapper">
             <div class="loading" *ngIf="isLoading" [@inOutAnimation]>
                 <div class="spinner">
-                    <i class="fa fa-spin fa-refresh"></i>
+                    <button *ngIf="showRepair" type="button" class="close" (click)="showFixNotification()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <i class="fa fa-spin fa-refresh" *ngIf="!showRepair"></i>
+                    <i class="fa fa-warning" *ngIf="showRepair"></i>
 
                     <p class="text-center">{{ pollingText }}</p>
                     <button *ngIf="showRepair" class="btn btn-warning" (click)="repairConfig()">
@@ -51,6 +62,5 @@
             </div>
         </div>
     </div>
-
 </div>
 

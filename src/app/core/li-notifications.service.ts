@@ -13,7 +13,15 @@ export class LiNotificationsService extends LiEvents {
     public static readonly NOTIFICATION_CLOSED = 'notification_closed';
 
 
-    show(message: string, type: string = 'info', iconClass: string = '', from: string = 'top', align: string = 'right') {
+    show(
+        message: string,
+        type: string = 'info',
+        iconClass: string = '',
+        from: string = 'top',
+        align: string = 'right',
+        delay: number = 3000,
+        allow_dismiss = true,
+    ) {
 
         return $.notify({
             icon: iconClass,
@@ -21,12 +29,14 @@ export class LiNotificationsService extends LiEvents {
 
         }, {
             type: type,
-            timer: 3000,
+            delay: delay,
+            timer: 1000,
             placement: {
                 from: from,
                 align: align
             },
             offset: 70,
+            allow_dismiss: allow_dismiss,
             onShow: (self: any) => {
                 this.notifySubscribers(LiNotificationsService.NOTIFICATION_SHOW, self);
             },
@@ -40,6 +50,5 @@ export class LiNotificationsService extends LiEvents {
                 this.notifySubscribers(LiNotificationsService.NOTIFICATION_CLOSED, self);
             }
         });
-
     }
 }
