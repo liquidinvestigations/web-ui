@@ -113,9 +113,42 @@ $logo-border: 15px;
         top: 0;
         right: 2%;
         color: #333;
-        padding: 15px;
         border-radius: 0 0 5px 5px;
         background: rgba(255, 255, 255, 0.7);
+
+        height: 90%;
+        max-height: 55px;
+
+        padding: 5px 10px;
+        line-height: 19px;
+
+        .details {
+          width: 85%;
+          line-height: 23px;
+          height: 46px;
+          display: inline-flex;
+          flex-wrap: wrap;
+          flex: 1;
+          align-items: center;
+
+          a {
+            display: block;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: none;
+              color: #337ab7;
+            }
+          }
+        }
+
+        .log-out {
+          display: inline-block;
+          position: absolute;
+          top: 18px;
+          font-size: 16px;
+        }
+
       }
     }
 
