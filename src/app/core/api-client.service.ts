@@ -198,14 +198,16 @@ export class ApiClientService extends LiEvents {
 
         return Observable.race(
             timer
-            .switchMap(() => this.http.get('/api/configure/status/'))
+                .switchMap(() => this.http.get('/api/configure/status/'))
                 .map((data) => data.json()),
 
             timer.switchMap(
                 () => Observable.of(0).delay(ApiClientService.POLLING_INTERVAL + 1)
             )
         )
-
+            .skipWhile((data) => {
+                return data && data.status !== 'configuring';
+            })
             .share()
             .do((data) => {
                 this.notifySubscribers(ApiClientService.EV_POLLING_STATUS, data);

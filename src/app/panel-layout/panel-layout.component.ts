@@ -197,11 +197,13 @@ export class PanelLayoutComponent {
         this.showRepairNotification = false;
         this.infinitePolling.next(true);
 
-        this.apiService
-            .post('/api/configure/repair/')
-            .subscribe((response: any) => {
-                this.pollingText = response.detail;
-            });
+        setTimeout(() => {
+            this.apiService
+                .post('/api/configure/repair/')
+                .subscribe((response: any) => {
+                    this.pollingText = response.detail;
+                });
+        });
     }
 
     showFixNotification() {
