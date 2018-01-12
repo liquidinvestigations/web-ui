@@ -1,9 +1,14 @@
 <form [formGroup]="fg" novalidate (ngSubmit)="onSubmit()" autocomplete="nope">
     <dynamic-from-group [fg]="fg"></dynamic-from-group>
 
-    <div class="{{ submitCssClass }}">
-        <button type="submit" [ngClass]="{ hidden: !showSubmitButton }" class="btn btn-sm btn-primary"
+    <div class="{{ submitCssClass }}" *ngIf="showSubmitButton">
+        <button type="submit" class="btn btn-sm btn-primary"
                 [disabled]="fg.touched && fg.invalid">Submit
         </button>
     </div>
+    <ng-container *ngIf="!showSubmitButton">
+        <input type="submit"
+               style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+               tabindex="-1" />
+    </ng-container>
 </form>

@@ -1,6 +1,5 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy,
-    ViewEncapsulation
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 } from '@angular/core';
 import { DynamicFormGroup } from './builder/dynamic-form-group';
 import { DynamicFormService } from './dynamic-form.service';
@@ -9,7 +8,6 @@ import { DynamicFormControl } from './builder/dynamic-form-control';
 @Component({
     selector: 'dynamic-form',
     templateUrl: './dynamic-form.component.html',
-    // encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnDestroy {
