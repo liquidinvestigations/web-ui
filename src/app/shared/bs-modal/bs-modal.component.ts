@@ -14,16 +14,22 @@ export class BsModalComponent {
     }
 
     show(noClose?: boolean) {
-        let modal = $(this.elRef.nativeElement).find('.modal');
+        let $modal = $(this.elRef.nativeElement).find('.modal');
 
         if (noClose) {
-            modal.modal({
+            $modal.modal({
                 backdrop: 'static',
                 keyboard: false
             });
         }
 
-        modal.modal('show');
+        $modal
+            .modal('show')
+            .on('shown.bs.modal', () => {
+                setTimeout(() => {
+                    $modal.find('input[type="text"]:enabled, input[type="password"]:enabled').first().trigger('focus');
+                }, 10);
+            });
     }
 
     hide() {

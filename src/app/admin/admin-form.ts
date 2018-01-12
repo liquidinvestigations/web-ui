@@ -1,9 +1,11 @@
-import { ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../shared/dynamic-forms/dynamic-form.component';
 import { DynamicFormGroup } from '../shared/dynamic-forms/builder/dynamic-form-group';
 import { ApiClientService } from '../core/api-client.service';
 
-export abstract class AdminForm {
+declare let $: any;
+
+export abstract class AdminForm implements AfterViewInit {
     @ViewChild(DynamicFormComponent) abstract formViewInstance: DynamicFormComponent;
 
     abstract endpoint: string;
@@ -37,6 +39,10 @@ export abstract class AdminForm {
                 this.dynamicFormConfig.disable();
             }
         });
+    }
+
+    ngAfterViewInit() {
+        $('.admin-form').find('input[type="text"]:enabled, input[type="password"]:enabled').first().trigger('focus');
     }
 
     init() {
