@@ -5,7 +5,7 @@ import { LiNotificationsService } from '../core/li-notifications.service';
 import { LiNotification } from '../core/li-notification';
 
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Subject, Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 declare let window: any;
 
@@ -56,7 +56,7 @@ export class PanelLayoutComponent {
 
     showRepairNotification = false;
 
-    infinitePolling: Subject<boolean>;
+    infinitePolling: Subscription;
 
     domain: string = '';
 
@@ -133,28 +133,22 @@ export class PanelLayoutComponent {
 
         });
 
-        // create infinite polling on the page
-        this.infinitePolling = new Subject();
-        this.infinitePolling
-            .switchMap(
-                paused => paused
-                    ? Observable.never()
-                    : this.apiService.infinitePolling()
-            )
-            .subscribe();
-
-        this.infinitePolling.next(false);
+        this.startPolling();
 
         // whenever polling started via a request we need to pause the infinite polling
-        this.apiService.subscribe(ApiClientService.EV_POLLING_CUD_STARTED, () => {
+        this.apiService.subscribe(ApiClientService.EV_POLLING_CUD_STARTED, (data) => {
             this.isLoading = true;
-            this.infinitePolling.next(true);
+            this.stopPolling();
+
+            if (data.detail) {
+                this.pollingText = data.detail;
+            }
         });
 
-        // whenever polling stopped via a request we need to pause the infinite polling
+        // whenever polling stopped via a request we need to start the infinite polling
         this.apiService.subscribe(ApiClientService.EV_POLLING_CUD_STOPPED, () => {
             this.isLoading = false;
-            this.infinitePolling.next(false);
+            this.startPolling();
         });
 
         this.apiService.subscribe(ApiClientService.EV_POLLING_STATUS, (data) => {
@@ -195,7 +189,7 @@ export class PanelLayoutComponent {
     repairConfig() {
         this.showRepair = false;
         this.showRepairNotification = false;
-        this.infinitePolling.next(true);
+        this.stopPolling();
 
         setTimeout(() => {
             this.apiService
@@ -210,5 +204,17 @@ export class PanelLayoutComponent {
         this.isLoading = false;
         this.showRepair = false;
         this.showRepairNotification = true;
+    }
+
+    private startPolling() {
+
+        // create infinite polling on the page
+        this.infinitePolling =
+            this.apiService.infinitePolling()
+                .subscribe();
+    }
+
+    private stopPolling() {
+        this.infinitePolling.unsubscribe();
     }
 }

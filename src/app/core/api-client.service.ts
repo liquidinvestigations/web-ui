@@ -39,22 +39,28 @@ export class ApiClientService extends LiEvents {
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
+
+        let csrfCookie = this.cookieService.get('csrftoken');
+
+        if (csrfCookie) {
+            this.headers.set('X-CSRFToken', csrfCookie);
+        } else {
+            console.error('CSRF token was not found');
+        }
     }
 
     get(endpoint: string | string[], params = null): Observable<any> {
-
-        let url = this.createUrl(endpoint);
-
-        if (params) {
-            url += '?' + $.param(params);
-        }
 
         this.notifySubscribers(ApiClientService.EV_BEFORE_GET);
         let observable;
 
         if (endpoint instanceof Array) {
             let requests = [];
-            for (url of endpoint) {
+            for (let url of endpoint) {
+                if (params) {
+                    url += '?' + $.param(params);
+                }
+
                 requests.push(
                     this.http
                         .get(url, new RequestOptions({headers: this.headers}))
@@ -66,7 +72,7 @@ export class ApiClientService extends LiEvents {
             observable = Observable.forkJoin.apply(null, requests);
         } else {
             observable = this.http
-                .get(url, new RequestOptions({headers: this.headers}))
+                .get(endpoint, new RequestOptions({headers: this.headers}))
                 .map(res => res.json())
                 .share();
         }
@@ -81,12 +87,10 @@ export class ApiClientService extends LiEvents {
 
     post(endpoint: string, payload: {} = {}, useLongPolling: boolean = true) {
 
-        let url = this.createUrl(endpoint);
-
         this.notifySubscribers(ApiClientService.EV_BEFORE_POST);
 
         let observable = this.http
-            .post(url, payload, new RequestOptions({headers: this.headers}))
+            .post(endpoint, payload, new RequestOptions({headers: this.headers}))
             .share();
 
         return this.longPolling(observable, useLongPolling)
@@ -99,12 +103,10 @@ export class ApiClientService extends LiEvents {
 
     put(endpoint: string, payload: {} = {}, useLongPolling: boolean = true) {
 
-        let url = this.createUrl(endpoint);
-
         this.notifySubscribers(ApiClientService.EV_BEFORE_PUT);
 
         let observable = this.http
-            .put(url, payload, new RequestOptions({headers: this.headers}))
+            .put(endpoint, payload, new RequestOptions({headers: this.headers}))
             .share();
 
         return this.longPolling(observable, useLongPolling)
@@ -124,12 +126,10 @@ export class ApiClientService extends LiEvents {
             headers.set('X-CSRFToken', csrfCookie);
         }
 
-        let url = this.createUrl(endpoint);
-
         this.notifySubscribers(ApiClientService.EV_BEFORE_POST);
 
         let observable = this.http
-            .post(url, payload, new RequestOptions({headers: headers}))
+            .post(endpoint, payload, new RequestOptions({headers: headers}))
             .share();
 
         return observable.do((response: any) => {
@@ -141,9 +141,7 @@ export class ApiClientService extends LiEvents {
 
     private handleBackendErrorOnRead(error: any) {
 
-        if (error.status === 403) {
-            window.location = '/accounts/login/?next=' + window.location.pathname;
-        }
+        this.shouldLogout(error);
 
         let errObject: {};
         try {
@@ -155,16 +153,9 @@ export class ApiClientService extends LiEvents {
         this.notifySubscribers(ApiClientService.EV_API_ERROR, errObject);
     }
 
-    private createUrl(endpoint: any): string {
-        this.setCSRFHeader();
-        return endpoint;
-    }
-
-    setCSRFHeader() {
-        let csrfCookie = this.cookieService.get('csrftoken');
-
-        if (csrfCookie) {
-            this.headers.set('X-CSRFToken', csrfCookie);
+    private shouldLogout(error: any) {
+        if (error.status === 403) {
+            window.location = '/accounts/login/?next=' + window.location.pathname;
         }
     }
 
@@ -174,9 +165,16 @@ export class ApiClientService extends LiEvents {
         }
 
         return request
+            .map(data => {
+                try {
+                    return data.json();
+                } catch (e) {
+                    return data._body;
+                }
+            })
             .switchMap(
                 (requestValue) => {
-                    this.notifySubscribers(ApiClientService.EV_POLLING_CUD_STARTED);
+                    this.notifySubscribers(ApiClientService.EV_POLLING_CUD_STARTED, requestValue);
 
                     let timer = this.infinitePolling();
 
@@ -198,7 +196,10 @@ export class ApiClientService extends LiEvents {
 
         return Observable.race(
             timer
-                .switchMap(() => this.http.get('/api/configure/status/'))
+                .switchMap(
+                    () => this.http.get('/api/configure/status/', new RequestOptions({headers: this.headers}))
+                )
+                .do(() => {}, this.shouldLogout.bind(this))
                 .map((data) => data.json()),
 
             timer.switchMap(
@@ -206,12 +207,12 @@ export class ApiClientService extends LiEvents {
             )
         )
             .skipWhile((data) => {
-                return data && data.status !== 'configuring';
+                return data && -1 === ['configuring', 'ok'].indexOf(data.status);
             })
-            .share()
             .do((data) => {
                 this.notifySubscribers(ApiClientService.EV_POLLING_STATUS, data);
             })
+            .share()
 
             .retryWhen(errors => errors.delay(ApiClientService.POLLING_INTERVAL));
     }
