@@ -10,10 +10,12 @@ import { DynamicFormControl } from '../../../shared/dynamic-forms/builder/dynami
     styleUrls: ['./vpn-server.component.scss']
 })
 export class VpnServerComponent {
+    @ViewChild('serverAddressModal') serverAddressModalComponent: BsModalComponent;
     @ViewChild('generateKeyModal') generateKeyModalComponent: BsModalComponent;
     @ViewChild('keyDetailsModal') keyDetailsModalComponent: BsModalComponent;
     @ViewChild('revokeKeyModal') revokeKeyModalComponent: BsModalComponent;
 
+    serverAddressFormConfig: DynamicFormGroup;
     generateKeyFormConfig: DynamicFormGroup;
     revokeKeyFormConfig: DynamicFormGroup;
 
@@ -39,11 +41,32 @@ export class VpnServerComponent {
         }
     ];
 
+    serverAddress: any = {};
+
     keyDetails: any[] = [];
 
     isServerEnabled: boolean = false;
 
     constructor(private apiService: ApiClientService) {
+        this.serverAddressFormConfig = new DynamicFormGroup()
+            .elements([
+                new DynamicFormControl('address', 'Address')
+                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+                    .setControlCssClass('col-xs-12 col-sm-7')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setValidators([Validators.required]),
+
+                new DynamicFormControl('port', 'Port')
+                    .setLabelCssClass('col-xs-12 col-sm-3 text-right')
+                    .setControlCssClass('col-xs-12 col-sm-7')
+                    .setControlType(DynamicFormControl.TYPE_TEXT)
+                    .setValidators([
+                        Validators.required,
+                        Validators.min(1),
+                        Validators.max(65535),
+                    ]),
+            ]);
+
         this.generateKeyFormConfig = new DynamicFormGroup()
             .elements([
                 new DynamicFormControl('label', 'Label')
@@ -79,6 +102,17 @@ export class VpnServerComponent {
         this.apiService.get('/api/vpn/')
             .subscribe((response: any) => {
                 this.isServerEnabled = response['server'].is_enabled;
+                let addressValue = response['server']['address'];
+                this.serverAddress = addressValue;
+                this.serverAddressFormConfig.patchValue(addressValue, {emitEvent: false});
+            });
+    }
+
+    saveServerAddress(formValues) {
+        this.apiService
+            .put('/api/vpn/server/address/', formValues)
+            .subscribe(() => {
+                this.init();
             });
     }
 

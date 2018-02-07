@@ -1,3 +1,16 @@
+<div>
+    <dynamic-form [fg]="serverAddressFormConfig" #serverAddressForm [showSubmitButton]="false"
+                  [onSuccessSubmit]="saveServerAddress.bind(this)"></dynamic-form>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-3 col-sm-7">
+            <button class="btn btn-primary" (click)="serverAddressForm.onSubmit()">
+                <i class="glyphicon glyphicon-ok"></i> Save
+            </button>
+        </div>
+    </div>
+</div>
+
 <ul class="nav nav-pills">
     <li>
         <a (click)="showGenerateKeyModal()">
