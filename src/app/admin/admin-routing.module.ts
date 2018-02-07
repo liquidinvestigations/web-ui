@@ -61,7 +61,7 @@ const routes: Routes = [
                         path: 'lan',
                         component: LanComponent,
                         data: {
-                            label: 'lan',
+                            label: 'Create Wired and WiFi Network',
                             icon: 'fa fa-share-alt'
                         }
                     },
@@ -69,7 +69,7 @@ const routes: Routes = [
                         path: 'wan',
                         component: WanComponent,
                         data: {
-                            label: 'wan',
+                            label: 'Connect to WiFi Hotsport',
                             icon: 'fa fa-wifi'
                         }
                     },
