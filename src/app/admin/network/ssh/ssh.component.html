@@ -1,0 +1,28 @@
+<div class="col-xs-12 col-md-12">
+    <p>
+      Connect to the liquid node via ssh:
+      <code>ssh liquid-admin@{{ currentConfig['domain'] }}</code>
+    </p>
+</div>
+
+<div class="col-xs-12 col-md-offset-1 col-md-5">
+    <div class="admin-form">
+
+        <dynamic-form [fg]="dynamicFormConfig" [onSuccessSubmit]="successSubmit.bind(this)"
+                      [showSubmitButton]="false" #adminForm></dynamic-form>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-9 text-right" style="padding: 0">
+
+                <button *ngIf="buttonConfig"
+                        class="{{ buttonConfig.buttonClass }}"
+                        (click)="buttonConfig.action()"
+                        [disabled]="adminForm.isDisabled()"
+                >{{ buttonConfig.label }}
+                    <i class="{{ buttonConfig.iconClass }}"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

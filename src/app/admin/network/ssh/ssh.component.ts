@@ -7,7 +7,7 @@ import { ApiClientService } from '../../../core/api-client.service';
 import { SSH_FORM } from '../../../shared/li-forms/ssh-form';
 
 @Component({
-    templateUrl: '../../admin-form.html',
+    templateUrl: './ssh.component.html',
     styleUrls: ['../../admin-form.scss'],
 })
 export class SshComponent extends AdminForm {
@@ -17,12 +17,21 @@ export class SshComponent extends AdminForm {
 
     dynamicFormConfig: DynamicFormGroup;
 
+    currentConfig: {} = {
+        domain: "",
+    }
+
     constructor(
         protected dynamicFormService: DynamicFormService,
         protected apiService: ApiClientService,
     ) {
         super(apiService);
         this.init();
+
+        apiService.get('/api/network/domain/')
+            .subscribe((data) => {
+                this.currentConfig['domain'] = data.domain;
+            });
     }
 
 
