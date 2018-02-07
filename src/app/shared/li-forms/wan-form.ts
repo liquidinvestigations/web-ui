@@ -13,7 +13,6 @@ export const WAN_FORM = new DynamicFormGroup()
                         new DynamicFormControl('ssid', 'SSID')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setValidators([
-                                Validators.required,
                                 Validators.minLength(1),
                                 Validators.maxLength(31),
                             ]),
@@ -21,7 +20,6 @@ export const WAN_FORM = new DynamicFormGroup()
                         new DynamicFormControl('password', 'Password')
                             .setControlType(DynamicFormControl.TYPE_TEXT)
                             .setValidators([
-                                Validators.required,
                                 Validators.minLength(8),
                                 Validators.maxLength(63),
                             ]),
